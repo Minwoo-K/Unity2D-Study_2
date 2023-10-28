@@ -9,6 +9,8 @@ public class DragBlockSpawner : MonoBehaviour
     [SerializeField]
     private Transform[] spawningPoints;
 
+    private Vector3 gapFromSpawningPoint = new Vector3(10, 0, 0);
+
     private void Awake()
     {
         StartCoroutine(SpawnDragBlocks());
@@ -18,10 +20,13 @@ public class DragBlockSpawner : MonoBehaviour
     {
         for ( int i = 0; i < spawningPoints.Length; i++ )
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
 
             int random = Random.Range(0, dragBlockPrefabs.Length - 1);
-            GameObject clone = Instantiate(dragBlockPrefabs[random], spawningPoints[i].position, Quaternion.identity, spawningPoints[i]);
+            
+            GameObject clone = Instantiate(dragBlockPrefabs[random], spawningPoints[i].position + gapFromSpawningPoint, Quaternion.identity, spawningPoints[i]);
+            
+            clone.GetComponent<DragBlockAnimation>().PlayAnimation(spawningPoints[i].position);
         }
     }
 }
