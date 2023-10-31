@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragBlockAnimation : MonoBehaviour
+public class DragBlock : MonoBehaviour
 {
     [SerializeField]
     private AnimationCurve animationCurve;
