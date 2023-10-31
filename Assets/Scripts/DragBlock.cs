@@ -21,22 +21,7 @@ public class DragBlock : MonoBehaviour
         StartCoroutine(MoveTo(spawningPoint, appearingTime));
     }
 
-    private IEnumerator MoveTo(Vector3 end, float moveTime)
-    {
-        Vector3 start = transform.position;
-        float current = 0;
-        float percent = 0;
-
-        while ( percent < 1 )
-        {
-            current += Time.deltaTime;
-            percent = current / moveTime;
-
-            transform.position = Vector3.Lerp(start, end, animationCurve.Evaluate(percent));
-
-            yield return null;
-        }
-    }
+    
 
     /// <summary>
     /// Built-in function triggered when the object gets pressed down
@@ -64,6 +49,9 @@ public class DragBlock : MonoBehaviour
     /// </summary>
     private void OnMouseUp()
     {
+        StartCoroutine(OnScaleTo(Vector3.one * 0.5f));
+        StartCoroutine(MoveTo(transform.parent.position, returningTime));
+
         transform.position = transform.parent.position;
     }
 
@@ -78,6 +66,23 @@ public class DragBlock : MonoBehaviour
             percent = current / returningTime;
 
             transform.localScale = Vector3.Lerp(transform.localScale, end, curveScale.Evaluate(percent));
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator MoveTo(Vector3 end, float moveTime)
+    {
+        Vector3 start = transform.position;
+        float current = 0;
+        float percent = 0;
+
+        while (percent < 1)
+        {
+            current += Time.deltaTime;
+            percent = current / moveTime;
+
+            transform.position = Vector3.Lerp(start, end, animationCurve.Evaluate(percent));
 
             yield return null;
         }
