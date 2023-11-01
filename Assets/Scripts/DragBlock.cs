@@ -49,17 +49,10 @@ public class DragBlock : MonoBehaviour
     /// </summary>
     private void OnMouseUp()
     {
-        float x = Mathf.RoundToInt(transform.position.x - BlockCount.x % 2 * 0.5f) + BlockCount.x % 2 * 0.5f;
-        float y = Mathf.RoundToInt(transform.position.y - BlockCount.y % 2 * 0.5f) + BlockCount.y % 2 * 0.5f;
-
-        transform.position = new Vector3(x, y, 0);
-
-        /*
         StartCoroutine(OnScaleTo(Vector3.one * 0.5f));
         StartCoroutine(MoveTo(transform.parent.position, returningTime));
 
         transform.position = transform.parent.position;
-        */
     }
 
     private IEnumerator OnScaleTo(Vector3 end)
