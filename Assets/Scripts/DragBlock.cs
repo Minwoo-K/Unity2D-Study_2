@@ -36,8 +36,13 @@ public class DragBlock : MonoBehaviour
 
     private void OnMouseUp()
     {
-        StartCoroutine(ScaleTo(Vector3.one * 0.5f));
-        StartCoroutine(MoveTo(transform.parent.position, returningTime));
+        // blockcount 가 짝수면 0.5를 안더하고, blockcount 가 홀수면 0.5를 더해야한다
+        float x = Mathf.RoundToInt(transform.position.x- BlockCounts.x % 2 * 0.5f) + BlockCounts.x % 2 * 0.5f;
+        float y = Mathf.RoundToInt(transform.position.y- BlockCounts.y % 2 * 0.5f) + BlockCounts.y % 2 * 0.5f;
+
+        transform.position = new Vector3(x, y, 0);
+        //StartCoroutine(ScaleTo(Vector3.one * 0.5f));
+        //StartCoroutine(MoveTo(transform.parent.position, returningTime));
     }
 
     private IEnumerator MoveTo(Vector3 end, float moveTime)
