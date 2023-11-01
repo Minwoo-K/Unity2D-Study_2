@@ -261,7 +261,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   appearingTime: 0.5
+  <BlockCounts>k__BackingField: {x: 2, y: 2}
 --- !u!1 &6260034107050366810
 GameObject:
   m_ObjectHideFlags: 0
