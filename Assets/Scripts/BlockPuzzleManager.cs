@@ -9,7 +9,7 @@ public class BlockPuzzleManager : MonoBehaviour
     [SerializeField]
     private BackgroundBlockSpawner foregroundBlockSpawner;
     [SerializeField]
-    private DragBlockSpawner dragBlockSpanwer;
+    private DragBlockSpawner dragBlockSpawner;
 
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
@@ -24,5 +24,14 @@ public class BlockPuzzleManager : MonoBehaviour
 
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
         theBlockBoard = foregroundBlockSpawner.SpawnBlockBoard(blockCount, blockHalf);
+
+        SpawnDragBlocks();
+    }
+
+    private void SpawnDragBlocks()
+    {
+        dragBlockCount = maxDragBlockCount;
+
+        dragBlockSpawner.CreateDragBlocks();
     }
 }

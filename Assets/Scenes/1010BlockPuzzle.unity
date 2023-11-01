@@ -487,7 +487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundBlockSpawner: {fileID: 888457703}
   foregroundBlockSpawner: {fileID: 832863242}
-  dragBlockSpanwer: {fileID: 436180546}
+  dragBlockSpawner: {fileID: 436180546}
 --- !u!4 &1841387033
 Transform:
   m_ObjectHideFlags: 0

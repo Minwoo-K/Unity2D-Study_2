@@ -11,7 +11,7 @@ public class DragBlockSpawner : MonoBehaviour
 
     private Vector3 gapFromSpawningPoint = new Vector3(10, 0, 0);
 
-    private void Awake()
+    public void CreateDragBlocks()
     {
         StartCoroutine(SpawnDragBlocks());
     }
