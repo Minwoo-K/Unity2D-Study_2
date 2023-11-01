@@ -9,7 +9,7 @@ public class DragBlock : MonoBehaviour
     [SerializeField]
     private float appearingTime;
 
-    public void PlayAnimation(Vector3 spawningPoint)
+    public void Initialized(Vector3 spawningPoint)
     {
         StartCoroutine(MoveTo(spawningPoint, appearingTime));
     }
