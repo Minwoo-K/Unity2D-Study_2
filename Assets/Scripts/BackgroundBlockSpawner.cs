@@ -9,11 +9,10 @@ public class BackgroundBlockSpawner : MonoBehaviour
     [SerializeField]
     private int orderInLayer;
 
-    private Vector2Int blockCount = new Vector2Int(10, 10);
-    private Vector2 blockHalf = new Vector2(0.5f, 0.5f);
-
-    private void Awake()
+    public BlockSlot[] SpawnBlockBoard(Vector2Int blockCount, Vector2 blockHalf)
     {
+        BlockSlot[] blockBoard = new BlockSlot[blockCount.x * blockCount.y];
+
         for ( int y = 0; y < blockCount.y; y++ )
         {
             for (int x = 0; x < blockCount.x; x++)
@@ -25,7 +24,11 @@ public class BackgroundBlockSpawner : MonoBehaviour
                 GameObject clone = Instantiate(blockPrefab, position, Quaternion.identity, transform);
 
                 clone.GetComponent<SpriteRenderer>().sortingOrder = orderInLayer;
+
+                blockBoard[y * blockCount.x + x] = clone.GetComponent<BlockSlot>();
             }
         }
+
+        return blockBoard;
     }
 }
