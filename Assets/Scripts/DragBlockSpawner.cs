@@ -26,7 +26,7 @@ public class DragBlockSpawner : MonoBehaviour
             
             GameObject clone = Instantiate(dragBlockPrefabs[random], spawningPoints[i].position + gapFromSpawningPoint, Quaternion.identity, spawningPoints[i]);
             
-            clone.GetComponent<DragBlock>().Initialized(spawningPoints[i].position);
+            clone.GetComponent<DragBlock>().PlayAnimation(spawningPoints[i].position);
         }
     }
 }
