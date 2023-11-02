@@ -5,20 +5,32 @@ using UnityEngine;
 public class DragBlock : MonoBehaviour
 {
     [SerializeField]
-    private AnimationCurve animationCurve;
+    private AnimationCurve  animationCurve;
     [SerializeField]
-    private AnimationCurve scaleCurve;
+    private AnimationCurve  scaleCurve;
     [SerializeField]
-    private float appearingTime;
-    [field:SerializeField]
-    public Vector2Int BlockCounts { get; private set; }
+    private float           appearingTime;
 
-    private Vector3 offset;     // offset value of mouse position when being dragged
-    private float returningTime = 0.1f;
+    private Vector3         offset;     // offset value of mouse position when being dragged
+    private float           returningTime = 0.1f;
+
+    [field: SerializeField]
+    public Vector2Int       BlockCounts         { get; private set; }
+
+    public Color            Color               { get; private set; }
+    public Vector3[]        ChildBlockPositions { get; private set; }
 
     public void Initialized(Vector3 spawningPoint)
     {
         offset = new Vector3(0, BlockCounts.y * 0.5f, 10);
+        Color = GetComponent<SpriteRenderer>().color;
+        
+        ChildBlockPositions = new Vector3[transform.childCount];
+        for ( int i = 0; i < ChildBlockPositions.Length; i++ )
+        {
+            ChildBlockPositions[i] = transform.GetChild(i).localPosition;
+        }
+
         StartCoroutine(MoveTo(spawningPoint, appearingTime));
     }
 
