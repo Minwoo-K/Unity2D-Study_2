@@ -5,14 +5,13 @@ using UnityEngine;
 public class DragBlock : MonoBehaviour
 {
     [SerializeField]
-    private BlockDeploymentSystem blockDeploymentSystem;
-    [SerializeField]
     private AnimationCurve  animationCurve;
     [SerializeField]
     private AnimationCurve  scaleCurve;
     [SerializeField]
     private float           appearingTime;
 
+    private BlockDeploymentSystem blockDeploymentSystem;
     private Vector3         offset;     // offset value of mouse position when being dragged
     private float           returningTime = 0.1f;
 
@@ -26,7 +25,7 @@ public class DragBlock : MonoBehaviour
     {
         this.blockDeploymentSystem = blockDeploymentSystem;
         offset = new Vector3(0, BlockCounts.y * 0.5f, 10);
-        Color = GetComponent<SpriteRenderer>().color;
+        Color = GetComponentInChildren<SpriteRenderer>().color;
         
         ChildBlockPositions = new Vector3[transform.childCount];
         for ( int i = 0; i < ChildBlockPositions.Length; i++ )
@@ -52,8 +51,8 @@ public class DragBlock : MonoBehaviour
     private void OnMouseUp()
     {
         // blockcount 가 짝수면 0.5를 안더하고, blockcount 가 홀수면 0.5를 더해야한다
-        float x = Mathf.RoundToInt(transform.position.x- BlockCounts.x % 2 * 0.5f) + BlockCounts.x % 2 * 0.5f;
-        float y = Mathf.RoundToInt(transform.position.y- BlockCounts.y % 2 * 0.5f) + BlockCounts.y % 2 * 0.5f;
+        float x = Mathf.RoundToInt(transform.position.x - BlockCounts.x % 2 * 0.5f) + BlockCounts.x % 2 * 0.5f;
+        float y = Mathf.RoundToInt(transform.position.y - BlockCounts.y % 2 * 0.5f) + BlockCounts.y % 2 * 0.5f;
 
         transform.position = new Vector3(x, y, 0);
         //StartCoroutine(ScaleTo(Vector3.one * 0.5f));
