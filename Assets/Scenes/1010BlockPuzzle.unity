@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795a4bfc1edab1c41af5493fddf8208c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockDeploymentSystem: {fileID: 0}
   dragBlockPrefabs:
   - {fileID: 1706640319040898946, guid: 922a5cf907d8ea14c9870e8e841b4e38, type: 3}
   - {fileID: 8475181908273100539, guid: 7c674ac9ad4a1fb4db2cba3427e4d313, type: 3}
@@ -466,6 +467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1841387033}
   - component: {fileID: 1841387032}
+  - component: {fileID: 1841387034}
   m_Layer: 0
   m_Name: BlockPuzzleManager
   m_TagString: Untagged
@@ -502,3 +504,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1841387034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841387031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f2b37eafcacf74fa299b35dcc83170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -5,6 +5,8 @@ using UnityEngine;
 public class DragBlock : MonoBehaviour
 {
     [SerializeField]
+    private BlockDeploymentSystem blockDeploymentSystem;
+    [SerializeField]
     private AnimationCurve  animationCurve;
     [SerializeField]
     private AnimationCurve  scaleCurve;
@@ -20,8 +22,9 @@ public class DragBlock : MonoBehaviour
     public Color            Color               { get; private set; }
     public Vector3[]        ChildBlockPositions { get; private set; }
 
-    public void Initialized(Vector3 spawningPoint)
+    public void Initialized(BlockDeploymentSystem blockDeploymentSystem, Vector3 spawningPoint)
     {
+        this.blockDeploymentSystem = blockDeploymentSystem;
         offset = new Vector3(0, BlockCounts.y * 0.5f, 10);
         Color = GetComponent<SpriteRenderer>().color;
         
