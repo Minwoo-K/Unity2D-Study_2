@@ -30,7 +30,7 @@ public class BlockPuzzleManager : MonoBehaviour
         SpawnDragBlocks();
 
         blockDeploymentSystem = GetComponent<BlockDeploymentSystem>();
-        blockDeploymentSystem.Initialized(theBlockBoard, blockCount, blockHalf);
+        blockDeploymentSystem.Initialized();
     }
 
     private void SpawnDragBlocks()
