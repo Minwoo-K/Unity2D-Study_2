@@ -7,6 +7,7 @@ public class BlockDeploymentSystem : MonoBehaviour
     private BlockSlot[] theBlockBoard;
     private Vector2Int blockCount;
     private Vector2    blockHalf;
+        
 
     public void Initialized(BlockSlot[] theBlockBoard, Vector2Int blockCount, Vector2 blockHalf)
     {
@@ -17,24 +18,7 @@ public class BlockDeploymentSystem : MonoBehaviour
 
     public bool TryDeployDragBlock(DragBlock blocks)
     {
-        for ( int i = 0; i < blocks.ChildBlockPositions.Length; i++ )
-        {
-            // One block's World Position = Parent's world position + the child's local position.
-            Vector2 position = blocks.transform.position + blocks.ChildBlockPositions[i];
-
-            if (IsBlockInTheBoard(position) == false) return false;
-
-            if (IsOtherBlockInTheSlot(position) == true) return false;
-        }
-
-        for ( int i = 0; i < blocks.ChildBlockPositions.Length; i++ )
-        {
-            Vector2 position = blocks.transform.position + blocks.ChildBlockPositions[i];
-
-            theBlockBoard[PositionToIndex(position)].GetFilled(blocks.Color);
-        }
-
-        return true;
+        return false;
     }
 
     private int PositionToIndex(Vector2 position)
@@ -62,7 +46,7 @@ public class BlockDeploymentSystem : MonoBehaviour
     {
         int index = PositionToIndex(position);
 
-        if (theBlockBoard[index].IsFilled) return true;
-        else return false;
+        if (theBlockBoard[index].IsFilled) return false;
+        else return true;
     }
 }

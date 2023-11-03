@@ -14,7 +14,7 @@ public class BlockSlot : MonoBehaviour
         IsFilled = false;
     }
 
-    public void GetFilled(Color blockColor)
+    public void Filled(Color blockColor)
     {
         spriteRenderer.color = blockColor;
 
