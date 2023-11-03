@@ -26,6 +26,7 @@ public class BlockPuzzleManager : MonoBehaviour
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
         theBlockBoard = foregroundBlockSpawner.SpawnBlockBoard(blockCount, blockHalf);
 
+        blockDeploymentSystem = GetComponent<BlockDeploymentSystem>();
         blockDeploymentSystem.Initialized(theBlockBoard, blockCount, blockHalf);
 
         SpawnDragBlocks();

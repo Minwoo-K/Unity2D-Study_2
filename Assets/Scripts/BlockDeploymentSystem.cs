@@ -17,7 +17,25 @@ public class BlockDeploymentSystem : MonoBehaviour
 
     public bool TryDeployBlock(DragBlock dragBlock)
     {
-        return false;
+        for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+        {
+            Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
+
+            if ( IsBlockInTheBoard(position) == false ) return false;       // Deployment Failed
+
+            if ( IsEmptyOnTheSpot(position) == false ) return false;    // Deployment Failed
+        }
+
+        for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+        {
+            Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
+
+            int index = PositionToIndex(position);
+
+            theBlockBoard[index].GetFilled(dragBlock.Color);
+        }
+
+        return true;
     }
 
     private int PositionToIndex(Vector3 position)
@@ -45,12 +63,12 @@ public class BlockDeploymentSystem : MonoBehaviour
         return true;    // Validation Success
     }
 
-    private bool IsOtherBlockOnTheSpot(Vector3 position)
+    private bool IsEmptyOnTheSpot(Vector3 position)
     {
         int index = PositionToIndex(position);
 
-        if ( theBlockBoard[index].IsFilled == true ) return true; // Validation Failed
+        if ( theBlockBoard[index].IsFilled == true ) return false; // Validation Failed
 
-        return false;   // Validation Success
+        return true;   // Validation Success
     }
 }
