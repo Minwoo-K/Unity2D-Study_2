@@ -55,7 +55,7 @@ public class BlockDeploymentSystem : MonoBehaviour
     private bool IsBlockInTheBoard(Vector3 position)
     {
         if ( position.x < -blockCounts.x * 0.5f + blockHalf.x || position.x > blockCounts.x * 0.5f - blockHalf.x ||
-             position.y <  blockCounts.y * 0.5f - blockHalf.y || position.y > blockCounts.y * 0.5f + blockHalf.y )
+             position.y > blockCounts.y * 0.5f - blockHalf.y || position.y < -blockCounts.y * 0.5f + blockHalf.y )
         {
             return false; // Validation Failed
         }
@@ -67,7 +67,11 @@ public class BlockDeploymentSystem : MonoBehaviour
     {
         int index = PositionToIndex(position);
 
-        if ( theBlockBoard[index].IsFilled == true ) return false; // Validation Failed
+        if ( theBlockBoard[index].IsFilled == true )
+        {
+            Debug.Log("The Spot not empty");
+            return false; // Validation Failed
+        }
 
         return true;   // Validation Success
     }

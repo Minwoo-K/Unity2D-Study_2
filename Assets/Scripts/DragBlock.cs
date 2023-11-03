@@ -55,8 +55,14 @@ public class DragBlock : MonoBehaviour
         float y = Mathf.RoundToInt(transform.position.y - BlockCounts.y % 2 * 0.5f) + BlockCounts.y % 2 * 0.5f;
 
         transform.position = new Vector3(x, y, 0);
-        //StartCoroutine(ScaleTo(Vector3.one * 0.5f));
-        //StartCoroutine(MoveTo(transform.parent.position, returningTime));
+
+        bool deploySuccess = blockDeploymentSystem.TryDeployBlock(this);
+
+        if ( !deploySuccess )    // Deployment Failed
+        {
+            StartCoroutine(ScaleTo(Vector3.one * 0.5f));
+            StartCoroutine(MoveTo(transform.parent.position, returningTime));
+        }
     }
 
     private IEnumerator MoveTo(Vector3 end, float moveTime)

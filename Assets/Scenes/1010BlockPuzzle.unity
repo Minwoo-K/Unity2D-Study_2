@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795a4bfc1edab1c41af5493fddf8208c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockDeploymentSystem: {fileID: 0}
+  blockDeploymentSystem: {fileID: 1841387034}
   dragBlockPrefabs:
   - {fileID: 1706640319040898946, guid: 922a5cf907d8ea14c9870e8e841b4e38, type: 3}
   - {fileID: 8475181908273100539, guid: 7c674ac9ad4a1fb4db2cba3427e4d313, type: 3}
