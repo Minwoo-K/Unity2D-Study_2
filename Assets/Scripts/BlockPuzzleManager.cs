@@ -5,13 +5,11 @@ using UnityEngine;
 public class BlockPuzzleManager : MonoBehaviour
 {
     [SerializeField]
-    private BackgroundBlockSpawner  backgroundBlockSpawner;
+    private BackgroundBlockSpawner backgroundBlockSpawner;
     [SerializeField]
-    private BackgroundBlockSpawner  foregroundBlockSpawner;
+    private BackgroundBlockSpawner foregroundBlockSpawner;
     [SerializeField]
-    private DragBlockSpawner        dragBlockSpawner;
-    [SerializeField]
-    private BlockDeploymentSystem   blockDeploymentSystem;
+    private DragBlockSpawner dragBlockSpawner;
 
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
@@ -28,9 +26,6 @@ public class BlockPuzzleManager : MonoBehaviour
         theBlockBoard = foregroundBlockSpawner.SpawnBlockBoard(blockCount, blockHalf);
 
         SpawnDragBlocks();
-
-        blockDeploymentSystem = GetComponent<BlockDeploymentSystem>();
-        blockDeploymentSystem.Initialized();
     }
 
     private void SpawnDragBlocks()

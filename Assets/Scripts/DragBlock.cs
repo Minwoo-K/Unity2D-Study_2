@@ -11,10 +11,8 @@ public class DragBlock : MonoBehaviour
     [SerializeField]
     private float           appearingTime;
 
-
-    private BlockDeploymentSystem   blockDeploymentSystem;
-    private Vector3                 offset;     // offset value of mouse position when being dragged
-    private float                   returningTime = 0.1f;
+    private Vector3         offset;     // offset value of mouse position when being dragged
+    private float           returningTime = 0.1f;
 
     [field: SerializeField]
     public Vector2Int       BlockCounts         { get; private set; }
@@ -22,10 +20,8 @@ public class DragBlock : MonoBehaviour
     public Color            Color               { get; private set; }
     public Vector3[]        ChildBlockPositions { get; private set; }
 
-    public void Initialized(BlockDeploymentSystem blockDeploymentSystem, Vector3 spawningPoint)
+    public void Initialized(Vector3 spawningPoint)
     {
-        this.blockDeploymentSystem = blockDeploymentSystem;
-
         offset = new Vector3(0, BlockCounts.y * 0.5f, 10);
         Color = GetComponent<SpriteRenderer>().color;
         
@@ -52,8 +48,6 @@ public class DragBlock : MonoBehaviour
 
     private void OnMouseUp()
     {
-        //To-Do: Validate whether block can go into where it was dropped off with the Deployment System
-
         // blockcount 가 짝수면 0.5를 안더하고, blockcount 가 홀수면 0.5를 더해야한다
         float x = Mathf.RoundToInt(transform.position.x- BlockCounts.x % 2 * 0.5f) + BlockCounts.x % 2 * 0.5f;
         float y = Mathf.RoundToInt(transform.position.y- BlockCounts.y % 2 * 0.5f) + BlockCounts.y % 2 * 0.5f;
