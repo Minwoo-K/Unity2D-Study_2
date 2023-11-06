@@ -24,6 +24,8 @@ public class BlockSlot : MonoBehaviour
     public void GetEmpty()
     {
         StartCoroutine(ScaleTo(Vector3.zero));
+
+        IsFilled = false;
     }
 
     private IEnumerator ScaleTo(Vector3 end)
