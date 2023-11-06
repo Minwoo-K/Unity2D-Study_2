@@ -42,8 +42,10 @@ public class BlockPuzzleManager : MonoBehaviour
         dragBlockSpawner.CreateDragBlocks();
     }
 
-    private void BlockLineValidation()
+    private int BlockLineValidation()
     {
+        int lineToRemove = 0;
+
         // Block Line Validation Check
         filledBlocks.Clear();
 
@@ -59,6 +61,7 @@ public class BlockPuzzleManager : MonoBehaviour
 
             if (lineFilledCounts == blockCount.x)
             {
+                lineToRemove++;
                 for (int x = 0; x < blockCount.x; x++)
                 {
                     filledBlocks.Add(theBlockBoard[y * blockCount.x + x]);
@@ -78,12 +81,15 @@ public class BlockPuzzleManager : MonoBehaviour
 
             if (lineFilledCounts == blockCount.y)
             {
+                lineToRemove++;
                 for (int x = 0; x < blockCount.x; x++)
                 {
                     filledBlocks.Add(theBlockBoard[blockCount.x * x + y]);
                 }
             }
         }
+
+        return lineToRemove;
     }
 
     public void AfterBlockDeployment(DragBlock dragBlock)
@@ -91,19 +97,34 @@ public class BlockPuzzleManager : MonoBehaviour
         StartCoroutine(OnAfterBlockDeployment(dragBlock));
     }
 
-    public IEnumerator OnAfterBlockDeployment(DragBlock dragBlock)
+    private IEnumerator OnAfterBlockDeployment(DragBlock dragBlock)
     {
-        BlockLineValidation();
+        int lineToRemove = BlockLineValidation();
 
         Destroy(dragBlock.gameObject);
 
         dragBlockCount--;
 
+        if ( lineToRemove != 0 )
+        {
+            yield return StartCoroutine(RemoveFilledLine());
+        }
+
         if ( dragBlockCount == 0 )
         {
             SpawnDragBlocks();
         }
+    }
 
-        yield return null;
+    private IEnumerator RemoveFilledLine()
+    {
+        foreach (BlockSlot block in filledBlocks)
+        {
+            block.GetEmpty();
+
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        filledBlocks.Clear();
     }
 }

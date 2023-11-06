@@ -37,7 +37,7 @@ public class BlockDeploymentSystem : MonoBehaviour
             theBlockBoard[index].GetFilled(dragBlock.Color);
         }
 
-        blockPuzzleManager.DeleteDragBlock(dragBlock);
+        blockPuzzleManager.AfterBlockDeployment(dragBlock);
 
         return true;
     }
