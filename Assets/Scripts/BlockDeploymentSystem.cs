@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class BlockDeploymentSystem : MonoBehaviour
 {
+    private BlockPuzzleManager blockPuzzleManager;
     private BlockSlot[] theBlockBoard;
     private Vector2Int  blockCounts;
     private Vector2     blockHalf;
 
-    public void Initialized(BlockSlot[] theBlockBoard, Vector2Int blockCounts, Vector2 blockHalf)
+    public void Initialized(BlockPuzzleManager blockPuzzleManager, BlockSlot[] theBlockBoard, Vector2Int blockCounts, Vector2 blockHalf)
     {
+        this.blockPuzzleManager = blockPuzzleManager;
         this.theBlockBoard = theBlockBoard;
         this.blockCounts = blockCounts;
         this.blockHalf = blockHalf;
@@ -34,6 +36,8 @@ public class BlockDeploymentSystem : MonoBehaviour
 
             theBlockBoard[index].GetFilled(dragBlock.Color);
         }
+
+        blockPuzzleManager.DeleteDragBlock(dragBlock);
 
         return true;
     }

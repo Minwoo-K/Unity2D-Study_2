@@ -27,7 +27,7 @@ public class BlockPuzzleManager : MonoBehaviour
         theBlockBoard = foregroundBlockSpawner.SpawnBlockBoard(blockCount, blockHalf);
 
         blockDeploymentSystem = GetComponent<BlockDeploymentSystem>();
-        blockDeploymentSystem.Initialized(theBlockBoard, blockCount, blockHalf);
+        blockDeploymentSystem.Initialized(this, theBlockBoard, blockCount, blockHalf);
 
         SpawnDragBlocks();
     }
@@ -37,5 +37,17 @@ public class BlockPuzzleManager : MonoBehaviour
         dragBlockCount = maxDragBlockCount;
 
         dragBlockSpawner.CreateDragBlocks();
+    }
+
+    public void DeleteDragBlock(DragBlock dragBlock)
+    {
+        Destroy(dragBlock.gameObject);
+
+        dragBlockCount--;
+
+        if ( dragBlockCount == 0 )
+        {
+            SpawnDragBlocks();
+        }
     }
 }
