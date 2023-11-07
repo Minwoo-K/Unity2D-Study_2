@@ -32,16 +32,33 @@ public class BlockPuzzleManager : MonoBehaviour
         blockDeploymentSystem = GetComponent<BlockDeploymentSystem>();
         blockDeploymentSystem.Initialized(this, theBlockBoard, blockCount, blockHalf);
 
-        SpawnDragBlocks();
+        StartCoroutine(SpawnDragBlocks());
     }
 
-    private void SpawnDragBlocks()
+    private IEnumerator SpawnDragBlocks()
     {
         dragBlockCount = maxDragBlockCount;
 
         dragBlockSpawner.CreateDragBlocks();
+
+        yield return new WaitUntil(()=> IsSpawnDragBlockComplete());
     }
 
+    private bool IsSpawnDragBlockComplete()
+    {
+        int count = 0;
+
+        for ( int i = 0; i < dragBlockSpawner.SpawningPoints.Length; i++ )
+        {
+            if ( dragBlockSpawner.SpawningPoints[i].GetChild(0).localPosition == Vector3.zero &&
+                dragBlockSpawner.SpawningPoints[i].childCount != 0 )
+            {
+                count++;
+            }
+        }
+
+        return count == dragBlockSpawner.SpawningPoints.Length;
+    }
     private int BlockLineValidation()
     {
         int lineToRemove = 0;
@@ -112,8 +129,10 @@ public class BlockPuzzleManager : MonoBehaviour
 
         if ( dragBlockCount == 0 )
         {
-            SpawnDragBlocks();
+            yield return StartCoroutine(SpawnDragBlocks());
         }
+
+        
     }
 
     private IEnumerator RemoveFilledLine()
