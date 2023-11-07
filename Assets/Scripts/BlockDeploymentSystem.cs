@@ -42,6 +42,39 @@ public class BlockDeploymentSystem : MonoBehaviour
         return true;
     }
 
+    public bool IsBlockDeployable(DragBlock dragBlock)
+    {
+        for ( int y = 0; y < blockCounts.y; y++ )
+        {
+            for ( int x = 0; x < blockCounts.x; x++ )
+            {
+                int count = 0;
+                // Check availability from the very first BlockSlot(-4.5, 4.5) to the end
+                Vector3 position = new Vector3(-blockCounts.x * 0.5f + blockHalf.x + x, 
+                                                blockCounts.y * 0.5f - blockHalf.y - y, 0);
+                // Find out the DragBlock's centre position with the given BlockSlot position
+                // for odd BlockCount DragBlock, BlockCount/2f
+                // for even BlockCount DragBlock, BlockCount/2f +0.5f(in x) or -0.5f(in y)
+                position.x = dragBlock.BlockCounts.x % 2 == 0 ? position.x + 0.5f : position.x;
+                position.y = dragBlock.BlockCounts.y % 2 == 0 ? position.y - 0.5f : position.y;
+
+                for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+                {
+                    Vector3 blockPosition = dragBlock.ChildBlockPositions[i] + position;
+
+                    if ( !IsBlockInTheBoard(blockPosition) ) break;
+                    if ( !IsEmptyOnTheSpot(blockPosition) ) break;
+
+                    count++;
+                }
+
+                if ( count == dragBlock.ChildBlockPositions.Length ) return true;
+            }
+        }
+
+        return false;
+    }
+
     private int PositionToIndex(Vector3 position)
     {
         // The below is the formulas when getting position X & Y for a BlockSlot
