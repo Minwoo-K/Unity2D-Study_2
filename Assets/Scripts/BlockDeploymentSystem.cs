@@ -52,7 +52,7 @@ public class BlockDeploymentSystem : MonoBehaviour
                 // Check availability from the very first BlockSlot(-4.5, 4.5) to the end
                 Vector3 position = new Vector3(-blockCounts.x * 0.5f + blockHalf.x + x, 
                                                 blockCounts.y * 0.5f - blockHalf.y - y, 0);
-                // Find out the DragBlock's centre position with the given BlockSlot position
+                // Find out a position where all blocks in a DragBlockc can be checked within the Board
                 // for odd BlockCount DragBlock, BlockCount/2f
                 // for even BlockCount DragBlock, BlockCount/2f +0.5f(in x) or -0.5f(in y)
                 position.x = dragBlock.BlockCounts.x % 2 == 0 ? position.x + 0.5f : position.x;
