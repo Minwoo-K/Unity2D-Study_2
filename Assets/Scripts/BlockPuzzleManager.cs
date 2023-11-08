@@ -50,8 +50,8 @@ public class BlockPuzzleManager : MonoBehaviour
 
         for ( int i = 0; i < dragBlockSpawner.SpawningPoints.Length; i++ )
         {
-            if ( dragBlockSpawner.SpawningPoints[i].GetChild(0).localPosition == Vector3.zero &&
-                dragBlockSpawner.SpawningPoints[i].childCount != 0 )
+            if (dragBlockSpawner.SpawningPoints[i].childCount != 0 &&
+                dragBlockSpawner.SpawningPoints[i].GetChild(0).localPosition == Vector3.zero )
             {
                 count++;
             }
@@ -132,7 +132,12 @@ public class BlockPuzzleManager : MonoBehaviour
             yield return StartCoroutine(SpawnDragBlocks());
         }
 
-        
+        yield return new WaitForEndOfFrame();
+
+        if ( IsGameOver() )
+        {
+            Debug.Log("Game Over");
+        }
     }
 
     private IEnumerator RemoveFilledLine()
@@ -145,5 +150,26 @@ public class BlockPuzzleManager : MonoBehaviour
         }
 
         filledBlocks.Clear();
+    }
+
+    private bool IsGameOver()
+    {
+        int blockCount = 0;
+        
+        for ( int i = 0; i < dragBlockSpawner.SpawningPoints.Length; i++ )
+        {
+            if ( dragBlockSpawner.SpawningPoints[i].childCount != 0 )
+            {
+                blockCount++;
+                DragBlock dragBlock = dragBlockSpawner.SpawningPoints[i].GetComponentInChildren<DragBlock>();
+
+                if ( blockDeploymentSystem.IsBlockDeployable(dragBlock) )
+                {
+                    return false;
+                }
+            }
+        }
+
+        return blockCount != 0;
     }
 }
