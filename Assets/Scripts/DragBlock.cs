@@ -33,8 +33,13 @@ public class DragBlock : MonoBehaviour
 
     private void OnMouseUp()
     {
-        StartCoroutine(MoveTo(transform.parent.position, returningTime));
-        StartCoroutine(ScaleTo(Vector3.one * 0.5f, returningTime));
+        // Snapping
+        float x = Mathf.RoundToInt(transform.position.x - blockCompNumber.x % 2 * 0.5f) + blockCompNumber.x % 2 * 0.5f;
+        float y = Mathf.RoundToInt(transform.position.y - blockCompNumber.y % 2 * 0.5f) + blockCompNumber.y % 2 * 0.5f;
+        transform.position = new Vector3(x, y, 0);
+        // if failed to put it on the board
+        //StartCoroutine(MoveTo(transform.parent.position, returningTime));
+        //StartCoroutine(ScaleTo(Vector3.one * 0.5f, returningTime));
     }
 
     private IEnumerator MoveTo(Vector3 end, float time)
