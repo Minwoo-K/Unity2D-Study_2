@@ -16,11 +16,14 @@ public class DragBlock : MonoBehaviour
     private float appearingTime = 0.5f;
     private float returningTime = 0.1f;
 
+    public Color Color { get; private set; }
     public Vector3[] ChildBlockPositions { get; }
 
     public void Initialized(BlockPuzzleManager blockPuzzleManager, Vector3 parentPosition)
     {
         this.blockPuzzleManager = blockPuzzleManager;
+
+        Color = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
 
         childBlockPositions = new Vector3[transform.childCount];
         for ( int i = 0; i < childBlockPositions.Length; i++ )

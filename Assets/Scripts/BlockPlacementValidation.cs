@@ -14,4 +14,31 @@ public class BlockPlacementValidation : MonoBehaviour
         this.blockCount = blockCount;
         this.blockHalf = blockHalf;
     }
+
+    public bool TryPlaceDragBlock(DragBlock dragBlock)
+    {
+        // TO-DO: Validate whether there's another block on the spot
+
+        // TO-DO: Validate whether the block was placed within the map
+        return false;
+    }
+
+    private bool IsOtherBlockOnSpot(Vector3 position)
+    {
+
+        return false;
+    }
+
+    private bool IsBlockOutsideTheMap(Vector3 position)
+    {
+        return false;
+    }
+
+    private int GetIndexFromPosition(Vector3 position)
+    {
+        float x = blockCount.x / 2f - blockHalf.x + position.x;
+        float y = blockCount.y / 2f - blockHalf.y - position.y;
+
+        return (int)(y * blockCount.x + x);
+    }
 }
