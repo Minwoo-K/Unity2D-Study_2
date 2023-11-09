@@ -11,11 +11,23 @@ public class DragBlock : MonoBehaviour
     [SerializeField]
     private Vector2Int blockCompNumber;
 
+    private Vector3[] childBlockPositions;
+    private BlockPuzzleManager blockPuzzleManager;
     private float appearingTime = 0.5f;
     private float returningTime = 0.1f;
 
-    public void Initialized(Vector3 parentPosition)
+    public Vector3[] ChildBlockPositions { get; }
+
+    public void Initialized(BlockPuzzleManager blockPuzzleManager, Vector3 parentPosition)
     {
+        this.blockPuzzleManager = blockPuzzleManager;
+
+        childBlockPositions = new Vector3[transform.childCount];
+        for ( int i = 0; i < childBlockPositions.Length; i++ )
+        {
+            childBlockPositions[i] = transform.GetChild(i).localPosition;
+        }
+        
         StartCoroutine(MoveTo(parentPosition, appearingTime));
     }
 

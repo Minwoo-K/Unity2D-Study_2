@@ -5,6 +5,8 @@ using UnityEngine;
 public class DragBlockSpawner : MonoBehaviour
 {
     [SerializeField]
+    private BlockPuzzleManager blockPuzzleManager;
+    [SerializeField]
     private DragBlock[] dragBlockPrefabs;
     [SerializeField]
     private Transform[] spawningPoints;
@@ -21,10 +23,14 @@ public class DragBlockSpawner : MonoBehaviour
         for ( int i = 0; i < spawningPoints.Length; i++ )
         {
             int random = Random.Range(0, dragBlockPrefabs.Length - 1);
+            
             Vector3 spawningPosition = spawningPoints[i].position + spawningGap;
+            
             GameObject clone = Instantiate(dragBlockPrefabs[random].gameObject, spawningPosition, Quaternion.identity, spawningPoints[i]);
+            
             DragBlock dragBlock = clone.GetComponent<DragBlock>();
-            dragBlock.Initialized(spawningPoints[i].position);
+            
+            dragBlock.Initialized(blockPuzzleManager, spawningPoints[i].position);
         }
     }
 }

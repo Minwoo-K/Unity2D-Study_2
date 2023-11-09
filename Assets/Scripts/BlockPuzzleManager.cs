@@ -11,6 +11,7 @@ public class BlockPuzzleManager : MonoBehaviour
     [SerializeField]
     private DragBlockSpawner dragBlockSpawner;
 
+
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
 
@@ -33,5 +34,15 @@ public class BlockPuzzleManager : MonoBehaviour
     {
         dragBlockCount = maxDragBlockCount;
         dragBlockSpawner.SpawnDragBlocksCommand();
+    }
+
+    public void AfterBlockPlacement(DragBlock dragBlock)
+    {
+
+    }
+
+    private void OnAfterBlockPlacement()
+    {
+
     }
 }
