@@ -10,7 +10,8 @@ public class BlockPuzzleManager : MonoBehaviour
     private BlockBoardCreator blockBoardCreator;
     [SerializeField]
     private DragBlockSpawner dragBlockSpawner;
-
+    [SerializeField]
+    private BlockPlacementValidation blockPlacementValidation;
 
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
