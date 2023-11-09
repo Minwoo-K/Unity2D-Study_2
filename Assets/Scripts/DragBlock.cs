@@ -11,8 +11,8 @@ public class DragBlock : MonoBehaviour
     [SerializeField]
     private Vector2Int blockCompNumber;
 
-    private float appearingTime = 1f;
-    private float returningTime = 0.05f;
+    private float appearingTime = 0.5f;
+    private float returningTime = 0.1f;
 
     public void Initialized(Vector3 parentPosition)
     {

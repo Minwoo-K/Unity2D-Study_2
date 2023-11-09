@@ -8,10 +8,15 @@ public class BlockPuzzleManager : MonoBehaviour
     private BlockBoardCreator backgroundBlockBoard;
     [SerializeField]
     private BlockBoardCreator blockBoardCreator;
+    [SerializeField]
+    private DragBlockSpawner dragBlockSpawner;
 
     private BlockSlot[] theBlockBoard;
+    private int dragBlockCount;
+
     private readonly Vector2Int blockCount = new Vector2Int(10, 10);
     private readonly Vector2 blockHalf = new Vector2(0.5f, 0.5f);
+    private readonly int maxDragBlockCount = 3;
 
 
     private void Awake()
@@ -20,5 +25,13 @@ public class BlockPuzzleManager : MonoBehaviour
 
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
         theBlockBoard = blockBoardCreator.CreateBoard(blockCount, blockHalf);
+
+        SpawnDragBlocks();
+    }
+
+    private void SpawnDragBlocks()
+    {
+        dragBlockCount = maxDragBlockCount;
+        dragBlockSpawner.SpawnDragBlocksCommand();
     }
 }

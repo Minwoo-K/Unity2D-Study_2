@@ -9,12 +9,7 @@ public class DragBlockSpawner : MonoBehaviour
     [SerializeField]
     private Transform[] spawningPoints;
 
-    private Vector3 spawningGap= new Vector3(10, 0, 0);
-
-    private void Start()
-    {
-        SpawnDragBlocksCommand();
-    }
+    private Vector3 spawningGap = new Vector3(10, 0, 0);
 
     public void SpawnDragBlocksCommand()
     {
