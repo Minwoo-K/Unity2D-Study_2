@@ -29,6 +29,8 @@ public class BlockPuzzleManager : MonoBehaviour
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
         theBlockBoard = blockBoardCreator.CreateBoard(blockCount, blockHalf);
 
+        blocksToEmpty = new List<BlockSlot>();
+
         blockPlacementValidation.Initialized(this, theBlockBoard, blockCount, blockHalf);
 
         SpawnDragBlocks();
@@ -38,31 +40,6 @@ public class BlockPuzzleManager : MonoBehaviour
     {
         dragBlockCount = maxDragBlockCount;
         dragBlockSpawner.SpawnDragBlocksCommand();
-    }
-
-    public void AfterBlockPlacement(DragBlock dragBlock)
-    {
-        OnAfterBlockPlacement(dragBlock);
-    }
-
-    private void OnAfterBlockPlacement(DragBlock dragBlock)
-    {
-        Destroy(dragBlock.gameObject);
-
-        dragBlockCount--;
-
-        // Check for a full line
-        int LinesToEmpty = FilledLineCheck();
-
-        if ( LinesToEmpty != 0 )
-        {
-            EmptyFilledLines();
-        }
-
-        if (dragBlockCount == 0)
-        {
-            SpawnDragBlocks();
-        }
     }
 
     private int FilledLineCheck()
@@ -81,7 +58,16 @@ public class BlockPuzzleManager : MonoBehaviour
                 else break;
             }
 
-            if ( filledBlockCount == blockCount.x ) LinesToEmpty++;
+            if ( filledBlockCount == blockCount.x )
+            {
+                for ( int x = 0; x < blockCount.x; x++ )
+                {
+                    blocksToEmpty.Add(theBlockBoard[y * blockCount.x + x]);
+                }
+
+                LinesToEmpty++;
+            }
+
         }
 
         // Vertical Line
@@ -97,14 +83,54 @@ public class BlockPuzzleManager : MonoBehaviour
                 else break;
             }
 
-            if (filledBlockCount == blockCount.y) LinesToEmpty++;
+            if (filledBlockCount == blockCount.y)
+            {
+                for (int y = 0; y < blockCount.y; y++)
+                {
+                    blocksToEmpty.Add(theBlockBoard[y * blockCount.x + x]);
+                }
+
+                LinesToEmpty++;
+            }
         }
 
         return LinesToEmpty;
     }
 
-    private void EmptyFilledLines()
+    private IEnumerator EmptyFilledLines()
     {
+        foreach ( BlockSlot blockSlot in blocksToEmpty)
+        {
+            blockSlot.GetEmpty();
 
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        blocksToEmpty.Clear();
+    }
+
+    public void AfterBlockPlacement(DragBlock dragBlock)
+    {
+        StartCoroutine(OnAfterBlockPlacement(dragBlock));
+    }
+
+    private IEnumerator OnAfterBlockPlacement(DragBlock dragBlock)
+    {
+        Destroy(dragBlock.gameObject);
+
+        dragBlockCount--;
+
+        // Check for a full line
+        int LinesToEmpty = FilledLineCheck();
+
+        if (LinesToEmpty != 0)
+        {
+            yield return StartCoroutine(EmptyFilledLines());
+        }
+
+        if (dragBlockCount == 0)
+        {
+            SpawnDragBlocks();
+        }
     }
 }
