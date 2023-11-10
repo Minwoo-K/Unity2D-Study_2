@@ -41,11 +41,18 @@ public class BlockPuzzleManager : MonoBehaviour
 
     public void AfterBlockPlacement(DragBlock dragBlock)
     {
-        // Destroy the DragBlock, Check if DragBlock still exists, if not, spawn drag blocks
+        OnAfterBlockPlacement(dragBlock);
     }
 
-    private void OnAfterBlockPlacement()
+    private void OnAfterBlockPlacement(DragBlock dragBlock)
     {
+        Destroy(dragBlock.gameObject);
 
+        dragBlockCount--;
+
+        if (dragBlockCount == 0)
+        {
+            SpawnDragBlocks();
+        }
     }
 }
