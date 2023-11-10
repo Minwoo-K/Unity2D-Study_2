@@ -23,14 +23,19 @@ public class BlockPlacementValidation : MonoBehaviour
         return false;
     }
 
-    private bool IsOtherBlockOnSpot(Vector3 position)
+    public bool IsOtherBlockOnSpot(Vector3 position)
     {
-
         return false;
     }
 
-    private bool IsBlockOutsideTheMap(Vector3 position)
+    public bool IsBlockOutsideTheMap(Vector3 position)
     {
+        if ( position.x < -blockCount.x / 2f + blockHalf.x || blockCount.x / 2f - blockHalf.x > position.x ||
+             position.y > -blockCount.y / 2f + blockHalf.y || blockCount.y / 2f - blockHalf.y > position.y )
+        {
+            return true;
+        }
+
         return false;
     }
 
