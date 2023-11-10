@@ -54,13 +54,10 @@ public class DragBlock : MonoBehaviour
         transform.position = new Vector3(x, y, 0);
 
         bool success = blockPlacementValidation.TryPlaceDragBlock(this);
-        if ( success )
-        {
 
-        }
-        else
+        // if failed to put it on the board
+        if ( success == false )
         {
-            // if failed to put it on the board
             StartCoroutine(MoveTo(transform.parent.position, returningTime));
             StartCoroutine(ScaleTo(Vector3.one * 0.5f, returningTime));
         }

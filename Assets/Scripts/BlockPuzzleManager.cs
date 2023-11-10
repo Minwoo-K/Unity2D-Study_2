@@ -28,7 +28,7 @@ public class BlockPuzzleManager : MonoBehaviour
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
         theBlockBoard = blockBoardCreator.CreateBoard(blockCount, blockHalf);
 
-        blockPlacementValidation.Initialized(theBlockBoard, blockCount, blockHalf);
+        blockPlacementValidation.Initialized(this, theBlockBoard, blockCount, blockHalf);
 
         SpawnDragBlocks();
     }
@@ -41,7 +41,7 @@ public class BlockPuzzleManager : MonoBehaviour
 
     public void AfterBlockPlacement(DragBlock dragBlock)
     {
-
+        // Destroy the DragBlock, Check if DragBlock still exists, if not, spawn drag blocks
     }
 
     private void OnAfterBlockPlacement()
