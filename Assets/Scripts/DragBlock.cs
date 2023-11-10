@@ -11,17 +11,17 @@ public class DragBlock : MonoBehaviour
     [SerializeField]
     private Vector2Int blockCompNumber;
 
+    private BlockPlacementValidation blockPlacementValidation;
     private Vector3[] childBlockPositions;
-    private BlockPuzzleManager blockPuzzleManager;
     private float appearingTime = 0.5f;
     private float returningTime = 0.1f;
 
     public Color Color { get; private set; }
-    public Vector3[] ChildBlockPositions { get; }
+    public Vector3[] ChildBlockPositions { get => childBlockPositions; }
 
-    public void Initialized(BlockPuzzleManager blockPuzzleManager, Vector3 parentPosition)
+    public void Initialized(BlockPlacementValidation blockPlacementValidation, Vector3 parentPosition)
     {
-        this.blockPuzzleManager = blockPuzzleManager;
+        this.blockPlacementValidation = blockPlacementValidation;
 
         Color = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
 
@@ -52,9 +52,18 @@ public class DragBlock : MonoBehaviour
         float x = Mathf.RoundToInt(transform.position.x - blockCompNumber.x % 2 * 0.5f) + blockCompNumber.x % 2 * 0.5f;
         float y = Mathf.RoundToInt(transform.position.y - blockCompNumber.y % 2 * 0.5f) + blockCompNumber.y % 2 * 0.5f;
         transform.position = new Vector3(x, y, 0);
-        // if failed to put it on the board
-        //StartCoroutine(MoveTo(transform.parent.position, returningTime));
-        //StartCoroutine(ScaleTo(Vector3.one * 0.5f, returningTime));
+
+        bool success = blockPlacementValidation.TryPlaceDragBlock(this);
+        if ( success )
+        {
+
+        }
+        else
+        {
+            // if failed to put it on the board
+            StartCoroutine(MoveTo(transform.parent.position, returningTime));
+            StartCoroutine(ScaleTo(Vector3.one * 0.5f, returningTime));
+        }
     }
 
     private IEnumerator MoveTo(Vector3 end, float time)

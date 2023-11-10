@@ -5,7 +5,7 @@ using UnityEngine;
 public class DragBlockSpawner : MonoBehaviour
 {
     [SerializeField]
-    private BlockPuzzleManager blockPuzzleManager;
+    private BlockPlacementValidation blockPlacementValidation;
     [SerializeField]
     private DragBlock[] dragBlockPrefabs;
     [SerializeField]
@@ -30,7 +30,7 @@ public class DragBlockSpawner : MonoBehaviour
             
             DragBlock dragBlock = clone.GetComponent<DragBlock>();
             
-            dragBlock.Initialized(blockPuzzleManager, spawningPoints[i].position);
+            dragBlock.Initialized(blockPlacementValidation, spawningPoints[i].position);
         }
     }
 }

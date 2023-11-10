@@ -17,24 +17,44 @@ public class BlockPlacementValidation : MonoBehaviour
 
     public bool TryPlaceDragBlock(DragBlock dragBlock)
     {
-        // TO-DO: Validate whether there's another block on the spot
+        for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+        {
+            Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
 
-        // TO-DO: Validate whether the block was placed within the map
+            // Validate whether there's another block on the spot
+            if ( IsBlockOutsideTheMap(position) ) return false;
+            // Validate whether the block was placed within the map
+            if ( IsOtherBlockOnSpot(position) ) return false;
+        }
+
+        // At this point, placement was a success
+        for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+        {
+            Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
+
+            int index = GetIndexFromPosition(position);
+            theBlockBoard[index].GetFilled(dragBlock.Color);
+        }
+
+        return true;
+    }
+
+    public bool IsBlockOutsideTheMap(Vector3 position)
+    {
+        if ( position.x < -blockCount.x / 2f + blockHalf.x || blockCount.x / 2f - blockHalf.x < position.x ||
+             position.y < -blockCount.y / 2f + blockHalf.y || blockCount.y / 2f - blockHalf.y < position.y)
+        {
+            return true;
+        }
+
         return false;
     }
 
     public bool IsOtherBlockOnSpot(Vector3 position)
     {
-        return false;
-    }
+        int index = GetIndexFromPosition(position);
 
-    public bool IsBlockOutsideTheMap(Vector3 position)
-    {
-        if ( position.x < -blockCount.x / 2f + blockHalf.x || blockCount.x / 2f - blockHalf.x > position.x ||
-             position.y > -blockCount.y / 2f + blockHalf.y || blockCount.y / 2f - blockHalf.y > position.y )
-        {
-            return true;
-        }
+        if ( theBlockBoard[index].IsFilled ) return true;
 
         return false;
     }

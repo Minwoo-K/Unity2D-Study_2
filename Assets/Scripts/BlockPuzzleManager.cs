@@ -28,6 +28,8 @@ public class BlockPuzzleManager : MonoBehaviour
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
         theBlockBoard = blockBoardCreator.CreateBoard(blockCount, blockHalf);
 
+        blockPlacementValidation.Initialized(theBlockBoard, blockCount, blockHalf);
+
         SpawnDragBlocks();
     }
 
