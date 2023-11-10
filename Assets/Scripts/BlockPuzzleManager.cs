@@ -15,6 +15,7 @@ public class BlockPuzzleManager : MonoBehaviour
 
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
+    private List<BlockSlot> blocksToEmpty;
 
     private readonly Vector2Int blockCount = new Vector2Int(10, 10);
     private readonly Vector2 blockHalf = new Vector2(0.5f, 0.5f);
@@ -50,9 +51,60 @@ public class BlockPuzzleManager : MonoBehaviour
 
         dragBlockCount--;
 
+        // Check for a full line
+        int LinesToEmpty = FilledLineCheck();
+
+        if ( LinesToEmpty != 0 )
+        {
+            EmptyFilledLines();
+        }
+
         if (dragBlockCount == 0)
         {
             SpawnDragBlocks();
         }
+    }
+
+    private int FilledLineCheck()
+    {
+        int LinesToEmpty = 0;
+        // Horizontal Line
+        for ( int y = 0; y < blockCount.y; y++ )
+        {
+            int filledBlockCount = 0;
+            for ( int x = 0; x < blockCount.x; x++ )
+            {
+                if ( theBlockBoard[y * blockCount.x + x].IsFilled )
+                {
+                    filledBlockCount++;
+                }
+                else break;
+            }
+
+            if ( filledBlockCount == blockCount.x ) LinesToEmpty++;
+        }
+
+        // Vertical Line
+        for ( int x = 0; x < blockCount.x; x++ )
+        {
+            int filledBlockCount = 0;
+            for ( int y = 0; y < blockCount.y; y++ )
+            {
+                if ( theBlockBoard[y * blockCount.x + x].IsFilled )
+                {
+                    filledBlockCount++;
+                }
+                else break;
+            }
+
+            if (filledBlockCount == blockCount.y) LinesToEmpty++;
+        }
+
+        return LinesToEmpty;
+    }
+
+    private void EmptyFilledLines()
+    {
+
     }
 }

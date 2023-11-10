@@ -18,4 +18,10 @@ public class BlockSlot : MonoBehaviour
         IsFilled = true;
         spriteRenderer.color = color;
     }
+
+    public void GetEmpty()
+    {
+        IsFilled = false;
+        spriteRenderer.color = Color.white;
+    }
 }
