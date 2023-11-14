@@ -18,20 +18,26 @@ public class BlockPuzzleManager : MonoBehaviour
     [Header("UI Configuration")]
     [SerializeField]
     private TextMeshProUGUI currentScoreText;
+    [SerializeField]
+    private TextMeshProUGUI highestScoreText;
 
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
     private List<BlockSlot> blocksToEmpty;
-    private int CurrentScore;
 
     private readonly Vector2Int blockCount = new Vector2Int(10, 10);
     private readonly Vector2 blockHalf = new Vector2(0.5f, 0.5f);
     private readonly int maxDragBlockCount = 3;
+    
+    public int CurrentScore { get; private set; }
+    public int HighestScore { get; private set; }
 
 
     private void Awake()
     {
         CurrentScore = 0;
+        HighestScore = PlayerPrefs.GetInt("HighestScore");
+        highestScoreText.text = HighestScore.ToString();
 
         backgroundBlockBoard.CreateBoard(blockCount, blockHalf);
 
@@ -168,6 +174,11 @@ public class BlockPuzzleManager : MonoBehaviour
         if ( IsGameOver() )
         {
             Debug.Log("Game Over");
+
+            if ( CurrentScore > HighestScore )
+            {
+                PlayerPrefs.SetInt("HighestScore", CurrentScore);
+            }
         }
     }
 
