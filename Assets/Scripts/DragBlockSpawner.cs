@@ -13,6 +13,8 @@ public class DragBlockSpawner : MonoBehaviour
 
     private Vector3 spawningGap = new Vector3(10, 0, 0);
 
+    public Transform[] SpawningPoints { get => spawningPoints; }
+
     public void SpawnDragBlocksCommand()
     {
         SpawnDragBlocks();

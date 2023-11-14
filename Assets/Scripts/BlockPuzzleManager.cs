@@ -36,10 +36,29 @@ public class BlockPuzzleManager : MonoBehaviour
         SpawnDragBlocks();
     }
 
-    private void SpawnDragBlocks()
+    private IEnumerator SpawnDragBlocks()
     {
         dragBlockCount = maxDragBlockCount;
+
         dragBlockSpawner.SpawnDragBlocksCommand();
+
+        yield return new WaitUntil(() => IsSpawnDragBlocksComplete());
+    }
+
+    private bool IsSpawnDragBlocksComplete()
+    {
+        int count = 0;
+
+        for ( int i = 0; i < dragBlockSpawner.SpawningPoints.Length; i++ )
+        {
+            if ( dragBlockSpawner.SpawningPoints[i].childCount != 0 && 
+                 dragBlockSpawner.SpawningPoints[i].GetChild(0).localPosition == Vector3.zero )
+            {
+                count++;
+            }
+        }
+
+        return ( count == dragBlockSpawner.SpawningPoints.Length );
     }
 
     private int FilledLineCheck()
@@ -130,7 +149,7 @@ public class BlockPuzzleManager : MonoBehaviour
 
         if (dragBlockCount == 0)
         {
-            SpawnDragBlocks();
+            yield return StartCoroutine(SpawnDragBlocks());
         }
     }
 }
