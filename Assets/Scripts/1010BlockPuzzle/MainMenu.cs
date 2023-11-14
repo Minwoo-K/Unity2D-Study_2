@@ -9,6 +9,11 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI highestScoreText;
 
+    private void Awake()
+    {
+        highestScoreText.text = "<size=50>BEST SCORE</size>\n" + PlayerPrefs.GetInt("HighestScore").ToString();
+    }
+
     public void ButtonGameStart()
     {
         SceneManager.LoadScene(1);
