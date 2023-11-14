@@ -122,7 +122,7 @@ public class BlockPuzzleManager : MonoBehaviour
         {
             blockSlot.GetEmpty();
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
         }
 
         blocksToEmpty.Clear();
