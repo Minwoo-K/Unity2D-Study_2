@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BlockPuzzleManager : MonoBehaviour
 {
+    [Header("Core Scripts")]
     [SerializeField]
     private BlockBoardCreator backgroundBlockBoard;
     [SerializeField]
@@ -13,9 +15,14 @@ public class BlockPuzzleManager : MonoBehaviour
     [SerializeField]
     private BlockPlacementValidation blockPlacementValidation;
 
+    [Header("UI Configuration")]
+    [SerializeField]
+    private TextMeshProUGUI currentScoreText;
+
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
     private List<BlockSlot> blocksToEmpty;
+    private int CurrentScore;
 
     private readonly Vector2Int blockCount = new Vector2Int(10, 10);
     private readonly Vector2 blockHalf = new Vector2(0.5f, 0.5f);
@@ -24,6 +31,8 @@ public class BlockPuzzleManager : MonoBehaviour
 
     private void Awake()
     {
+        CurrentScore = 0;
+
         backgroundBlockBoard.CreateBoard(blockCount, blockHalf);
 
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
@@ -142,10 +151,12 @@ public class BlockPuzzleManager : MonoBehaviour
         // Check for a full line
         int LinesToEmpty = FilledLineCheck();
 
-        if (LinesToEmpty != 0)
-        {
-            yield return StartCoroutine(EmptyFilledLines());
-        }
+        yield return StartCoroutine(EmptyFilledLines());
+
+        CurrentScore += LinesToEmpty == 0 ? dragBlock.ChildBlockPositions.Length :
+            dragBlock.ChildBlockPositions.Length + (int)Mathf.Pow(LinesToEmpty, 2f) * 10;
+        currentScoreText.text = CurrentScore.ToString();
+
 
         if (dragBlockCount == 0)
         {
