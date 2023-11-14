@@ -65,7 +65,6 @@ public class BlockPlacementValidation : MonoBehaviour
 
     public bool IsPossibleToPlaceBlock(DragBlock dragBlock)
     {
-
         for ( int y = 0; y < blockCount.y; y++ )
         {
             for ( int x = 0; x < blockCount.x; x++ )
@@ -76,8 +75,8 @@ public class BlockPlacementValidation : MonoBehaviour
                 Vector3 position = new Vector3(-blockCount.x / 2f + blockHalf.x + x, blockCount.y / 2f - blockHalf.y - y, 0);
                 // if even count blocks(x==2 or y==2), neat number without decimal point([-4,4], [-3,3] ...)
                 // if odd count blocks (x==1 or y==3), a number with decimal point([-4.5, 4.5], [-3.5, 4.5] ...) to check available spots
-                position.x = dragBlock.blockCount.x % 2 == 0 ? dragBlock.blockCount.x + 0.5f : dragBlock.blockCount.x;
-                position.y = dragBlock.blockCount.y % 2 == 0 ? dragBlock.blockCount.y - 0.5f : dragBlock.blockCount.y;
+                position.x = dragBlock.blockCount.x % 2 == 0 ? position.x + 0.5f : position.x;
+                position.y = dragBlock.blockCount.y % 2 == 0 ? position.y - 0.5f : position.y;
 
                 // Check each block can be placed. If any one of them isn't, break the loop to go to the next spot
                 for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )

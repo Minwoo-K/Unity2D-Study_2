@@ -174,7 +174,8 @@ public class BlockPuzzleManager : MonoBehaviour
                 dragBlockCount++;
 
                 DragBlock drag = dragBlockSpawner.SpawningPoints[i].GetComponentInChildren<DragBlock>();
-                if ( blockPlacementValidation.IsPossibleToPlaceBlock(drag) ) return false;
+                bool gameon = blockPlacementValidation.IsPossibleToPlaceBlock(drag);
+                if ( gameon ) return false;
             }
         }
         // Still DragBlock left after the Placeable Check, that's GameOver
