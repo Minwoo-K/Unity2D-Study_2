@@ -33,7 +33,7 @@ public class BlockPuzzleManager : MonoBehaviour
 
         blockPlacementValidation.Initialized(this, theBlockBoard, blockCount, blockHalf);
 
-        SpawnDragBlocks();
+        StartCoroutine(SpawnDragBlocks());
     }
 
     private IEnumerator SpawnDragBlocks()
@@ -151,5 +151,33 @@ public class BlockPuzzleManager : MonoBehaviour
         {
             yield return StartCoroutine(SpawnDragBlocks());
         }
+
+        yield return new WaitForEndOfFrame();
+
+        if ( IsGameOver() )
+        {
+            Debug.Log("Game Over");
+        }
+    }
+
+    private bool IsGameOver()
+    {
+        int dragBlockCount = 0;
+        // Check whether any DragBlock is left
+        // If so, check if it can be placed anywhere
+        // If not, the game still goes on
+        // If the DragBlock(s) left can NOT be placed, Game Over
+        for (int i = 0; i < dragBlockSpawner.SpawningPoints.Length; i++)
+        {
+            if ( dragBlockSpawner.SpawningPoints[i].childCount != 0 )
+            {
+                dragBlockCount++;
+
+                DragBlock drag = dragBlockSpawner.SpawningPoints[i].GetComponentInChildren<DragBlock>();
+                if ( blockPlacementValidation.IsPossibleToPlaceBlock(drag) ) return false;
+            }
+        }
+        // Still DragBlock left after the Placeable Check, that's GameOver
+        return (dragBlockCount != 0); // false == Isn't Game Over
     }
 }

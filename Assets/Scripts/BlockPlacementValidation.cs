@@ -96,7 +96,6 @@ public class BlockPlacementValidation : MonoBehaviour
             }
         }
 
-        Debug.Log("Game Over");
         return false;
     }
 
