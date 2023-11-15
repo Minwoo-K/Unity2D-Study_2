@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class PausePanel : MonoBehaviour
 {
-    void Start()
+    [SerializeField]
+    private GameObject pausedBackground;
+
+    private Animator animator;
+
+    private void Awake()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
-    void Update()
+    public void PauseON()
     {
-        
+        pausedBackground.SetActive(true);
+        animator.SetTrigger("PauseON");
+    }
+    
+    public void PauseOFF()
+    {
+        animator.SetTrigger("PauseOFF");
+    }
+
+    public void AfterPauseOFF()
+    {
+        pausedBackground.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

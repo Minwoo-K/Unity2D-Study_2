@@ -701,13 +701,14 @@ GameObject:
   - component: {fileID: 944279251}
   - component: {fileID: 944279252}
   - component: {fileID: 944279253}
+  - component: {fileID: 944279254}
   m_Layer: 5
   m_Name: Panel_Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &944279251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -759,6 +760,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &944279254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944279250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af57685f87d07b643a223513f9bd9978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausedBackground: {fileID: 1070143340}
 --- !u!1 &1027816877
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,7 +893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1070143341
 RectTransform:
   m_ObjectHideFlags: 0
