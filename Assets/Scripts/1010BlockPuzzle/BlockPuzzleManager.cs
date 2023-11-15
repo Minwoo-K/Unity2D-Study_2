@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class BlockPuzzleManager : MonoBehaviour
@@ -14,12 +13,8 @@ public class BlockPuzzleManager : MonoBehaviour
     private DragBlockSpawner dragBlockSpawner;
     [SerializeField]
     private BlockPlacementValidation blockPlacementValidation;
-
-    [Header("UI Configuration")]
     [SerializeField]
-    private TextMeshProUGUI currentScoreText;
-    [SerializeField]
-    private TextMeshProUGUI highestScoreText;
+    private UI_Manager ui_Manager;
 
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
@@ -28,16 +23,10 @@ public class BlockPuzzleManager : MonoBehaviour
     private readonly Vector2Int blockCount = new Vector2Int(10, 10);
     private readonly Vector2 blockHalf = new Vector2(0.5f, 0.5f);
     private readonly int maxDragBlockCount = 3;
-    
-    public int CurrentScore { get; private set; }
-    public int HighestScore { get; private set; }
-
 
     private void Awake()
     {
-        CurrentScore = 0;
-        HighestScore = PlayerPrefs.GetInt("HighestScore");
-        highestScoreText.text = HighestScore.ToString();
+        
 
         backgroundBlockBoard.CreateBoard(blockCount, blockHalf);
 
@@ -159,10 +148,8 @@ public class BlockPuzzleManager : MonoBehaviour
 
         yield return StartCoroutine(EmptyFilledLines());
 
-        CurrentScore += LinesToEmpty == 0 ? dragBlock.ChildBlockPositions.Length :
+        ui_Manager.CurrentScore += LinesToEmpty == 0 ? dragBlock.ChildBlockPositions.Length :
             dragBlock.ChildBlockPositions.Length + (int)Mathf.Pow(LinesToEmpty, 2f) * 10;
-        currentScoreText.text = CurrentScore.ToString();
-
 
         if (dragBlockCount == 0)
         {
@@ -175,9 +162,9 @@ public class BlockPuzzleManager : MonoBehaviour
         {
             Debug.Log("Game Over");
 
-            if ( CurrentScore > HighestScore )
+            if (ui_Manager.CurrentScore > ui_Manager.HighestScore )
             {
-                PlayerPrefs.SetInt("HighestScore", CurrentScore);
+                PlayerPrefs.SetInt("HighestScore", ui_Manager.CurrentScore);
             }
         }
     }
