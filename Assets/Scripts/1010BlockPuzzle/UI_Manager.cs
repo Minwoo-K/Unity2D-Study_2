@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UI_Manager : MonoBehaviour
     private TextMeshProUGUI currentScoreText;
     [SerializeField]
     private TextMeshProUGUI highestScoreText;
+    [SerializeField]
+    private PausePanel pausePanel;
 
     public int CurrentScore { get; set; }
     public int HighestScore { get; set; }
@@ -24,5 +27,25 @@ public class UI_Manager : MonoBehaviour
     private void Update()
     {
         currentScoreText.text = CurrentScore.ToString();
+    }
+
+    public void OnPauseButton()
+    {
+        pausePanel.PauseON();
+    }
+
+    public void OnButtonResume()
+    {
+        pausePanel.PauseOFF();
+    }
+
+    public void OnButtonNewGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OnButtonExit()
+    {
+        SceneManager.LoadScene(0);
     }
 }

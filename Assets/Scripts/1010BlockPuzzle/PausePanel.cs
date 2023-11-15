@@ -6,7 +6,7 @@ public class PausePanel : MonoBehaviour
 {
     [SerializeField]
     private GameObject pausedBackground;
-
+    [SerializeField]
     private Animator animator;
 
     private void Awake()
@@ -17,6 +17,7 @@ public class PausePanel : MonoBehaviour
     public void PauseON()
     {
         pausedBackground.SetActive(true);
+        gameObject.SetActive(true);
         animator.SetTrigger("PauseON");
     }
     
@@ -30,4 +31,5 @@ public class PausePanel : MonoBehaviour
         pausedBackground.SetActive(false);
         gameObject.SetActive(false);
     }
+
 }
