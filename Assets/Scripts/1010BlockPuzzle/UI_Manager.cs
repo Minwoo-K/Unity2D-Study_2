@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -13,6 +14,16 @@ public class UI_Manager : MonoBehaviour
     private TextMeshProUGUI highestScoreText;
     [SerializeField]
     private PausePanel pausePanel;
+
+    [Header("GameOver")]
+    [SerializeField]
+    private GameObject gameResultPanel;
+    [SerializeField]
+    private Screenshot screenshotModule;
+    [SerializeField]
+    private Image screenshotImage;
+    [SerializeField]
+    private TextMeshProUGUI finalScore;
 
     public int CurrentScore { get; set; }
     public int HighestScore { get; set; }
@@ -47,5 +58,12 @@ public class UI_Manager : MonoBehaviour
     public void OnButtonExit()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void GameOver()
+    {
+        gameResultPanel.SetActive(true);
+        screenshotImage.sprite = screenshotModule.ScreenshotToSprite();
+        finalScore.text = CurrentScore.ToString();
     }
 }

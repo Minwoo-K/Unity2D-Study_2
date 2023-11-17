@@ -160,12 +160,12 @@ public class BlockPuzzleManager : MonoBehaviour
 
         if ( IsGameOver() )
         {
-            Debug.Log("Game Over");
-
             if (ui_Manager.CurrentScore > ui_Manager.HighestScore )
             {
                 PlayerPrefs.SetInt("HighestScore", ui_Manager.CurrentScore);
             }
+
+            ui_Manager.GameOver();
         }
     }
 

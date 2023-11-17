@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenShot : MonoBehaviour
+public class Screenshot : MonoBehaviour
 {
     [SerializeField]
     private Camera screenshotCamera;
 
-    public Sprite ScreenshotToSprit()
+    public Sprite ScreenshotToSprite()
     {
         // [Screen] == Game Screen
         int width = Screen.width;
@@ -31,7 +31,9 @@ public class ScreenShot : MonoBehaviour
         // Empty the targetTexture as Screenshotting is done
         screenshotCamera.targetTexture = null;
 
+        // Create a Rectangle to hold the screenshot
         Rect rect = new Rect(0, 0, screenshot.width, screenshot.height);
+        // Create a sprite using the screenshot and the rectangle's resolution
         Sprite sprite = Sprite.Create(screenshot, rect, Vector2.one * 0.5f);
 
         return sprite;
