@@ -24,7 +24,7 @@ public class Screenshot : MonoBehaviour
 
         // Read the Pixels information from the active RenderTexture
         // Save the Texture2D into the [screenshot]
-        Texture2D screenshot = new Texture2D(width, height, TextureFormat.RGB24, false);
+        Texture2D screenshot = new Texture2D(width, width, TextureFormat.RGB24, false);
         screenshot.ReadPixels(new Rect(0, (height - width) * 0.5f, width, width), 0, 0);
         screenshot.Apply();
 
