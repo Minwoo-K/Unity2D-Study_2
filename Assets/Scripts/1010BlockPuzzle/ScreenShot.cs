@@ -31,6 +31,9 @@ public class ScreenShot : MonoBehaviour
         // Empty the targetTexture as Screenshotting is done
         screenshotCamera.targetTexture = null;
 
-        return null;
+        Rect rect = new Rect(0, 0, screenshot.width, screenshot.height);
+        Sprite sprite = Sprite.Create(screenshot, rect, Vector2.one * 0.5f);
+
+        return sprite;
     }
 }
