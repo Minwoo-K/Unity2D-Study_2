@@ -11,11 +11,16 @@ public class DragBlock : MonoBehaviour
     [SerializeField]
     private AnimationCurve scaleCurve;
 
+    private Vector2 blockHalf = new Vector3(0.5f, 0.5f);
     private float movingTime = 0.2f;
     private float returningTime = 0.1f;
+
+    public Color color { get; private set; }
     
     public void Initialized(Vector3 position)
     {
+        color = GetComponentInChildren<SpriteRenderer>().color;
+
         StartCoroutine(MoveTo(position, 0.7f));
     }
 
@@ -36,10 +41,16 @@ public class DragBlock : MonoBehaviour
     // When dropped
     private void OnMouseUp()
     {
-        StopCoroutine("ScaleTo");
+        float snappedX = Mathf.RoundToInt(transform.position.x - blockNumber.x % 2 * 0.5f) + blockNumber.x % 2 * blockHalf.x;
+        float snappedY = Mathf.RoundToInt(transform.position.y - blockNumber.y % 2 * 0.5f) + blockNumber.y % 2 * blockHalf.y;
+        transform.position = new Vector3(snappedX, snappedY);
 
-        StartCoroutine(MoveTo(transform.parent.position, returningTime));
-        StartCoroutine(ScaleTo(Vector3.one * 0.5f, returningTime));
+        // if failed to place the block
+        if ( false )
+        {
+            StartCoroutine(MoveTo(transform.parent.position, returningTime));
+            StartCoroutine(ScaleTo(Vector3.one * 0.5f, returningTime));
+        }
     }
 
     private IEnumerator ScaleTo(Vector3 end, float time)
