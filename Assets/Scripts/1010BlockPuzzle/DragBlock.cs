@@ -11,15 +11,19 @@ public class DragBlock : MonoBehaviour
     [SerializeField]
     private AnimationCurve scaleCurve;
 
-    private float moveTime = 0.2f;
+    private float movingTime = 0.2f;
     private float returningTime = 0.1f;
     
+    public void Initialized(Vector3 position)
+    {
+        StartCoroutine(MoveTo(position, 0.7f));
+    }
 
     // When clicked to be moved
     private void OnMouseDown()
     {
         StopCoroutine("ScaleTo");
-        StartCoroutine(ScaleTo(Vector3.one, moveTime));
+        StartCoroutine(ScaleTo(Vector3.one, movingTime));
     }
 
     // When being moved
@@ -32,6 +36,8 @@ public class DragBlock : MonoBehaviour
     // When dropped
     private void OnMouseUp()
     {
+        StopCoroutine("ScaleTo");
+
         StartCoroutine(MoveTo(transform.parent.position, returningTime));
         StartCoroutine(ScaleTo(Vector3.one * 0.5f, returningTime));
     }
@@ -64,7 +70,7 @@ public class DragBlock : MonoBehaviour
             current += Time.deltaTime;
             percent = current / time;
 
-            transform.position = Vector3.Lerp(start, end, scaleCurve.Evaluate(percent));
+            transform.position = Vector3.Lerp(start, end, movingCurve.Evaluate(percent));
 
             yield return null;
         }
