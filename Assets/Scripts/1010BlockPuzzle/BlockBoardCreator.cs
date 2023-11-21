@@ -9,16 +9,22 @@ public class BlockBoardCreator : MonoBehaviour
     [SerializeField]
     private int orderInLayer;
 
-    private readonly Vector2Int blockCount = new Vector2Int(10, 10);
-    private readonly Vector2    blockHalf = new Vector2(0.5f, 0.5f);
 
-    private void Awake()
+    private Vector2Int  blockCount;
+    private Vector2     blockHalf;
+
+    public void Initialized(Vector2Int blockCount, Vector2 blockHalf)
     {
+        this.blockCount = blockCount;
+        this.blockHalf = blockHalf;
+
         CreateBlockBoard();
     }
 
-    public void CreateBlockBoard()
+    public BlockSlot[] CreateBlockBoard()
     {
+        BlockSlot[] theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
+
         for ( int y = 0; y < blockCount.y; y++ )
         {
             for ( int x = 0; x < blockCount.x; x++ )
@@ -29,8 +35,12 @@ public class BlockBoardCreator : MonoBehaviour
 
                 GameObject clone = Instantiate(blockPrefab, position, Quaternion.identity, transform);
 
+                theBlockBoard[y * blockCount.x + x] = clone.GetComponent<BlockSlot>();
+
                 clone.GetComponent<SpriteRenderer>().sortingOrder = orderInLayer;
             }
         }
+
+        return theBlockBoard;
     }
 }
