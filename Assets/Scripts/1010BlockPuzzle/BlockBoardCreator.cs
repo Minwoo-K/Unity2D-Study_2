@@ -9,7 +9,6 @@ public class BlockBoardCreator : MonoBehaviour
     [SerializeField]
     private int orderInLayer;
 
-
     private Vector2Int  blockCount;
     private Vector2     blockHalf;
 
@@ -17,8 +16,6 @@ public class BlockBoardCreator : MonoBehaviour
     {
         this.blockCount = blockCount;
         this.blockHalf = blockHalf;
-
-        CreateBlockBoard();
     }
 
     public BlockSlot[] CreateBlockBoard()

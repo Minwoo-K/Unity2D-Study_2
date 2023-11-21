@@ -8,6 +8,8 @@ public class BlockPuzzleManager : MonoBehaviour
     private BlockBoardCreator backgroundBlockCreator;
     [SerializeField]
     private BlockBoardCreator theBlockBoardCreator;
+    [SerializeField]
+    private BlockPlacementValidation blockPlacementValidation;
 
     private BlockSlot[] theBlockBoard;
 
@@ -16,6 +18,10 @@ public class BlockPuzzleManager : MonoBehaviour
 
     private void Awake()
     {
+        backgroundBlockCreator.CreateBlockBoard();
+
+        blockPlacementValidation.Initialized(blockCount, blockHalf);
+
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
 
         theBlockBoard = theBlockBoardCreator.CreateBlockBoard();
