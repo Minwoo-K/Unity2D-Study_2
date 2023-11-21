@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 782775899}
   - component: {fileID: 782775898}
+  - component: {fileID: 782775900}
   m_Layer: 0
   m_Name: '#BlockPuzzleManager'
   m_TagString: Untagged
@@ -152,6 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc1cea25e6457b4198a8d07e05b94fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundBlockCreator: {fileID: 1244795645}
+  theBlockBoardCreator: {fileID: 819000013}
+  blockPlacementValidation: {fileID: 782775900}
 --- !u!4 &782775899
 Transform:
   m_ObjectHideFlags: 0
@@ -166,6 +170,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &782775900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782775897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd4dedcbdcc24a4fa4e1938e3de95bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &819000012
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +372,7 @@ MonoBehaviour:
   - {fileID: 1428218086}
   - {fileID: 1324553914}
   - {fileID: 1395401250}
+  blockPlacementValidation: {fileID: 782775900}
 --- !u!1 &1395401249
 GameObject:
   m_ObjectHideFlags: 0

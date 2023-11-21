@@ -18,12 +18,14 @@ public class BlockPuzzleManager : MonoBehaviour
 
     private void Awake()
     {
+        backgroundBlockCreator.Initialized(blockCount, blockHalf);
         backgroundBlockCreator.CreateBlockBoard();
 
         blockPlacementValidation.Initialized(theBlockBoard, blockCount, blockHalf);
 
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
 
+        theBlockBoardCreator.Initialized(blockCount, blockHalf);
         theBlockBoard = theBlockBoardCreator.CreateBlockBoard();
     }
 }

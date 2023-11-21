@@ -15,6 +15,12 @@ public class BlockPlacementValidation : MonoBehaviour
         this.blockHalf = blockHalf;
     }
 
+    public bool TryPlaceBlock(DragBlock dragBlock)
+    {
+        // TO-DO write this function
+        return false;
+    }
+
     private int GetIndexFromPosition(Vector3 position)
     {
         float x = blockCount.x / 2f - blockHalf.x + position.x;
@@ -23,7 +29,7 @@ public class BlockPlacementValidation : MonoBehaviour
         return (int)(y * blockCount.x + x);
     }
 
-    public bool IsBlockOutsideMap(Vector3 position)
+    private bool IsBlockOutsideMap(Vector3 position)
     {
         float maxValue =  blockCount.y/2f - blockHalf.y;
         float minValue = -blockCount.x/2f + blockHalf.x;
@@ -36,7 +42,7 @@ public class BlockPlacementValidation : MonoBehaviour
         return false;
     }
 
-    public bool IsBlockFilled(Vector3 position)
+    private bool IsBlockFilled(Vector3 position)
     {
         int index = GetIndexFromPosition(position);
 

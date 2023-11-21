@@ -8,6 +8,8 @@ public class DragBlockSpawner : MonoBehaviour
     private GameObject[] dragBlockPrefabs;
     [SerializeField]
     private Transform[] spawningPoints;
+    [SerializeField]
+    private BlockPlacementValidation blockPlacementValidation;
 
     private Vector3 spawningGap = new Vector3(10, 0, 0);
 
@@ -26,7 +28,7 @@ public class DragBlockSpawner : MonoBehaviour
 
             GameObject clone = Instantiate(dragBlockPrefabs[random], spawningPosition, Quaternion.identity, spawningPoints[i]);
 
-            clone.GetComponent<DragBlock>().Initialized(clone.transform.parent.position);
+            clone.GetComponent<DragBlock>().Initialized(blockPlacementValidation, clone.transform.parent.position);
         }
     }
 }
