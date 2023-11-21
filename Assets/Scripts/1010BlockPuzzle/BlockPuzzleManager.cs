@@ -20,7 +20,7 @@ public class BlockPuzzleManager : MonoBehaviour
     {
         backgroundBlockCreator.CreateBlockBoard();
 
-        blockPlacementValidation.Initialized(blockCount, blockHalf);
+        blockPlacementValidation.Initialized(theBlockBoard, blockCount, blockHalf);
 
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
 

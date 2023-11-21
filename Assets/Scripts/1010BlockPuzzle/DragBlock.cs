@@ -15,11 +15,18 @@ public class DragBlock : MonoBehaviour
     private float movingTime = 0.2f;
     private float returningTime = 0.1f;
 
-    public Color color { get; private set; }
+    public Color Color { get; private set; }
+    public Vector3[] ChildBlockPositions { get; private set; }
     
     public void Initialized(Vector3 position)
     {
-        color = GetComponentInChildren<SpriteRenderer>().color;
+        Color = GetComponentInChildren<SpriteRenderer>().color;
+
+        ChildBlockPositions = new Vector3[transform.childCount];
+        for ( int i = 0; i < ChildBlockPositions.Length; i++ )
+        {
+            ChildBlockPositions[i] = transform.position + transform.GetChild(i).localPosition;
+        }
 
         StartCoroutine(MoveTo(position, 0.7f));
     }
