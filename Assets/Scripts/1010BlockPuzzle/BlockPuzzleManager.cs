@@ -30,4 +30,14 @@ public class BlockPuzzleManager : MonoBehaviour
 
         theBlockBoardCreator.Initialized(blockCount, blockHalf);
     }
+
+    public void CommandAfterBlockPlacement()
+    {
+        StartCoroutine(AfterBlockPlacement());
+    }
+
+    private IEnumerator AfterBlockPlacement()
+    {
+        yield return null;
+    }
 }
