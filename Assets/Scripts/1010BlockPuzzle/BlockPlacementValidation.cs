@@ -17,8 +17,24 @@ public class BlockPlacementValidation : MonoBehaviour
 
     public bool TryPlaceBlock(DragBlock dragBlock)
     {
-        // TO-DO write this function
-        return false;
+        // Check each child block with the boolean validations
+        for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+        {
+            if ( IsBlockOutsideMap(dragBlock.ChildBlockPositions[i]) ) return false;
+
+            if ( IsBlockFilled(dragBlock.ChildBlockPositions[i]) ) return false;
+        }
+
+        // At this point, the validation has been passed
+        // Fill the spots with the dragBlock
+        for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+        {
+            int index = GetIndexFromPosition(dragBlock.ChildBlockPositions[i]);
+
+            theBlockBoard[index].GetFilled(dragBlock.Color);
+        }
+
+        return true;
     }
 
     private int GetIndexFromPosition(Vector3 position)
