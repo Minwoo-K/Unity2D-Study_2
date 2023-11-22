@@ -20,16 +20,18 @@ public class BlockPlacementValidation : MonoBehaviour
         // Check each child block with the boolean validations
         for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
         {
-            if ( IsBlockOutsideMap(dragBlock.ChildBlockPositions[i]) ) return false;
+            Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
+            if ( IsBlockOutsideMap(position) ) return false;
 
-            if ( IsBlockFilled(dragBlock.ChildBlockPositions[i]) ) return false;
+            if ( IsBlockFilled(position) ) return false;
         }
 
         // At this point, the validation has been passed
         // Fill the spots with the dragBlock
         for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
         {
-            int index = GetIndexFromPosition(dragBlock.ChildBlockPositions[i]);
+            Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
+            int index = GetIndexFromPosition(position);
 
             theBlockBoard[index].GetFilled(dragBlock.Color);
         }

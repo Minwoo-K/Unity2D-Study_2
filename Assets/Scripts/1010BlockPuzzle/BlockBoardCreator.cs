@@ -32,7 +32,11 @@ public class BlockBoardCreator : MonoBehaviour
 
                 GameObject clone = Instantiate(blockPrefab, position, Quaternion.identity, transform);
 
-                theBlockBoard[y * blockCount.x + x] = clone.GetComponent<BlockSlot>();
+                BlockSlot block = clone.GetComponent<BlockSlot>();
+
+                block.Initialized();
+
+                theBlockBoard[y * blockCount.x + x] = block;
 
                 clone.GetComponent<SpriteRenderer>().sortingOrder = orderInLayer;
             }

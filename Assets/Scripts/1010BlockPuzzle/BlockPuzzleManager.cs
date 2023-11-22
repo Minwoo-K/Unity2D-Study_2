@@ -21,11 +21,13 @@ public class BlockPuzzleManager : MonoBehaviour
         backgroundBlockCreator.Initialized(blockCount, blockHalf);
         backgroundBlockCreator.CreateBlockBoard();
 
+        theBlockBoardCreator.Initialized(blockCount, blockHalf);
+        theBlockBoard = theBlockBoardCreator.CreateBlockBoard();
+
         blockPlacementValidation.Initialized(theBlockBoard, blockCount, blockHalf);
 
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
 
         theBlockBoardCreator.Initialized(blockCount, blockHalf);
-        theBlockBoard = theBlockBoardCreator.CreateBlockBoard();
     }
 }

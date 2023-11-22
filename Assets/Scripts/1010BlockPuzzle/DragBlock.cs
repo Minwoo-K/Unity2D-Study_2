@@ -28,7 +28,7 @@ public class DragBlock : MonoBehaviour
         ChildBlockPositions = new Vector3[transform.childCount];
         for ( int i = 0; i < ChildBlockPositions.Length; i++ )
         {
-            ChildBlockPositions[i] = transform.position + transform.GetChild(i).localPosition;
+            ChildBlockPositions[i] = transform.GetChild(i).localPosition;
         }
 
         StartCoroutine(MoveTo(position, 0.7f));
@@ -54,11 +54,11 @@ public class DragBlock : MonoBehaviour
         float snappedX = Mathf.RoundToInt(transform.position.x - blockNumber.x % 2 * 0.5f) + blockNumber.x % 2 * blockHalf.x;
         float snappedY = Mathf.RoundToInt(transform.position.y - blockNumber.y % 2 * 0.5f) + blockNumber.y % 2 * blockHalf.y;
         transform.position = new Vector3(snappedX, snappedY);
-        
-        
+
+        bool success = blockPlacementValidation.TryPlaceBlock(this);
         
         // if failed to place the block
-        if ( false )
+        if ( success == false )
         {
             StartCoroutine(MoveTo(transform.parent.position, returningTime));
             StartCoroutine(ScaleTo(Vector3.one * 0.5f, returningTime));
