@@ -15,6 +15,7 @@ public class BlockPuzzleManager : MonoBehaviour
 
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
+    private List<BlockSlot> blocksToEmpty;
 
     private readonly Vector2Int blockCount = new Vector2Int(10, 10);
     private readonly Vector2 blockHalf = new Vector2(0.5f, 0.5f);
@@ -35,6 +36,8 @@ public class BlockPuzzleManager : MonoBehaviour
         theBlockBoardCreator.Initialized(blockCount, blockHalf);
 
         SpawnDragBlocks();
+
+        blocksToEmpty = new List<BlockSlot>();
     }
 
     private void SpawnDragBlocks()
@@ -42,6 +45,58 @@ public class BlockPuzzleManager : MonoBehaviour
         dragBlockCount = maxDragBlocks;
 
         dragBlockSpawner.SpawnDragBlocks();
+    }
+
+    private int CheckFilledLine()
+    {
+        int filledLine = 0;
+
+        // Horizontal Lines
+        for ( int y = 0; y < blockCount.y; y++ )
+        {
+            int count = 0;
+            for ( int x = 0; x < blockCount.x; x++ )
+            {
+                if ( theBlockBoard[y * blockCount.x + x].IsFilled ) count++;
+            }
+
+            if (count == blockCount.x)
+            {
+                filledLine++;
+
+                for (int x = 0; x < blockCount.x; x++)
+                {
+                    blocksToEmpty.Add(theBlockBoard[y * blockCount.x + x]);
+                }
+            }
+        }
+
+        // Vertical Lines
+        for ( int x = 0; x < blockCount.x; x++ )
+        {
+            int count = 0;
+            for ( int y = 0; y < blockCount.y; y++ )
+            {
+                if ( theBlockBoard[y * blockCount.x + x].IsFilled ) count++;
+            }
+
+            if ( count == blockCount.y )
+            {
+                filledLine++;
+
+                for (int y = 0; x < blockCount.y; y++)
+                {
+                    blocksToEmpty.Add(theBlockBoard[y * blockCount.x + x]);
+                }
+            }
+        }
+
+        return filledLine;
+    }
+
+    private IEnumerator EmptyFilledLines()
+    {
+        yield return null;
     }
 
     public void CommandAfterBlockPlacement(DragBlock dragBlock)
@@ -58,6 +113,11 @@ public class BlockPuzzleManager : MonoBehaviour
         if ( dragBlockCount == 0 )
         {
             SpawnDragBlocks();
+        }
+
+        if ( CheckFilledLine() != 0 )
+        {
+            yield return EmptyFilledLines();
         }
 
         yield return null;
