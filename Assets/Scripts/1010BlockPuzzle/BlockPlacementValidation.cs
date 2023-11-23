@@ -38,6 +38,8 @@ public class BlockPlacementValidation : MonoBehaviour
             theBlockBoard[index].GetFilled(dragBlock.Color);
         }
 
+        blockPuzzleManager.CommandAfterBlockPlacement(dragBlock);
+
         return true;
     }
 

@@ -156,6 +156,7 @@ MonoBehaviour:
   backgroundBlockCreator: {fileID: 1244795645}
   theBlockBoardCreator: {fileID: 819000013}
   blockPlacementValidation: {fileID: 782775900}
+  dragBlockSpawner: {fileID: 1351276343}
 --- !u!4 &782775899
 Transform:
   m_ObjectHideFlags: 0
