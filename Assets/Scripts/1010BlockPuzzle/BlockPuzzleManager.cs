@@ -51,7 +51,14 @@ public class BlockPuzzleManager : MonoBehaviour
 
     private IEnumerator AfterBlockPlacement(DragBlock dragBlock)
     {
+        Destroy(dragBlock);
 
+        dragBlockCount--;
+
+        if ( dragBlockCount == 0 )
+        {
+            SpawnDragBlocks();
+        }
 
         yield return null;
     }
