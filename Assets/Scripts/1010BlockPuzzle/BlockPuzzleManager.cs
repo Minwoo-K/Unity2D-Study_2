@@ -24,7 +24,7 @@ public class BlockPuzzleManager : MonoBehaviour
         theBlockBoardCreator.Initialized(blockCount, blockHalf);
         theBlockBoard = theBlockBoardCreator.CreateBlockBoard();
 
-        blockPlacementValidation.Initialized(theBlockBoard, blockCount, blockHalf);
+        blockPlacementValidation.Initialized(this, theBlockBoard, blockCount, blockHalf);
 
         theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
 

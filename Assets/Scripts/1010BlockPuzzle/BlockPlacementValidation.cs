@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class BlockPlacementValidation : MonoBehaviour
 {
+    private BlockPuzzleManager blockPuzzleManager;
     private BlockSlot[] theBlockBoard;
     private Vector2Int  blockCount;
     private Vector2     blockHalf;
 
-    public void Initialized(BlockSlot[] theBlockBoard, Vector2Int blockCount, Vector2 blockHalf)
+    public void Initialized(BlockPuzzleManager blockPuzzleManager, BlockSlot[] theBlockBoard, Vector2Int blockCount, Vector2 blockHalf)
     {
+        this.blockPuzzleManager = blockPuzzleManager;
         this.theBlockBoard = theBlockBoard;
         this.blockCount = blockCount;
         this.blockHalf = blockHalf;
