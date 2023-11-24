@@ -18,6 +18,7 @@ public class DragBlock : MonoBehaviour
 
     public Color Color { get; private set; }
     public Vector3[] ChildBlockPositions { get; private set; }
+    public Vector2Int BlockNumber { get => blockNumber; }
     
     public void Initialized(BlockPlacementValidation blockPlacementValidation, Vector3 position)
     {
