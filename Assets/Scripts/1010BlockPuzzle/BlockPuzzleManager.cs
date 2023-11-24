@@ -124,5 +124,59 @@ public class BlockPuzzleManager : MonoBehaviour
         }
 
         yield return new WaitForEndOfFrame();
+
+        if ( IsGameOver() )
+        {
+            Debug.Log("GameOver");
+        }
+    }
+    private bool IsPossibleToPlaceBlock(DragBlock dragBlock)
+    {
+        for (int y = 0; y < blockCount.y; y++)
+        {
+            for (int x = 0; x < blockCount.x; x++)
+            {
+                int count = 0;
+
+                Vector3 position = new Vector3(-blockCount.x / 2f + blockHalf.x + x, blockCount.y / 2f - blockHalf.y - y, 0);
+                position.x = dragBlock.BlockNumber.x % 2 == 0 ? position.x + 0.5f : position.x;
+                position.y = dragBlock.BlockNumber.y % 2 == 0 ? position.y - 0.5f : position.y;
+
+                for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+                {
+                    Vector3 blockPosition = position + dragBlock.ChildBlockPositions[i];
+
+                    if ( blockPlacementValidation.IsBlockOutsideMap(blockPosition) == false ) break;
+                    if ( blockPlacementValidation.IsBlockFilled(blockPosition) == false ) break;
+
+                    count++;
+                }
+
+                if ( count == dragBlock.ChildBlockPositions.Length ) return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool IsGameOver()
+    {
+        int dragBlockCount = 0;
+        for ( int i = 0; i < dragBlockSpawner.SpawningPoints.Length; i++ )
+        {
+            DragBlock dragBlock = dragBlockSpawner.SpawningPoints[i].GetComponentInChildren<DragBlock>();
+
+            if ( dragBlock != null )
+            {
+                dragBlockCount++;
+                if ( IsPossibleToPlaceBlock(dragBlock) )
+                {
+                    return false;
+                }
+            }
+        }
+
+        // Even if at least one DragBlock is left, at this point, it's not possible to palce a DragBlock, which is GameOver
+        return dragBlockCount != 0;
     }
 }
