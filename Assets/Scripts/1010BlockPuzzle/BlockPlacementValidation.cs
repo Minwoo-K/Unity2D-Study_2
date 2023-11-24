@@ -43,15 +43,7 @@ public class BlockPlacementValidation : MonoBehaviour
         return true;
     }
 
-    private int GetIndexFromPosition(Vector3 position)
-    {
-        float x = blockCount.x / 2f - blockHalf.x + position.x;
-        float y = blockCount.y / 2f - blockHalf.y - position.y;
-
-        return (int)(y * blockCount.x + x);
-    }
-
-    private bool IsBlockOutsideMap(Vector3 position)
+    public bool IsBlockOutsideMap(Vector3 position)
     {
         float maxValue =  blockCount.y/2f - blockHalf.y;
         float minValue = -blockCount.x/2f + blockHalf.x;
@@ -64,12 +56,20 @@ public class BlockPlacementValidation : MonoBehaviour
         return false;
     }
 
-    private bool IsBlockFilled(Vector3 position)
+    public bool IsBlockFilled(Vector3 position)
     {
         int index = GetIndexFromPosition(position);
 
         if ( theBlockBoard[index].IsFilled ) return true;
 
         return false;
+    }
+
+    private int GetIndexFromPosition(Vector3 position)
+    {
+        float x = blockCount.x / 2f - blockHalf.x + position.x;
+        float y = blockCount.y / 2f - blockHalf.y - position.y;
+
+        return (int)(y * blockCount.x + x);
     }
 }
