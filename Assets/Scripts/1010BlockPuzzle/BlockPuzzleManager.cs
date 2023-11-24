@@ -31,10 +31,6 @@ public class BlockPuzzleManager : MonoBehaviour
 
         blockPlacementValidation.Initialized(this, theBlockBoard, blockCount, blockHalf);
 
-        theBlockBoard = new BlockSlot[blockCount.x * blockCount.y];
-
-        theBlockBoardCreator.Initialized(blockCount, blockHalf);
-
         SpawnDragBlocks();
 
         blocksToEmpty = new List<BlockSlot>();
@@ -84,7 +80,7 @@ public class BlockPuzzleManager : MonoBehaviour
             {
                 filledLine++;
 
-                for (int y = 0; x < blockCount.y; y++)
+                for (int y = 0; y < blockCount.y; y++)
                 {
                     blocksToEmpty.Add(theBlockBoard[y * blockCount.x + x]);
                 }
@@ -96,7 +92,14 @@ public class BlockPuzzleManager : MonoBehaviour
 
     private IEnumerator EmptyFilledLines()
     {
-        yield return null;
+        foreach ( BlockSlot block in blocksToEmpty )
+        {
+            block.GetEmpty();
+
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        blocksToEmpty.Clear();
     }
 
     public void CommandAfterBlockPlacement(DragBlock dragBlock)
@@ -106,7 +109,7 @@ public class BlockPuzzleManager : MonoBehaviour
 
     private IEnumerator AfterBlockPlacement(DragBlock dragBlock)
     {
-        Destroy(dragBlock);
+        Destroy(dragBlock.gameObject);
 
         dragBlockCount--;
 
@@ -117,9 +120,9 @@ public class BlockPuzzleManager : MonoBehaviour
 
         if ( CheckFilledLine() != 0 )
         {
-            yield return EmptyFilledLines();
+            yield return StartCoroutine(EmptyFilledLines());
         }
 
-        yield return null;
+        yield return new WaitForEndOfFrame();
     }
 }
