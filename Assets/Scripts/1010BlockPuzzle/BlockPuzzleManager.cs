@@ -128,14 +128,14 @@ public class BlockPuzzleManager : MonoBehaviour
 
         dragBlockCount--;
 
-        if ( dragBlockCount == 0 )
-        {
-            yield return StartCoroutine(SpawnDragBlocks());
-        }
-
         if ( CheckFilledLine() != 0 )
         {
             yield return StartCoroutine(EmptyFilledLines());
+        }
+        
+        if ( dragBlockCount == 0 )
+        {
+            yield return StartCoroutine(SpawnDragBlocks());
         }
 
         yield return new WaitForEndOfFrame();
@@ -145,6 +145,7 @@ public class BlockPuzzleManager : MonoBehaviour
             Debug.Log("GameOver");
         }
     }
+
     private bool IsPossibleToPlaceBlock(DragBlock dragBlock)
     {
         for (int y = 0; y < blockCount.y; y++)
@@ -161,8 +162,8 @@ public class BlockPuzzleManager : MonoBehaviour
                 {
                     Vector3 blockPosition = position + dragBlock.ChildBlockPositions[i];
 
-                    if ( blockPlacementValidation.IsBlockOutsideMap(blockPosition) == false ) break;
-                    if ( blockPlacementValidation.IsBlockFilled(blockPosition) == false ) break;
+                    if ( blockPlacementValidation.IsBlockOutsideMap(blockPosition) ) break;
+                    if ( blockPlacementValidation.IsBlockFilled(blockPosition) ) break;
 
                     count++;
                 }
