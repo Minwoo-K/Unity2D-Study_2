@@ -12,10 +12,14 @@ public class BlockPuzzleManager : MonoBehaviour
     private BlockPlacementValidation blockPlacementValidation;
     [SerializeField]
     private DragBlockSpawner dragBlockSpawner;
+    [SerializeField]
+    private UI_Manager ui_Manager;
 
     private BlockSlot[] theBlockBoard;
     private int dragBlockCount;
     private List<BlockSlot> blocksToEmpty;
+    private int currentScore;
+    private int bestScore;
 
     private readonly Vector2Int blockCount = new Vector2Int(10, 10);
     private readonly Vector2 blockHalf = new Vector2(0.5f, 0.5f);
@@ -34,6 +38,10 @@ public class BlockPuzzleManager : MonoBehaviour
         StartCoroutine(SpawnDragBlocks());
 
         blocksToEmpty = new List<BlockSlot>();
+
+        currentScore = 0;
+        bestScore = PlayerPrefs.GetInt("BestScore");
+        ui_Manager.SetBestScore(bestScore);
     }
 
     private IEnumerator SpawnDragBlocks()
@@ -128,9 +136,14 @@ public class BlockPuzzleManager : MonoBehaviour
 
         dragBlockCount--;
 
-        if ( CheckFilledLine() != 0 )
+        int filledLines = CheckFilledLine();
+
+        if ( filledLines != 0 )
         {
             yield return StartCoroutine(EmptyFilledLines());
+
+            currentScore += filledLines == 1 ? 10 : 10 * (int)Mathf.Pow(2, filledLines);
+            ui_Manager.SetCurrentScore(currentScore);
         }
         
         if ( dragBlockCount == 0 )
@@ -143,6 +156,11 @@ public class BlockPuzzleManager : MonoBehaviour
         if ( IsGameOver() )
         {
             Debug.Log("GameOver");
+
+            bestScore = bestScore > currentScore ? bestScore : currentScore;
+            PlayerPrefs.SetInt("BestScore", bestScore);
+
+            ui_Manager.SetBestScore(bestScore);
         }
     }
 

@@ -324,6 +324,7 @@ MonoBehaviour:
   theBlockBoardCreator: {fileID: 819000013}
   blockPlacementValidation: {fileID: 782775900}
   dragBlockSpawner: {fileID: 1351276343}
+  ui_Manager: {fileID: 1319553423}
 --- !u!4 &782775899
 Transform:
   m_ObjectHideFlags: 0
@@ -469,6 +470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379ac8bb8d6b49f40887072b54d930f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text_CurrentScore: {fileID: 1664122994}
+  text_BestScore: {fileID: 1902018560}
 --- !u!4 &1319553424
 Transform:
   m_ObjectHideFlags: 0
@@ -873,7 +876,7 @@ GameObject:
   - component: {fileID: 1902018561}
   - component: {fileID: 1902018560}
   m_Layer: 5
-  m_Name: Text_HighestScore
+  m_Name: Text_BestScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
