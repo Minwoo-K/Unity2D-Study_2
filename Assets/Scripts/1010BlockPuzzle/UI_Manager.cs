@@ -27,4 +27,9 @@ public class UI_Manager : MonoBehaviour
         pausePanel.gameObject.SetActive(true);
         pausePanel.PauseOn();
     }
+
+    public void GameOver()
+    {
+
+    }
 }
