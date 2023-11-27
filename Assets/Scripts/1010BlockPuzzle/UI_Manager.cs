@@ -25,5 +25,6 @@ public class UI_Manager : MonoBehaviour
     public void OnPauseButton()
     {
         pausePanel.gameObject.SetActive(true);
+        pausePanel.PauseOn();
     }
 }

@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 142453271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1319553423}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: OnPauseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &142453271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,13 +267,14 @@ GameObject:
   - component: {fileID: 217499553}
   - component: {fileID: 217499554}
   - component: {fileID: 217499555}
+  - component: {fileID: 217499556}
   m_Layer: 5
   m_Name: Panel_MenuSection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &217499553
 RectTransform:
   m_ObjectHideFlags: 0
@@ -269,7 +282,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217499552}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -277,8 +290,8 @@ RectTransform:
   - {fileID: 604780144}
   - {fileID: 1357928897}
   - {fileID: 1746322353}
-  m_Father: {fileID: 1423901302}
-  m_RootOrder: 0
+  m_Father: {fileID: 630017687}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -316,6 +329,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &217499556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217499552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65decb9380b0658419a464df6df68e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseOverlayPanel: {fileID: 1423901301}
+  animator: {fileID: 217499555}
 --- !u!1 &235542719
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +893,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 604780146}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 217499556}
+        m_TargetAssemblyTypeName: PausePanel, Assembly-CSharp
+        m_MethodName: OnResumeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &604780146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1000,6 +1039,7 @@ RectTransform:
   - {fileID: 1902018559}
   - {fileID: 142453269}
   - {fileID: 1423901302}
+  - {fileID: 217499553}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1324,7 +1364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text_CurrentScore: {fileID: 1664122994}
   text_BestScore: {fileID: 1902018560}
-  pausePanel: {fileID: 1423901305}
+  pausePanel: {fileID: 217499556}
 --- !u!4 &1319553424
 Transform:
   m_ObjectHideFlags: 0
@@ -1522,7 +1562,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1357928899}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 217499556}
+        m_TargetAssemblyTypeName: PausePanel, Assembly-CSharp
+        m_MethodName: OnRestartButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1357928899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1685,14 +1737,13 @@ GameObject:
   - component: {fileID: 1423901302}
   - component: {fileID: 1423901304}
   - component: {fileID: 1423901303}
-  - component: {fileID: 1423901305}
   m_Layer: 5
   m_Name: Panel_PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1423901302
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1703,8 +1754,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 217499553}
+  m_Children: []
   m_Father: {fileID: 630017687}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1751,18 +1801,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423901301}
   m_CullTransparentMesh: 1
---- !u!114 &1423901305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423901301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65decb9380b0658419a464df6df68e1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1428218085
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,7 +2181,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1746322355}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 217499556}
+        m_TargetAssemblyTypeName: PausePanel, Assembly-CSharp
+        m_MethodName: OnExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1746322355
 MonoBehaviour:
   m_ObjectHideFlags: 0
