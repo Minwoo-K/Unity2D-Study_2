@@ -161,6 +161,7 @@ public class BlockPuzzleManager : MonoBehaviour
             PlayerPrefs.SetInt("BestScore", bestScore);
 
             ui_Manager.SetBestScore(bestScore);
+            ui_Manager.GameOver();
         }
     }
 
