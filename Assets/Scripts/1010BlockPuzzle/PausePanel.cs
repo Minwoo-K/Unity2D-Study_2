@@ -28,13 +28,13 @@ public class PausePanel : MonoBehaviour
     public void PauseOn()
     {
         pauseOverlayPanel.SetActive(true);
-        animator.SetBool("PanelOn", true);
+        animator.SetTrigger("PauseOn");
     }
 
     public void PauseOff()
     {
         pauseOverlayPanel.SetActive(false);
-        animator.SetBool("PanelOn", false);
+        animator.SetTrigger("PauseOff");
         gameObject.SetActive(false);
     }
 
