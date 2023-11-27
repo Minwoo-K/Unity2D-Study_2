@@ -42,8 +42,8 @@ public class UI_Manager : MonoBehaviour
 
     public void GameOver()
     {
-
         resultPanel.SetActive(true);
+        resultImage.sprite = screenshot.ScreenshotToSprite();
         text_ResultScore.text = text_CurrentScore.text;
     }
 }

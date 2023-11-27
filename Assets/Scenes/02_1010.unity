@@ -1526,7 +1526,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -2066,6 +2066,10 @@ MonoBehaviour:
   text_CurrentScore: {fileID: 1664122994}
   text_BestScore: {fileID: 1902018560}
   pausePanel: {fileID: 217499556}
+  resultPanel: {fileID: 2108625546}
+  text_ResultScore: {fileID: 892852003}
+  resultImage: {fileID: 976945577}
+  screenshot: {fileID: 782775901}
 --- !u!4 &1319553424
 Transform:
   m_ObjectHideFlags: 0
@@ -3352,7 +3356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2108625547
 RectTransform:
   m_ObjectHideFlags: 0
