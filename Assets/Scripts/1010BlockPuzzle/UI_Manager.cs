@@ -9,6 +9,8 @@ public class UI_Manager : MonoBehaviour
     private TextMeshProUGUI text_CurrentScore;
     [SerializeField]
     private TextMeshProUGUI text_BestScore;
+    [SerializeField]
+    private PausePanel pausePanel;
 
     public void SetCurrentScore(int score)
     {
@@ -20,4 +22,8 @@ public class UI_Manager : MonoBehaviour
         text_BestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
     }
 
+    public void OnPauseButton()
+    {
+        pausePanel.gameObject.SetActive(true);
+    }
 }
