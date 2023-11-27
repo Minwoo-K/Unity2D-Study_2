@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UI_Behaviours : MonoBehaviour
+public class MainUI : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI bestScoreText;

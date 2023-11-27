@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673fb5c95d9dd87449e2e598d96ec943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bestScoreText: {fileID: 1101193114}
 --- !u!1 &924513914
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +383,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 924513917}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 435975324}
+        m_TargetAssemblyTypeName: MainUI, Assembly-CSharp
+        m_MethodName: OnExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &924513917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,7 +550,7 @@ GameObject:
   - component: {fileID: 1101193115}
   - component: {fileID: 1101193114}
   m_Layer: 5
-  m_Name: Text_Text:Best
+  m_Name: Text_BestScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1011,7 +1024,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1588887386}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 435975324}
+        m_TargetAssemblyTypeName: MainUI, Assembly-CSharp
+        m_MethodName: OnStartButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1588887386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,7 +1153,7 @@ GameObject:
   - component: {fileID: 1931180959}
   - component: {fileID: 1931180958}
   m_Layer: 5
-  m_Name: Text_BestScore
+  m_Name: Text_Text:Best
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
