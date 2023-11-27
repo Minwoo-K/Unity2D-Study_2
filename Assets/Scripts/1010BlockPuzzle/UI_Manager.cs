@@ -19,4 +19,5 @@ public class UI_Manager : MonoBehaviour
     {
         text_BestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
     }
+
 }
