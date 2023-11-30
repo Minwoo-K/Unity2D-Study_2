@@ -9,6 +9,11 @@ public class NodeSpawner : MonoBehaviour
     [SerializeField]
     private RectTransform nodeParent;
 
+    private void Start()
+    {
+        SpawnNodes(new Vector2Int(4, 4));
+    }
+
     public List<Node> SpawnNodes(Vector2Int blockCount)
     {
         List<Node> nodeList = new List<Node>();
@@ -19,7 +24,7 @@ public class NodeSpawner : MonoBehaviour
             {
                 GameObject clone = Instantiate(nodePrefab, nodeParent);
 
-                clone.name = $"Node[{x}, {y}]";
+                clone.name = $"Node[ {x}, {y} ]";
 
                 Node node = clone.GetComponent<Node>();
 

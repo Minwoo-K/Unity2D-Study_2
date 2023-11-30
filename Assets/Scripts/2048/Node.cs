@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    private Block block;
-    private Vector3 localPosition;
+    public Block blockInfo;
+    public Vector3 localPosition;
 
     public Vector2Int Coordinate { get; private set; }
 
