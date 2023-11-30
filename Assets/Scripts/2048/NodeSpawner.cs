@@ -9,14 +9,27 @@ public class NodeSpawner : MonoBehaviour
     [SerializeField]
     private RectTransform nodeParent;
 
-    private void Awake()
+    public List<Node> SpawnNodes(Vector2Int blockCount)
     {
-        Vector2Int blockCount = new Vector2Int(4, 4);
+        List<Node> nodeList = new List<Node>();
 
-        for ( int i = 0; i < blockCount.x * blockCount.y; i++ )
+        for ( int y = 0; y < blockCount.y; y++ )
         {
-            GameObject clone = Instantiate(nodePrefab, nodeParent);
+            for ( int x = 0; x < blockCount.x; x++)
+            {
+                GameObject clone = Instantiate(nodePrefab, nodeParent);
+
+                clone.name = $"Node[{x}, {y}]";
+
+                Node node = clone.GetComponent<Node>();
+
+                node.Initialized(new Vector2Int(x, y));
+
+                nodeList.Add(node);
+            }
         }
+
+        return nodeList;
 
     }
 }
