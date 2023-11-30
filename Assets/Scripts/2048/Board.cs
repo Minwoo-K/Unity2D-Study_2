@@ -23,6 +23,7 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
+        // Need a version update to use this feature
         UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(nodeSpawner.GetComponent<RectTransform>());
 
         foreach ( Node node in NodeList )
