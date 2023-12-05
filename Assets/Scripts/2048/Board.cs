@@ -28,6 +28,7 @@ public class Board : MonoBehaviour
         foreach ( Node node in NodeList )
         {
             node.localPosition = node.GetComponent<RectTransform>().localPosition;
+            Debug.Log(node.localPosition);
         }
 
         SpawnBlockAtRandomNode();
