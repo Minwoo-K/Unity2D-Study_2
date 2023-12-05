@@ -11,7 +11,7 @@ public class NodeSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnNodes(new Vector2Int(4, 4));
+
     }
 
     public List<Node> SpawnNodes(Vector2Int blockCount)
