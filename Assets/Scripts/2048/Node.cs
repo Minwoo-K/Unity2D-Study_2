@@ -5,7 +5,7 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     public Block blockInfo;
-    public Vector3 localPosition;
+    public Vector2 localPosition;
 
     public Vector2Int Coordinate { get; private set; }
 

@@ -22,14 +22,16 @@ public class NodeSpawner : MonoBehaviour
         {
             for ( int x = 0; x < blockCount.x; x++)
             {
+                // Spawn a Node object of the Prefab
                 GameObject clone = Instantiate(nodePrefab, nodeParent);
-
+                // Rename the Node with a coordinate
                 clone.name = $"Node[ {x}, {y} ]";
-
+                // Fetch Node component
                 Node node = clone.GetComponent<Node>();
-
-                node.Initialized(new Vector2Int(x, y));
-
+                // Initialize the Node component
+                Vector2Int coor = new Vector2Int(x, y);
+                node.Initialized(coor);
+                // Add the Node component to the List
                 nodeList.Add(node);
             }
         }
