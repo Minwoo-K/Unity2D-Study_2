@@ -2,74 +2,77 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockPlacementValidation : MonoBehaviour
+namespace BlockPuzzle
 {
-    private BlockPuzzleManager blockPuzzleManager;
-    private BlockSlot[] theBlockBoard;
-    private Vector2Int  blockCount;
-    private Vector2     blockHalf;
-
-    public void Initialized(BlockPuzzleManager blockPuzzleManager, BlockSlot[] theBlockBoard, Vector2Int blockCount, Vector2 blockHalf)
+    public class BlockPlacementValidation : MonoBehaviour
     {
-        this.blockPuzzleManager = blockPuzzleManager;
-        this.theBlockBoard = theBlockBoard;
-        this.blockCount = blockCount;
-        this.blockHalf = blockHalf;
-    }
+        private BlockPuzzleManager blockPuzzleManager;
+        private BlockSlot[] theBlockBoard;
+        private Vector2Int blockCount;
+        private Vector2 blockHalf;
 
-    public bool TryPlaceBlock(DragBlock dragBlock)
-    {
-        // Check each child block with the boolean validations
-        for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+        public void Initialized(BlockPuzzleManager blockPuzzleManager, BlockSlot[] theBlockBoard, Vector2Int blockCount, Vector2 blockHalf)
         {
-            Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
-            if ( IsBlockOutsideMap(position) ) return false;
-
-            if ( IsBlockFilled(position) ) return false;
+            this.blockPuzzleManager = blockPuzzleManager;
+            this.theBlockBoard = theBlockBoard;
+            this.blockCount = blockCount;
+            this.blockHalf = blockHalf;
         }
 
-        // At this point, the validation has been passed
-        // Fill the spots with the dragBlock
-        for ( int i = 0; i < dragBlock.ChildBlockPositions.Length; i++ )
+        public bool TryPlaceBlock(DragBlock dragBlock)
         {
-            Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
-            int index = GetIndexFromPosition(position);
+            // Check each child block with the boolean validations
+            for (int i = 0; i < dragBlock.ChildBlockPositions.Length; i++)
+            {
+                Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
+                if (IsBlockOutsideMap(position)) return false;
 
-            theBlockBoard[index].GetFilled(dragBlock.Color);
-        }
+                if (IsBlockFilled(position)) return false;
+            }
 
-        blockPuzzleManager.CommandAfterBlockPlacement(dragBlock);
+            // At this point, the validation has been passed
+            // Fill the spots with the dragBlock
+            for (int i = 0; i < dragBlock.ChildBlockPositions.Length; i++)
+            {
+                Vector3 position = dragBlock.transform.position + dragBlock.ChildBlockPositions[i];
+                int index = GetIndexFromPosition(position);
 
-        return true;
-    }
+                theBlockBoard[index].GetFilled(dragBlock.Color);
+            }
 
-    public bool IsBlockOutsideMap(Vector3 position)
-    {
-        float maxValue =  blockCount.y/2f - blockHalf.y;
-        float minValue = -blockCount.x/2f + blockHalf.x;
+            blockPuzzleManager.CommandAfterBlockPlacement(dragBlock);
 
-        if ( position.x > maxValue || position.x < minValue || position.y > maxValue || position.y < minValue )
-        {
             return true;
         }
 
-        return false;
-    }
+        public bool IsBlockOutsideMap(Vector3 position)
+        {
+            float maxValue = blockCount.y / 2f - blockHalf.y;
+            float minValue = -blockCount.x / 2f + blockHalf.x;
 
-    public bool IsBlockFilled(Vector3 position)
-    {
-        int index = GetIndexFromPosition(position);
+            if (position.x > maxValue || position.x < minValue || position.y > maxValue || position.y < minValue)
+            {
+                return true;
+            }
 
-        if ( theBlockBoard[index].IsFilled ) return true;
+            return false;
+        }
 
-        return false;
-    }
+        public bool IsBlockFilled(Vector3 position)
+        {
+            int index = GetIndexFromPosition(position);
 
-    private int GetIndexFromPosition(Vector3 position)
-    {
-        float x = blockCount.x / 2f - blockHalf.x + position.x;
-        float y = blockCount.y / 2f - blockHalf.y - position.y;
+            if (theBlockBoard[index].IsFilled) return true;
 
-        return (int)(y * blockCount.x + x);
+            return false;
+        }
+
+        private int GetIndexFromPosition(Vector3 position)
+        {
+            float x = blockCount.x / 2f - blockHalf.x + position.x;
+            float y = blockCount.y / 2f - blockHalf.y - position.y;
+
+            return (int)(y * blockCount.x + x);
+        }
     }
 }

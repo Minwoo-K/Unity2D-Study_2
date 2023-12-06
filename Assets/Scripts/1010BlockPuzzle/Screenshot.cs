@@ -2,31 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Screenshot : MonoBehaviour
+namespace BlockPuzzle
 {
-    [SerializeField]
-    private Camera mainCamera;
-
-    public Sprite ScreenshotToSprite()
+    public class Screenshot : MonoBehaviour
     {
-        int width = Screen.width;
-        int height = Screen.height;
+        [SerializeField]
+        private Camera mainCamera;
 
-        RenderTexture renderTexture = new RenderTexture(width, height, 24);
-        mainCamera.targetTexture = renderTexture;
+        public Sprite ScreenshotToSprite()
+        {
+            int width = Screen.width;
+            int height = Screen.height;
 
-        mainCamera.Render();
-        RenderTexture.active = renderTexture;
+            RenderTexture renderTexture = new RenderTexture(width, height, 24);
+            mainCamera.targetTexture = renderTexture;
 
-        Texture2D screenshot = new Texture2D(width, width, TextureFormat.RGB24, false);
-        screenshot.ReadPixels(new Rect(0, (height - width) * 0.5f, width, width), 0, 0);
-        screenshot.Apply();
+            mainCamera.Render();
+            RenderTexture.active = renderTexture;
 
-        mainCamera.targetTexture = null;
+            Texture2D screenshot = new Texture2D(width, width, TextureFormat.RGB24, false);
+            screenshot.ReadPixels(new Rect(0, (height - width) * 0.5f, width, width), 0, 0);
+            screenshot.Apply();
 
-        Rect rect = new Rect(0, 0, screenshot.width, screenshot.height);
-        Sprite sprite = Sprite.Create(screenshot, rect, Vector2.one * 0.5f);
+            mainCamera.targetTexture = null;
 
-        return sprite;
+            Rect rect = new Rect(0, 0, screenshot.width, screenshot.height);
+            Sprite sprite = Sprite.Create(screenshot, rect, Vector2.one * 0.5f);
+
+            return sprite;
+        }
     }
 }

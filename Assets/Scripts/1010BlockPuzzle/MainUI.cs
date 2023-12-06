@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class MainUI : MonoBehaviour
+namespace BlockPuzzle
 {
-    [SerializeField]
-    private TextMeshProUGUI bestScoreText;
-
-    private void Awake()
+    public class MainUI : MonoBehaviour
     {
-        bestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
-    }
+        [SerializeField]
+        private TextMeshProUGUI bestScoreText;
 
-    public void OnStartButton()
-    {
-        SceneManager.LoadScene(1);
-    }
+        private void Awake()
+        {
+            bestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
+        }
 
-    public void OnExitButton()
-    {
-        #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-        #else
+        public void OnStartButton()
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        public void OnExitButton()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
                 Application.Quit();
-        #endif
+#endif
+        }
     }
 }

@@ -2,30 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragBlockSpawner : MonoBehaviour
+namespace BlockPuzzle
 {
-    [SerializeField]
-    private GameObject[] dragBlockPrefabs;
-    [SerializeField]
-    private Transform[] spawningPoints;
-    [SerializeField]
-    private BlockPlacementValidation blockPlacementValidation;
-
-    private Vector3 spawningGap = new Vector3(10, 0, 0);
-
-    public Transform[] SpawningPoints { get => spawningPoints; }
-
-    public void SpawnDragBlocks()
+    public class DragBlockSpawner : MonoBehaviour
     {
-        for ( int i = 0; i < spawningPoints.Length; i++ )
+        [SerializeField]
+        private GameObject[] dragBlockPrefabs;
+        [SerializeField]
+        private Transform[] spawningPoints;
+        [SerializeField]
+        private BlockPlacementValidation blockPlacementValidation;
+
+        private Vector3 spawningGap = new Vector3(10, 0, 0);
+
+        public Transform[] SpawningPoints { get => spawningPoints; }
+
+        public void SpawnDragBlocks()
         {
-            int random = Random.Range(0, dragBlockPrefabs.Length - 1);
+            for (int i = 0; i < spawningPoints.Length; i++)
+            {
+                int random = Random.Range(0, dragBlockPrefabs.Length - 1);
 
-            Vector3 spawningPosition = spawningPoints[i].position + spawningGap;
+                Vector3 spawningPosition = spawningPoints[i].position + spawningGap;
 
-            GameObject clone = Instantiate(dragBlockPrefabs[random], spawningPosition, Quaternion.identity, spawningPoints[i]);
+                GameObject clone = Instantiate(dragBlockPrefabs[random], spawningPosition, Quaternion.identity, spawningPoints[i]);
 
-            clone.GetComponent<DragBlock>().Initialized(blockPlacementValidation, clone.transform.parent.position);
+                clone.GetComponent<DragBlock>().Initialized(blockPlacementValidation, clone.transform.parent.position);
+            }
         }
     }
 }

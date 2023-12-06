@@ -3,39 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PausePanel : MonoBehaviour
+namespace BlockPuzzle
 {
-    [SerializeField]
-    private GameObject pauseOverlayPanel;
-    [SerializeField]
-    private Animator animator;
-
-    public void OnResumeButton()
+    public class PausePanel : MonoBehaviour
     {
-        PauseOff();
-    }
+        [SerializeField]
+        private GameObject pauseOverlayPanel;
+        [SerializeField]
+        private Animator animator;
 
-    public void OnRestartButton()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+        public void OnResumeButton()
+        {
+            PauseOff();
+        }
 
-    public void OnExitButton()
-    {
-        SceneManager.LoadScene(0);
-    }
+        public void OnRestartButton()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
-    public void PauseOn()
-    {
-        pauseOverlayPanel.SetActive(true);
-        animator.SetTrigger("PauseOn");
-    }
+        public void OnExitButton()
+        {
+            SceneManager.LoadScene(0);
+        }
 
-    public void PauseOff()
-    {
-        pauseOverlayPanel.SetActive(false);
-        animator.SetTrigger("PauseOff");
-        gameObject.SetActive(false);
-    }
+        public void PauseOn()
+        {
+            pauseOverlayPanel.SetActive(true);
+            animator.SetTrigger("PauseOn");
+        }
 
+        public void PauseOff()
+        {
+            pauseOverlayPanel.SetActive(false);
+            animator.SetTrigger("PauseOff");
+            gameObject.SetActive(false);
+        }
+    }
 }
