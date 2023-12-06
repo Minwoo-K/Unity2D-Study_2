@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Node : MonoBehaviour
+namespace Square
 {
-    public Block blockInfo;
-    public Vector2 localPosition;
-
-    public Vector2Int Coordinate { get; private set; }
-
-    public void Initialized(Vector2Int coordinate)
+    public class Node : MonoBehaviour
     {
-        Coordinate = coordinate;
+        public Block blockInfo;
+        public Vector2 localPosition;
+
+        public Vector2Int Coordinate { get; private set; }
+
+        public void Initialized(Vector2Int coordinate)
+        {
+            Coordinate = coordinate;
+        }
     }
 }

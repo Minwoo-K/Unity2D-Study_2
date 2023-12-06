@@ -2,72 +2,75 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+namespace Square
 {
-    [SerializeField]
-    private NodeSpawner nodeSpawner;
-    [SerializeField]
-    private GameObject blockPrefab;
-    [SerializeField]
-    private RectTransform blockParent;
-
-    public List<Node> NodeList { get; private set; }
-    public Vector2Int BlockCount { get; private set; }
-
-    private void Awake()
+    public class Board : MonoBehaviour
     {
-        BlockCount = new Vector2Int(4, 4);
+        [SerializeField]
+        private NodeSpawner nodeSpawner;
+        [SerializeField]
+        private GameObject blockPrefab;
+        [SerializeField]
+        private RectTransform blockParent;
 
-        NodeList = nodeSpawner.SpawnNodes(BlockCount);
-    }
+        public List<Node> NodeList { get; private set; }
+        public Vector2Int BlockCount { get; private set; }
 
-    private void Start()
-    {
-        UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(nodeSpawner.GetComponent<RectTransform>());
-
-        foreach ( Node node in NodeList )
+        private void Awake()
         {
-            node.localPosition = node.GetComponent<RectTransform>().localPosition;
+            BlockCount = new Vector2Int(4, 4);
+
+            NodeList = nodeSpawner.SpawnNodes(BlockCount);
         }
 
-        SpawnBlockAtRandomNode();
-        SpawnBlockAtRandomNode();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown("1")) SpawnBlockAtRandomNode();
-    }
-
-    private void SpawnBlockAtRandomNode()
-    {
-        List<Node> emptyNodes = NodeList.FindAll(node => node.blockInfo == null);
-
-        if ( emptyNodes.Count != 0 )
+        private void Start()
         {
-            int index = Random.Range(0, emptyNodes.Count);
-            Vector2Int coor = emptyNodes[index].Coordinate;
+            UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(nodeSpawner.GetComponent<RectTransform>());
 
-            SpawnBlock(coor.x, coor.y);
+            foreach (Node node in NodeList)
+            {
+                node.localPosition = node.GetComponent<RectTransform>().localPosition;
+            }
+
+            SpawnBlockAtRandomNode();
+            SpawnBlockAtRandomNode();
         }
-        else
+
+        private void Update()
         {
-            // Check whether or not Game Over
+            if (Input.GetKeyDown("1")) SpawnBlockAtRandomNode();
         }
-    }
 
-    private void SpawnBlock(int x, int y)
-    {
-        if ( NodeList[y * BlockCount.x + x].blockInfo != null ) return;
+        private void SpawnBlockAtRandomNode()
+        {
+            List<Node> emptyNodes = NodeList.FindAll(node => node.blockInfo == null);
 
-        GameObject clone = Instantiate(blockPrefab, blockParent);
+            if (emptyNodes.Count != 0)
+            {
+                int index = Random.Range(0, emptyNodes.Count);
+                Vector2Int coor = emptyNodes[index].Coordinate;
 
-        Block block = clone.GetComponent<Block>();
+                SpawnBlock(coor.x, coor.y);
+            }
+            else
+            {
+                // Check whether or not Game Over
+            }
+        }
 
-        Node node = NodeList[y * BlockCount.x + x];
+        private void SpawnBlock(int x, int y)
+        {
+            if (NodeList[y * BlockCount.x + x].blockInfo != null) return;
 
-        clone.GetComponent<RectTransform>().localPosition = node.localPosition;
+            GameObject clone = Instantiate(blockPrefab, blockParent);
 
-        node.blockInfo = block;
+            Block block = clone.GetComponent<Block>();
+
+            Node node = NodeList[y * BlockCount.x + x];
+
+            clone.GetComponent<RectTransform>().localPosition = node.localPosition;
+
+            node.blockInfo = block;
+        }
     }
 }
