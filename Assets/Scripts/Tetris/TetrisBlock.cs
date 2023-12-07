@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class TetrisBlock : MonoBehaviour
 {
-    private void Update()
+    public Color Color { get; private set; }
+
+    public void Initialized(Color color)
     {
-        if ( Input.GetKeyDown(KeyCode.R))
+        for ( int i = 0; i < transform.childCount; i++ )
         {
-            transform.Rotate(Vector3.forward, 90);
-            for (int i = 0; i < transform.childCount; i++ )
-            {
-                Debug.Log($"Local Position {i}:{transform.GetChild(i).localPosition}\n" +
-                    $"World Position {i}: {transform.GetChild(i).position}");
-            }
+            transform.GetChild(i).GetComponent<SpriteRenderer>().color = color;
         }
+        Color = color;
     }
 }

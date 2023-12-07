@@ -8,6 +8,8 @@ public class TetrisBlockSpawner : MonoBehaviour
     private GameObject[] tetrisBlockPrefabs;
     [SerializeField]
     private Transform[] spawningPoints;
+    [SerializeField]
+    private Color[] colourList;
 
     public Transform[] SpawningPoints { get => spawningPoints; }
 
@@ -25,5 +27,11 @@ public class TetrisBlockSpawner : MonoBehaviour
         int random = Random.Range(0, tetrisBlockPrefabs.Length);
         // Spawn a TetrisBlock with the random number
         GameObject clone = Instantiate(tetrisBlockPrefabs[random], spawningPoint);
+        // Pull the TetrisBlock component to initialize
+        TetrisBlock tetrisBlock = clone.GetComponent<TetrisBlock>();
+        // Get another random number for a random colour from the list
+        random = Random.Range(0, colourList.Length);
+        // Initialize TetrisBlock component
+        tetrisBlock.Initialized(colourList[random]);
     }
 }

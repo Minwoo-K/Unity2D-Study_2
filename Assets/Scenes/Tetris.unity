@@ -257,6 +257,13 @@ MonoBehaviour:
   - {fileID: 245323555}
   - {fileID: 28558324}
   - {fileID: 384550359}
+  colourList:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.52941173, b: 0, a: 1}
+  - {r: 1, g: 0.975, b: 0, a: 1}
+  - {r: 0.05906482, g: 0.7924528, b: 0, a: 1}
+  - {r: 0, g: 0.13428664, b: 1, a: 1}
+  - {r: 0.63589764, g: 0, b: 1, a: 1}
 --- !u!4 &942170818
 Transform:
   m_ObjectHideFlags: 0
@@ -404,4 +411,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 654908257832481292, guid: c356b9fbcad29b440ac437fbeed45ac5, type: 3}
-  orderInLayer: 1
+  orderInLayer: -1
