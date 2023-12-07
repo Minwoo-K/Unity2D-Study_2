@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28558323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 12, z: 0}
+  m_LocalPosition: {x: 7.25, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -178,7 +178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245323554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 17, z: 0}
+  m_LocalPosition: {x: 7.25, y: 17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -209,7 +209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384550358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 7, z: 0}
+  m_LocalPosition: {x: 7.25, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -245,8 +245,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a661c129b3fcc94d9e5146bb7c451c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tetrisBlockPrefabs: []
-  spawningPoints: []
+  tetrisBlockPrefabs:
+  - {fileID: 9188054496371512152, guid: de649eaf6d7cf6442b9330d288a2c732, type: 3}
+  - {fileID: 5274360968048683292, guid: 23077db19868f8743a966aae9b2e64ba, type: 3}
+  - {fileID: 809483299104533531, guid: 632b9ac081fbe554eaf9baf745e997a4, type: 3}
+  - {fileID: 246048625462812535, guid: 3ab2b75bb99df2d498b341b01d87b374, type: 3}
+  - {fileID: 1861499687762496095, guid: 18a17b6a2ce26394980c981051b413d5, type: 3}
+  - {fileID: 8664284324768110733, guid: 0edf1bdcec66fd9468cf1d23344d2b5e, type: 3}
+  - {fileID: 2025651474220944354, guid: cd06168b448782642b3de052a95615e8, type: 3}
+  spawningPoints:
+  - {fileID: 245323555}
+  - {fileID: 28558324}
+  - {fileID: 384550359}
 --- !u!4 &942170818
 Transform:
   m_ObjectHideFlags: 0
