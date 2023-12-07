@@ -15,6 +15,7 @@ public class TetrisBlockSpawner : MonoBehaviour
 
     private void Awake()
     {
+        // Spawn TetrisBlocks as many as the number of spawning points
         for ( int i = 0; i < spawningPoints.Length; i++ )
         {
             SpawnTetrisBlock(spawningPoints[i]);
