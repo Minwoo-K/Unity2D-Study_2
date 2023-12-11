@@ -712,6 +712,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d7f0cb000013b4989d8346e30d7557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockSpawningPoints:
+  - {fileID: 1152813720}
+  - {fileID: 863607938}
+  - {fileID: 1261644786}
+  - {fileID: 2029119910}
+  - {fileID: 113123538}
+  - {fileID: 1792166923}
+  - {fileID: 51776759}
+  - {fileID: 1194799308}
+  tetrisBlockSpawner: {fileID: 942170817}
 --- !u!1 &2029119909
 GameObject:
   m_ObjectHideFlags: 0
