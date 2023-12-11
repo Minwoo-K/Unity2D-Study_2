@@ -5,6 +5,8 @@ using UnityEngine;
 public class TetrisBlock : MonoBehaviour
 {
     private TetrisBlockController controller;
+    private float downFrame = 2f;
+    private float timer = 0;
 
     public Color Color { get; private set; }
 
@@ -53,6 +55,13 @@ public class TetrisBlock : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             transform.Rotate(Vector3.forward, -90);
+        }
+
+        timer += Time.deltaTime;
+        if ( timer >= downFrame )
+        {
+            transform.position += Vector3.down;
+            timer = 0;
         }
     }
 }

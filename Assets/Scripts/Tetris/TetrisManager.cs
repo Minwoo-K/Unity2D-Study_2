@@ -36,13 +36,16 @@ public class TetrisManager : MonoBehaviour
     {
         // Get a random number from the spawning points in the board
         int random = Random.Range(0, inBoardSpawningPoints.Length);
-        // 
+        // The first next block placed onto the random inBoardSpawningPoints in the board
         nextBlocks[0].transform.SetParent(inBoardSpawningPoints[random], false);
-        //
+        // Activate the Moving function on the TetrisBlock component
+        nextBlocks[0].OnBoard();
+        // Remove the first block from the List as used. This will rearrange the List on its own.
         nextBlocks.RemoveAt(0);
-        //
+        // Rearrange the blocks with their Parent Transforms
         nextBlocks[0].transform.SetParent(standBySpawningPoints[0], false);
         nextBlocks[1].transform.SetParent(standBySpawningPoints[1], false);
+        // Spawn the next block as one was used
         nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[2]));
     }
 }
