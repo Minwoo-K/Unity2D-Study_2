@@ -7,12 +7,7 @@ public class TetrisBlockSpawner : MonoBehaviour
     [SerializeField]
     private GameObject[] tetrisBlockPrefabs;
     [SerializeField]
-    private Transform[] spawningPoints;
-    [SerializeField]
     private Color[] colourList;
-
-    public Transform[] SpawningPoints { get => spawningPoints; }
-
 
     public TetrisBlock SpawnTetrisBlock(Transform spawningPoint)
     {

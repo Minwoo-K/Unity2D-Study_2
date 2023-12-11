@@ -6,11 +6,13 @@ public class TetrisManager : MonoBehaviour
 {
     [Header("Core Objects")]
     [SerializeField]
-    private Transform[] blockSpawningPoints;        // Random Spawning Points in the board
+    private Transform[] inBoardSpawningPoints; // Random Spawning Points in the board
+    [SerializeField]
+    private Transform[] standBySpawningPoints; // Random Spawning Points on the right panel
     [SerializeField]
     private TetrisBlockSpawner tetrisBlockSpawner;  // TetrisBlockSpawner Component
 
-    private List<TetrisBlock> nextBlocks;               // Next Blocks on the right panel
+    private List<TetrisBlock> nextBlocks;           // Next Blocks on the right panel
     private readonly int tetrisBlockCount = 3;      // Maximum Count of Next Blocks standing by
 
     // Game Start
@@ -19,21 +21,28 @@ public class TetrisManager : MonoBehaviour
         nextBlocks = new List<TetrisBlock>();
         for ( int i = 0; i < tetrisBlockCount; i++ )
         {
-            nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(tetrisBlockSpawner.SpawningPoints[i]));
+            nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[i]));
         }
 
-        PlaceNextTetrisBlock();
+    }
+
+    private void Update()
+    {
+        if ( Input.GetKeyDown(KeyCode.S))
+            PlaceNextTetrisBlock();
     }
 
     private void PlaceNextTetrisBlock()
     {
         // Get a random number from the spawning points in the board
-        int random = Random.Range(0, blockSpawningPoints.Length);
+        int random = Random.Range(0, inBoardSpawningPoints.Length);
         // 
-        nextBlocks[0].transform.SetParent(blockSpawningPoints[random], false);
+        nextBlocks[0].transform.SetParent(inBoardSpawningPoints[random], false);
         //
         nextBlocks.RemoveAt(0);
         //
-        
+        nextBlocks[0].transform.SetParent(standBySpawningPoints[0], false);
+        nextBlocks[1].transform.SetParent(standBySpawningPoints[1], false);
+        nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[2]));
     }
 }
