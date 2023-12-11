@@ -23,11 +23,11 @@ public class TetrisManager : MonoBehaviour
         {
             nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[i]));
         }
-
     }
 
     private void Update()
     {
+        // Debugging purpose
         if ( Input.GetKeyDown(KeyCode.S))
             PlaceNextTetrisBlock();
     }
@@ -38,14 +38,22 @@ public class TetrisManager : MonoBehaviour
         int random = Random.Range(0, inBoardSpawningPoints.Length);
         // The first next block placed onto the random inBoardSpawningPoints in the board
         nextBlocks[0].transform.SetParent(inBoardSpawningPoints[random], false);
-        // Activate the Moving function on the TetrisBlock component
-        nextBlocks[0].OnBoard();
-        // Remove the first block from the List as used. This will rearrange the List on its own.
+        // Call the function to see if the block has landed in the field
+        BlockLanded(nextBlocks[0]);
+        // Remove the TetrisBlock from the list
         nextBlocks.RemoveAt(0);
         // Rearrange the blocks with their Parent Transforms
         nextBlocks[0].transform.SetParent(standBySpawningPoints[0], false);
         nextBlocks[1].transform.SetParent(standBySpawningPoints[1], false);
         // Spawn the next block as one was used
         nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[2]));
+    }
+
+    private bool BlockLanded(TetrisBlock block)
+    {
+        // Activate the moving funtion within the board
+        block.OnBoard();
+
+        return true;
     }
 }
