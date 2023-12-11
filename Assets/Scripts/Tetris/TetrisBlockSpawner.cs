@@ -13,16 +13,8 @@ public class TetrisBlockSpawner : MonoBehaviour
 
     public Transform[] SpawningPoints { get => spawningPoints; }
 
-    private void Awake()
-    {
-        // Spawn TetrisBlocks as many as the number of spawning points
-        for ( int i = 0; i < spawningPoints.Length; i++ )
-        {
-            SpawnTetrisBlock(spawningPoints[i]);
-        }
-    }
 
-    public void SpawnTetrisBlock(Transform spawningPoint)
+    public TetrisBlock SpawnTetrisBlock(Transform spawningPoint)
     {
         // Generate a random number to randomly spawn a TetrisBlock
         int random = Random.Range(0, tetrisBlockPrefabs.Length);
@@ -34,5 +26,7 @@ public class TetrisBlockSpawner : MonoBehaviour
         random = Random.Range(0, colourList.Length);
         // Initialize TetrisBlock component
         tetrisBlock.Initialized(colourList[random]);
+        // Return the TetrisBlock component
+        return tetrisBlock;
     }
 }
