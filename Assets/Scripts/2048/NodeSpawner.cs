@@ -39,7 +39,6 @@ namespace Square
             }
 
             return nodeList;
-
         }
     }
 
