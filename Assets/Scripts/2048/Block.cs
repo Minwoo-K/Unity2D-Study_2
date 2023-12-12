@@ -28,9 +28,27 @@ namespace Square
             get => numeric;
         }
 
-        public void SetupFirstNumeric()
+        public void Initialized()
         {
             Numeric = Random.Range(0, 100) < 90 ? 2 : 4;
+
+            StartCoroutine(ScaleAnimation(Vector3.one * 0.5f, Vector3.one, 0.15f));
+        }
+
+        private IEnumerator ScaleAnimation(Vector3 start, Vector3 end, float time)
+        {
+            float current = 0;
+            float percent = 0;
+
+            while ( percent < 1 )
+            {
+                current += Time.deltaTime;
+                percent = current / time;
+
+                transform.localScale = Vector3.Lerp(start, end, percent);
+
+                yield return null;
+            }
         }
     }
 }

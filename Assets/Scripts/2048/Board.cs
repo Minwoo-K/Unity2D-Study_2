@@ -66,7 +66,7 @@ namespace Square
 
             Block block = clone.GetComponent<Block>();
 
-            block.SetupFirstNumeric();
+            block.Initialized();
 
             Node node = NodeList[y * BlockCount.x + x];
 
