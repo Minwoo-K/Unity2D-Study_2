@@ -29,6 +29,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5024156059486913305}
   m_Father: {fileID: 0}
@@ -89,6 +90,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac1d64378bbe414dbd1df9c13e251e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockColorList:
+  - {r: 0.15686275, g: 0.627451, b: 1, a: 1}
+  - {r: 0.15686275, g: 0.627451, b: 1, a: 1}
+  - {r: 1, g: 0.60784316, b: 0, a: 1}
+  - {r: 1, g: 0.60784316, b: 0, a: 1}
+  - {r: 0, g: 0.6901961, b: 0.3137255, a: 1}
+  - {r: 0, g: 0.6901961, b: 0.3137255, a: 1}
+  - {r: 1, g: 0.34901962, b: 0.34901962, a: 1}
+  - {r: 1, g: 0.34901962, b: 0.34901962, a: 1}
+  - {r: 0.4392157, g: 0.1882353, b: 0.627451, a: 1}
+  - {r: 0.4392157, g: 0.1882353, b: 0.627451, a: 1}
+  - {r: 0.7529412, g: 0, b: 0, a: 1}
+  - {r: 0.7529412, g: 0, b: 0, a: 1}
+  blockImage: {fileID: 5024156059008965796}
+  text_BlockNumeric: {fileID: 5024156059486913304}
 --- !u!1 &5024156059486913306
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +133,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5024156059008965797}
   m_RootOrder: 0

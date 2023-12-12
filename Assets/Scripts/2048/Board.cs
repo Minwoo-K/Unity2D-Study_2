@@ -66,6 +66,8 @@ namespace Square
 
             Block block = clone.GetComponent<Block>();
 
+            block.Initialized();
+
             Node node = NodeList[y * BlockCount.x + x];
 
             clone.GetComponent<RectTransform>().localPosition = node.localPosition;
