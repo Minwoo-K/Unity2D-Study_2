@@ -15,7 +15,8 @@ public class Block : MonoBehaviour
     private void Awake()
     {
         BlockCount = new Vector2Int(4, 4);
-        
+
+        NodeList = new List<Node>(); 
         NodeList = nodeSpawner.SpawnNodes(BlockCount);
     }
     private void Start()
