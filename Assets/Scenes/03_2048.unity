@@ -240,8 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d105bfc67f271429351b7a9be70241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeSpawner: {fileID: 2106977561}
-  blockPrefab: {fileID: 8328518896184091634, guid: 1626ea8452a540341a87c9bfa3dd8cd5, type: 3}
 --- !u!1 &1172459324
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +429,7 @@ GameObject:
   - component: {fileID: 2073497175}
   - component: {fileID: 2073497177}
   - component: {fileID: 2073497176}
+  - component: {fileID: 2073497178}
   m_Layer: 5
   m_Name: Board
   m_TagString: Untagged
@@ -498,6 +497,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073497174}
   m_CullTransparentMesh: 1
+--- !u!114 &2073497178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073497174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38714b701ef1fd54bbd60fbf504a7e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2106977558
 GameObject:
   m_ObjectHideFlags: 0
