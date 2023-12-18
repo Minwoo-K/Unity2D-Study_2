@@ -25,6 +25,10 @@ public class Board : MonoBehaviour
     {
         UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(nodeSpawner.GetComponent<RectTransform>());
 
+        foreach (Node node in NodeList)
+        {
+            node.localPosition = node.GetComponent<RectTransform>().localPosition;
+        }
     }
 
     private void Update()
