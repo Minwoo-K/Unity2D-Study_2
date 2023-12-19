@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -40,6 +41,20 @@ public class Block : MonoBehaviour
         Target = node;
     }
 
+    public void StartMoving()
+    {
+        float moveTime = 0.1f;
+        StartCoroutine(OnMoveTo(Target.localPosition, moveTime, EventAfterMove));
+    }
+
+    private void EventAfterMove()
+    {
+        if ( Target != null )
+        {
+            Target = null;
+        }
+    }
+
     private IEnumerator OnScaleTo(Vector3 start, Vector3 end, float time)
     {
         float current = 0;
@@ -54,5 +69,24 @@ public class Block : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    private IEnumerator OnMoveTo(Vector3 end, float moveTime, Action action)
+    {
+        Vector3 start = transform.localPosition; //GetComponent<RectTransform>().localPosition;
+        float current = 0;
+        float percent = 0;
+
+        while ( percent < 1 )
+        {
+            current += Time.deltaTime;
+            percent = current / moveTime;
+
+            transform.localPosition = Vector3.Lerp(start, end, percent);
+
+            yield return null;
+        }
+
+        if (action != null) action.Invoke();
     }
 }
