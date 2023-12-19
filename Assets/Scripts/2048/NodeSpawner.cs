@@ -9,7 +9,7 @@ public class NodeSpawner : MonoBehaviour
     [SerializeField]
     private RectTransform nodeParent;
 
-    public List<Node> SpawnNodes(Vector2Int blockCount)
+    public List<Node> SpawnNodes(Board board, Vector2Int blockCount)
     {
         List<Node> nodeList = new List<Node>();
 
@@ -23,7 +23,15 @@ public class NodeSpawner : MonoBehaviour
                 clone.name = $"Node[ {x}, {y} ]";
                 // Fetch Node component and initialize it
                 Node node = clone.GetComponent<Node>();
-                node.Initialized(new Vector2Int(x, y));
+                Vector2Int coordinate = new Vector2Int(x, y);
+
+                Vector2Int?[] neighbourNodes = new Vector2Int?[4];
+
+                Vector2Int up = coordinate + Vector2Int.down;
+                Vector2Int right = coordinate + Vector2Int.right;
+                Vector2Int down = coordinate + Vector2Int.up;
+                Vector2Int left = coordinate + Vector2Int.left;
+
                 // Add the Node to the List
                 nodeList.Add(node);
             }

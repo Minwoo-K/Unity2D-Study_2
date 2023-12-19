@@ -19,7 +19,7 @@ public class Board : MonoBehaviour
         BlockCount = new Vector2Int(4, 4);
 
         NodeList = new List<Node>();
-        NodeList = nodeSpawner.SpawnNodes(BlockCount);
+        NodeList = nodeSpawner.SpawnNodes(this, BlockCount);
     }
     private void Start()
     {
