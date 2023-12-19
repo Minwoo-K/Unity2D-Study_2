@@ -31,7 +31,7 @@ public class Block : MonoBehaviour
 
     public void Initialized()
     {
-        Numeric = Random.Range(0, 100) < 90 ? 2 : 4;
+        Numeric = UnityEngine.Random.Range(0, 100) < 90 ? 2 : 4;
 
         StartCoroutine(OnScaleTo(Vector3.zero, Vector3.one, 0.15f));
     }
