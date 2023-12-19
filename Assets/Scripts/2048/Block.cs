@@ -13,6 +13,8 @@ public class Block : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textBlockNumber;
 
+    public Node Target { get; private set; }
+    
     private int numeric;
 
     public int Numeric
@@ -31,6 +33,11 @@ public class Block : MonoBehaviour
         Numeric = Random.Range(0, 100) < 90 ? 2 : 4;
 
         StartCoroutine(OnScaleTo(Vector3.zero, Vector3.one, 0.15f));
+    }
+
+    public void MoveToNode(Node node)
+    {
+        Target = node;
     }
 
     private IEnumerator OnScaleTo(Vector3 start, Vector3 end, float time)
