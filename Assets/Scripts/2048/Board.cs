@@ -30,6 +30,7 @@ public class Board : MonoBehaviour
 
         blockList = new List<Block>();
     }
+
     private void Start()
     {
         UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(nodeSpawner.GetComponent<RectTransform>());
@@ -42,7 +43,8 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("1")) SpawnBlockAtRandomNode();
+        //if (Input.GetKeyDown("1")) SpawnBlockAtRandomNode();
+
     }
 
     private void SpawnBlockAtRandomNode()
@@ -74,5 +76,40 @@ public class Board : MonoBehaviour
 
         block.Initialized();
         node.blockInfo = block;
+
+        blockList.Add(block);
     }
+
+    private void Move(Node from, Node to)
+    {
+        from.blockInfo.MoveToNode(to);
+
+        if (from.blockInfo != null)
+        {
+            to.blockInfo = from.blockInfo;
+
+            from.blockInfo = null;
+        }
+    }
+
+    private void BlockProcess(Node node, Direction direction)
+    {
+        if (node.blockInfo == null) return;
+
+        Node neighbourNode = node.FindTargetInDirection(node, direction);
+        if (neighbourNode != null)
+        {
+            if (neighbourNode != null && neighbourNode.blockInfo == null)
+            {
+
+            }
+        }
+    }
+
+    private void ProcessAllBlocks(Direction direction)
+    {
+
+    }
+
+
 }
