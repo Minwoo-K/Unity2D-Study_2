@@ -101,7 +101,7 @@ public class Board : MonoBehaviour
         {
             if (neighbourNode != null && neighbourNode.blockInfo == null)
             {
-
+                Move(node, neighbourNode);
             }
         }
     }
