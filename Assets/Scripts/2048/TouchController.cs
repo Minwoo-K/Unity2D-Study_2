@@ -44,6 +44,7 @@ public class TouchController : MonoBehaviour
             }
         }
 
+        // After a moving towards the direction, reset the touch
         if (direction != Direction.None) isTouch = false;
 
         return direction;

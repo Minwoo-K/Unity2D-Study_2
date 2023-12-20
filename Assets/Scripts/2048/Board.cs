@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum State { Standby, Processing, End }
+
 public class Board : MonoBehaviour
 {
+    [SerializeField]
+    private TouchController touchController;
     [SerializeField]
     private NodeSpawner nodeSpawner;
     [SerializeField]
@@ -14,12 +18,17 @@ public class Board : MonoBehaviour
     public List<Node> NodeList { get; private set; }
     public Vector2Int BlockCount { get; private set; }
 
+    private List<Block> blockList;
+
+    private State state = State.Standby;
+
     private void Awake()
     {
         BlockCount = new Vector2Int(4, 4);
 
-        NodeList = new List<Node>();
         NodeList = nodeSpawner.SpawnNodes(this, BlockCount);
+
+        blockList = new List<Block>();
     }
     private void Start()
     {
