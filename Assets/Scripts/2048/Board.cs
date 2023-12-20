@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum State { Standby, Processing, End }
+
 public class Board : MonoBehaviour
 {
+    [SerializeField]
+    private TouchController touchController;
     [SerializeField]
     private NodeSpawner nodeSpawner;
     [SerializeField]
@@ -14,13 +18,19 @@ public class Board : MonoBehaviour
     public List<Node> NodeList { get; private set; }
     public Vector2Int BlockCount { get; private set; }
 
+    private List<Block> blockList;
+
+    private State state = State.Standby;
+
     private void Awake()
     {
         BlockCount = new Vector2Int(4, 4);
 
-        NodeList = new List<Node>();
         NodeList = nodeSpawner.SpawnNodes(this, BlockCount);
+
+        blockList = new List<Block>();
     }
+
     private void Start()
     {
         UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(nodeSpawner.GetComponent<RectTransform>());
@@ -33,7 +43,8 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("1")) SpawnBlockAtRandomNode();
+        //if (Input.GetKeyDown("1")) SpawnBlockAtRandomNode();
+
     }
 
     private void SpawnBlockAtRandomNode()
@@ -65,5 +76,93 @@ public class Board : MonoBehaviour
 
         block.Initialized();
         node.blockInfo = block;
+
+        blockList.Add(block);
+    }
+
+    private void Move(Node from, Node to)
+    {
+        from.blockInfo.MoveToNode(to);
+
+        if (from.blockInfo != null)
+        {
+            to.blockInfo = from.blockInfo;
+
+            from.blockInfo = null;
+        }
+    }
+
+    private void BlockProcess(Node node, Direction direction)
+    {
+        if (node.blockInfo == null) return;
+
+        Node neighbourNode = node.FindTargetInDirection(node, direction);
+        if (neighbourNode != null)
+        {
+            if (neighbourNode != null && neighbourNode.blockInfo == null)
+            {
+                Move(node, neighbourNode);
+            }
+        }
+    }
+
+    private void ProcessAllBlocks(Direction direction)
+    {
+        switch(direction)
+        {
+            case Direction.Up:
+                for ( int y = 1; y < BlockCount.y; y++ )
+                {
+                    for ( int x = 0; x < BlockCount.x; x++ )
+                    {
+                        BlockProcess(NodeList[y * BlockCount.x + x], direction);
+                    }
+                }
+                break;
+            case Direction.Right:
+                for (int y = 0; y < BlockCount.y; y++)
+                {
+                    for (int x = BlockCount.x-2; x >= 0 ; x--)
+                    {
+                        BlockProcess(NodeList[y * BlockCount.x + x], direction);
+                    }
+                }
+                break;
+            case Direction.Down:
+                for (int y = BlockCount.y - 2; y >= 0; y--)
+                {
+                    for (int x = 0; x < BlockCount.x; x++)
+                    {
+                        BlockProcess(NodeList[y * BlockCount.x + x], direction);
+                    }
+                }
+                break;
+            case Direction.Left:
+                for (int y = 0; y < BlockCount.y; y++)
+                {
+                    for (int x = 1; x < BlockCount.x; x++)
+                    {
+                        BlockProcess(NodeList[y * BlockCount.x + x], direction);
+                    }
+                }
+                break;
+        }
+
+        foreach ( Block block in blockList )
+        {
+            if ( block.Target != null )
+            {
+                state = State.Processing;
+                block.StartMoving();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Called after Blocks' movement and integration
+    /// </summary>
+    private void UpdateState()
+    {
+        
     }
 }
