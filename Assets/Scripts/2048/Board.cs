@@ -108,8 +108,61 @@ public class Board : MonoBehaviour
 
     private void ProcessAllBlocks(Direction direction)
     {
+        switch(direction)
+        {
+            case Direction.Up:
+                for ( int y = 1; y < BlockCount.y; y++ )
+                {
+                    for ( int x = 0; x < BlockCount.x; x++ )
+                    {
+                        BlockProcess(NodeList[y * BlockCount.x + x], direction);
+                    }
+                }
+                break;
+            case Direction.Right:
+                for (int y = 0; y < BlockCount.y; y++)
+                {
+                    for (int x = BlockCount.x-2; x >= 0 ; x--)
+                    {
+                        BlockProcess(NodeList[y * BlockCount.x + x], direction);
+                    }
+                }
+                break;
+            case Direction.Down:
+                for (int y = BlockCount.y - 2; y >= 0; y--)
+                {
+                    for (int x = 0; x < BlockCount.x; x++)
+                    {
+                        BlockProcess(NodeList[y * BlockCount.x + x], direction);
+                    }
+                }
+                break;
+            case Direction.Left:
+                for (int y = 0; y < BlockCount.y; y++)
+                {
+                    for (int x = 1; x < BlockCount.x; x++)
+                    {
+                        BlockProcess(NodeList[y * BlockCount.x + x], direction);
+                    }
+                }
+                break;
+        }
 
+        foreach ( Block block in blockList )
+        {
+            if ( block.Target != null )
+            {
+                state = State.Processing;
+                block.StartMoving();
+            }
+        }
     }
 
-
+    /// <summary>
+    /// Called after Blocks' movement and integration
+    /// </summary>
+    private void UpdateState()
+    {
+        
+    }
 }
