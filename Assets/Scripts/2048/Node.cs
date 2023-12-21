@@ -8,7 +8,7 @@ public class Node : MonoBehaviour
 {
     public Block blockInfo;         // Block Component that this Node is currently holding
     public Vector2 localPosition;   // Local Position, == GetComponent<RectTransform>().localPosition
-
+    public bool combined = false;   // Whether the Block has been combined
     public Vector2Int       Coordinate { get; private set; }        // This Node's Coordinate/Position in (x, y)
     public Vector2Int?[]    NeighbourNodes { get; private set; }    // Neighbour Nodes of THIS Node
 
@@ -28,9 +28,21 @@ public class Node : MonoBehaviour
             Vector2Int coordinate = NeighbourNodes[(int)direction].Value;
             Node neighbourNode = board.NodeList[coordinate.y * board.BlockCount.x + coordinate.x];
 
+            if ( neighbourNode != null && neighbourNode.combined )
+            {
+                return this;
+            }
+
             if ( neighbourNode.blockInfo != null && originalNode.blockInfo != null )
             {
-                return nextNode;
+                if ( neighbourNode.blockInfo.Numeric == originalNode.blockInfo.Numeric )
+                {
+                    return neighbourNode;
+                }
+                else
+                {
+                    return nextNode;
+                }
             }
 
             return neighbourNode.FindTargetInDirection(originalNode, direction, neighbourNode);
