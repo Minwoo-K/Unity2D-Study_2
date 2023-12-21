@@ -17,6 +17,7 @@ public class Block : MonoBehaviour
     public Node Target { get; private set; }
     
     private int numeric;
+    private bool combined = false;   // Whether block has been combined or not
 
     public int Numeric
     {
@@ -29,6 +30,8 @@ public class Block : MonoBehaviour
         get => numeric;
     }
 
+    public bool NeedDestroyed { get; private set; }
+
     public void Initialized()
     {
         Numeric = UnityEngine.Random.Range(0, 100) < 90 ? 2 : 4;
@@ -36,9 +39,16 @@ public class Block : MonoBehaviour
         StartCoroutine(OnScaleTo(Vector3.zero, Vector3.one, 0.15f));
     }
 
-    public void MoveToNode(Node node)
+    public void MoveToNode(Node to)
     {
-        Target = node;
+        Target = to;
+        combined = false;
+    }
+
+    public void CombinedToNode(Node to)
+    {
+        Target = to;
+        combined = true;
     }
 
     public void StartMoving()
@@ -51,8 +61,38 @@ public class Block : MonoBehaviour
     {
         if ( Target != null )
         {
-            Target = null;
+            if ( combined )
+            {
+                Target.blockInfo.Numeric *= 2;
+                Target.blockInfo.StartPunchScale(Vector3.one * 0.25f, 0.15f, EventAfterPunchScale);
+            }
+            else
+            {
+                Target = null;
+            }
         }
+    }
+
+    private void EventAfterPunchScale()
+    {
+        Target = null;
+        NeedDestroyed = true;
+    }
+
+    public void StartPunchScale(Vector3 punch, float time, Action action)
+    {
+        StartCoroutine(OnPunchScale(punch, time, action));
+    }
+
+    private IEnumerator OnPunchScale(Vector3 punch, float time, Action action)
+    {
+        Vector3 current = Vector3.one;
+
+        yield return StartCoroutine(OnScaleTo(current, current + punch, time * 0.5f));
+        // the 2 coroutine comes into 1 second
+        yield return StartCoroutine(OnScaleTo(current + punch, current, time * 0.5f));
+
+        if (action != null) action.Invoke();
     }
 
     private IEnumerator OnScaleTo(Vector3 start, Vector3 end, float time)
