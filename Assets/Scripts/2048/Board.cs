@@ -39,12 +39,27 @@ public class Board : MonoBehaviour
         {
             node.localPosition = node.GetComponent<RectTransform>().localPosition;
         }
+
+        SpawnBlockAtRandomNode();
+        SpawnBlockAtRandomNode();
     }
 
     private void Update()
     {
-        //if (Input.GetKeyDown("1")) SpawnBlockAtRandomNode();
+        // Only during Standby state, accept the input(touch)
+        if ( state == State.Standby )
+        {
+            Direction direction = touchController.UpdateTouch();
 
+            if ( direction != Direction.None )
+            {
+                ProcessAllBlocks(direction);
+            }
+        }
+        else
+        {
+            UpdateState();
+        }
     }
 
     private void SpawnBlockAtRandomNode()
@@ -163,6 +178,29 @@ public class Board : MonoBehaviour
     /// </summary>
     private void UpdateState()
     {
-        
+        // If all targets are null, that means all of them have been processed
+        // which is true. If any of them is in process, false
+        bool allTargetNull = true;
+
+        foreach ( Block block in blockList )
+        {
+            if ( block.Target != null )
+            {
+                allTargetNull = false;
+                break;
+            }
+        }
+
+        if ( allTargetNull == true && state == State.Processing )
+        {
+            state = State.End;
+        }
+
+        if ( state == State.End )
+        {
+            state = State.Standby;
+
+            SpawnBlockAtRandomNode();
+        }
     }
 }

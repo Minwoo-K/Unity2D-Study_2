@@ -20,7 +20,7 @@ public class NodeSpawner : MonoBehaviour
                 // Spawn a Node of the prefab
                 GameObject clone = Instantiate(nodePrefab, nodeParent);
                 // Name the Node object as its coordinate
-                clone.name = $"Node[ {x}, {y} ]";
+                clone.name = $"Node[ {y}, {x} ]";
                 // Fetch Node component and initialize it
                 Node node = clone.GetComponent<Node>();
                 // Get the Coordinate value 

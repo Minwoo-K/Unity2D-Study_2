@@ -33,7 +33,7 @@ public class Node : MonoBehaviour
                 return nextNode;
             }
 
-            return FindTargetInDirection(originalNode, direction, neighbourNode);
+            return neighbourNode.FindTargetInDirection(originalNode, direction, neighbourNode);
         }
 
         return nextNode;
