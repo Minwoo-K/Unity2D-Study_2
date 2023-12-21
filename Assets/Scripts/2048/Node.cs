@@ -21,30 +21,34 @@ public class Node : MonoBehaviour
         Coordinate = coordinate;
     }
 
+    // Finding a Target node for a block to land on
     public Node FindTargetInDirection(Node originalNode, Direction direction, Node nextNode=null)
     {
         if ( NeighbourNodes[(int)direction].HasValue ) // If a Node exists(even if a null Node)
         {
+            // Get the neighbourNode's info
             Vector2Int coordinate = NeighbourNodes[(int)direction].Value;
             Node neighbourNode = board.NodeList[coordinate.y * board.BlockCount.x + coordinate.x];
 
+            // If the neighbourNode has been combined, the Node cannot be a target but, this node right before the combined node.
             if ( neighbourNode != null && neighbourNode.combined )
             {
                 return this;
             }
-
+            // If the both Nodes this and the neighbour have Block Info(Number),
             if ( neighbourNode.blockInfo != null && originalNode.blockInfo != null )
             {
                 if ( neighbourNode.blockInfo.Numeric == originalNode.blockInfo.Numeric )
-                {
+                { // If the same number, they should be combined. The later Node(NeighbourNode) should become the target
                     return neighbourNode;
                 }
                 else
-                {
+                { // Otherwise, keep looking further
                     return nextNode;
                 }
             }
 
+            // Call the NEIGHBOURNODE's this recursive function
             return neighbourNode.FindTargetInDirection(originalNode, direction, neighbourNode);
         }
 
