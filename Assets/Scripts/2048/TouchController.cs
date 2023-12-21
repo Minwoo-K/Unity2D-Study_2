@@ -30,6 +30,7 @@ public class TouchController : MonoBehaviour
             float diffX = touchEnd.x - touchStart.x;
             float diffY = touchEnd.y - touchStart.y;
 
+            if (Mathf.Abs(diffX) < dragDistance && Mathf.Abs(diffY) < dragDistance) return Direction.None;
             // Decide whether horizontal or vertical touch based on distance
             if ( Mathf.Abs(diffX) > Mathf.Abs(diffY) )
             { // Horizontal
