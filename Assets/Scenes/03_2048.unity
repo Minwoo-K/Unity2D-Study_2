@@ -197,8 +197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6606342bde4c431418b3037b5be6032e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotPrefab: {fileID: 0}
-  slotRectParent: {fileID: 0}
+  slotPrefab: {fileID: 3787359112831233967, guid: 4450c6cca4c0eba46a9e485c344c7daf, type: 3}
+  slotRectParent: {fileID: 290768556}
 --- !u!1 &535842869
 GameObject:
   m_ObjectHideFlags: 0
