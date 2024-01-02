@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 290768557}
   - component: {fileID: 290768558}
   m_Layer: 5
-  m_Name: Slots_Rect
+  m_Name: 'Board: Slots_Parent'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 749956043}
   - component: {fileID: 749956045}
   m_Layer: 5
-  m_Name: Board
+  m_Name: BoardManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -460,10 +460,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6357ad5d730806a42929e4c66b0be213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockPrefab: {fileID: 9003864062772152573, guid: 1626ea8452a540341a87c9bfa3dd8cd5, type: 3}
   boardSpawner: {fileID: 290768558}
-  theBoard: []
-  boardCount: {x: 0, y: 0}
+  blockPrefab: {fileID: 9003864062772152573, guid: 1626ea8452a540341a87c9bfa3dd8cd5, type: 3}
+  blockRectParent: {fileID: 1396753668}
 --- !u!1 &1376999266
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1396753668}
   m_Layer: 5
-  m_Name: Blocks_Rect
+  m_Name: Blocks_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
