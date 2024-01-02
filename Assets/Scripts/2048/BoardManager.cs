@@ -29,6 +29,23 @@ public class BoardManager : MonoBehaviour
         {
             slot.localPosition = slot.GetComponent<RectTransform>().localPosition;
         }
+
+        SpawnBlockAtRandomSlot();
+        SpawnBlockAtRandomSlot();
+    }
+
+    private void SpawnBlockAtRandomSlot()
+    {
+        // Fetch all Slots with no Block attached
+        List<Slot> emptySlots = theBoard.FindAll( slot => slot.placedBlock == null );
+        
+        if (emptySlots.Count != 0)
+        {
+            // Randomize a number within the range of empty Slots
+            int random = Random.Range(0, emptySlots.Count);
+            // Spawn a Block on the Slot
+            SpawnBlock(emptySlots[random].Coordinate);
+        }
     }
 
     private void SpawnBlock(Vector2Int coordinate)
