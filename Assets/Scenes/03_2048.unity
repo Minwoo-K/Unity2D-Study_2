@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 290768556}
   - component: {fileID: 290768557}
+  - component: {fileID: 290768558}
   m_Layer: 5
   m_Name: Nodes_Rect
   m_TagString: Untagged
@@ -184,6 +185,20 @@ MonoBehaviour:
   m_Spacing: {x: 25, y: 25}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &290768558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290768555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6606342bde4c431418b3037b5be6032e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodePrefab: {fileID: 3787359112831233967, guid: 4450c6cca4c0eba46a9e485c344c7daf, type: 3}
+  nodeRectParent: {fileID: 290768556}
 --- !u!1 &535842869
 GameObject:
   m_ObjectHideFlags: 0
