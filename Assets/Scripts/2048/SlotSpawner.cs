@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeSpawner : MonoBehaviour
+public class SlotSpawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject nodePrefab;
+    private GameObject slotPrefab;
     [SerializeField]
-    private RectTransform nodeRectParent;
+    private RectTransform slotRectParent;
 
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class NodeSpawner : MonoBehaviour
         {
             for ( int x = 0; x < boardCount.x; x ++ )
             {
-                GameObject clone = Instantiate(nodePrefab, nodeRectParent);
+                GameObject clone = Instantiate(slotPrefab, slotRectParent);
             }
         }
     }
