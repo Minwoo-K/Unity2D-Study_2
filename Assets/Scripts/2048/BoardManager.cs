@@ -34,6 +34,12 @@ public class BoardManager : MonoBehaviour
         SpawnBlockAtRandomSlot();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown("1"))
+            SpawnBlockAtRandomSlot();
+    }
+
     private void SpawnBlockAtRandomSlot()
     {
         // Fetch all Slots with no Block attached
