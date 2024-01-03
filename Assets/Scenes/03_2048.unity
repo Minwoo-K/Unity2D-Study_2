@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: 3787359112831233967, guid: 4450c6cca4c0eba46a9e485c344c7daf, type: 3}
   slotRectParent: {fileID: 290768556}
+  boardManager: {fileID: 749956045}
 --- !u!1 &535842869
 GameObject:
   m_ObjectHideFlags: 0
