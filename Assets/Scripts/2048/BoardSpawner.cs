@@ -8,6 +8,8 @@ public class BoardSpawner : MonoBehaviour
     private GameObject slotPrefab;
     [SerializeField]
     private RectTransform slotRectParent;
+    [SerializeField]
+    private BoardManager boardManager;
 
     public List<Slot> SpawnBoard(Vector2Int boardCount)
     {
@@ -25,7 +27,15 @@ public class BoardSpawner : MonoBehaviour
 
                 Slot slot = clone.GetComponent<Slot>();
 
-                slot.Initialized(new Vector2Int(x, y));
+                Vector2Int coordinate = new Vector2Int(x, y);
+
+                Vector2Int?[] neighbourSlots = new Vector2Int?[4];
+                neighbourSlots[0] = coordinate + new Vector2Int(0, -1); // or Vector2Int.down
+                neighbourSlots[1] = coordinate + Vector2Int.right;
+                neighbourSlots[2] = coordinate + new Vector2Int(0, 1);  // or Vector2Int.up
+                neighbourSlots[3] = coordinate + Vector2Int.left;
+
+                slot.Initialized(boardManager, neighbourSlots, coordinate);
 
                 board.Add(slot);
             }
