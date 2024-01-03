@@ -64,6 +64,8 @@ public class BoardManager : MonoBehaviour
         GameObject  clone = Instantiate(blockPrefab, blockRectParent);
         Block       block = clone.GetComponent<Block>();
         Slot        slot  = theBoard[index];
+        // Initialize the Block Component
+        block.Initialized();
         // Update the position
         block.GetComponent<RectTransform>().localPosition = slot.localPosition;
         // Attach the Block component to the corresponding Slot object

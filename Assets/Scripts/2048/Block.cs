@@ -19,11 +19,20 @@ public class Block : MonoBehaviour
     {
         set
         {
-            Numeric = value;
+            numeric = value;
 
-            blockNumeric_text.text = Numeric.ToString();
+            blockNumeric_text.text = numeric.ToString();
+
+            block_image.color = blockColorList[(int)Mathf.Log(value, 2) - 1];
         }
 
         get => numeric;
+    }
+
+    public void Initialized()
+    {
+        int random = Random.Range(1, 100);
+
+        Numeric = random > 90 ? 4 : 2;
     }
 }
