@@ -78,13 +78,14 @@ public class Block : MonoBehaviour
     {
         float current = 0;
         float percent = 0;
+        Vector3 start = transform.localPosition;
 
         while ( percent < 1 )
         {
             current += Time.deltaTime;
             percent = current / time;
 
-            transform.position = Vector3.Lerp(transform.position, end, percent);
+            transform.localPosition = Vector3.Lerp(start, end, percent);
 
             yield return null;
         }
