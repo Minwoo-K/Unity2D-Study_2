@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum State { StandBy = 0, Processing, Complete }
+
 public class BoardManager : MonoBehaviour
 {
     [SerializeField]
@@ -14,11 +16,16 @@ public class BoardManager : MonoBehaviour
     public List<Slot> theBoard { get; private set; }
     public Vector2Int BoardCount { get; private set; }
 
+    private List<Block> existingBlocks;
+    private State state = State.StandBy;
+
     private void Awake()
     {
         BoardCount = new Vector2Int(4, 4);
 
         theBoard = boardSpawner.SpawnBoard(BoardCount);
+
+        existingBlocks = new List<Block>();
     }
 
     private void Start()
@@ -70,5 +77,7 @@ public class BoardManager : MonoBehaviour
         block.GetComponent<RectTransform>().localPosition = slot.localPosition;
         // Attach the Block component to the corresponding Slot object
         slot.placedBlock = block;
+        // Add the spawned block to the List
+        existingBlocks.Add(block);
     }
 }

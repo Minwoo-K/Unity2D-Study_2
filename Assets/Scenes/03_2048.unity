@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 749956044}
   - component: {fileID: 749956043}
   - component: {fileID: 749956045}
+  - component: {fileID: 749956046}
   m_Layer: 5
   m_Name: BoardManager
   m_TagString: Untagged
@@ -464,6 +465,19 @@ MonoBehaviour:
   boardSpawner: {fileID: 290768558}
   blockPrefab: {fileID: 9003864062772152573, guid: 1626ea8452a540341a87c9bfa3dd8cd5, type: 3}
   blockRectParent: {fileID: 1396753668}
+--- !u!114 &749956046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749956041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f666479f9a8ad44936ab3a80f98e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragDistance: 25
 --- !u!1 &1376999266
 GameObject:
   m_ObjectHideFlags: 0
