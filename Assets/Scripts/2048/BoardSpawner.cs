@@ -51,7 +51,7 @@ public class BoardSpawner : MonoBehaviour
 
     private bool IsValid(Vector2Int boardCount, Vector2Int slotCoordinate)
     {
-        if ( slotCoordinate.x > boardCount.x || slotCoordinate.y > boardCount.y ||
+        if ( slotCoordinate.x >= boardCount.x || slotCoordinate.y >= boardCount.y ||
              slotCoordinate.x < 0 || slotCoordinate.y < 0 )
         {
             return false;

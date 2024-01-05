@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Direction { None = -1, Up = 0, Right, Down, Left }
+
 public class Slot : MonoBehaviour
 {
     public Block placedBlock;
@@ -17,5 +19,24 @@ public class Slot : MonoBehaviour
         this.boardManager = boardManager;
         NeighbourSlots = neighbourSlots;
         Coordinate = coordinate;
+    }
+
+    public Slot FindSlotToLand(Slot originalSlot, Direction direction, Slot nextSlot=null)
+    {
+        // If a Slot exists on the direction
+        if ( NeighbourSlots[(int)direction].HasValue )
+        {
+            Vector2Int coordinate = NeighbourSlots[(int)direction].Value;
+            Slot neighbourSlot = boardManager.theBoard[coordinate.y * boardManager.BoardCount.x + coordinate.x];
+
+            if ( neighbourSlot.placedBlock != null && originalSlot != null )
+            {
+                return nextSlot;
+            }
+
+            return neighbourSlot.FindSlotToLand(originalSlot, direction, nextSlot);
+        }
+
+        return nextSlot;
     }
 }
