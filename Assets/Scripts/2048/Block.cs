@@ -43,11 +43,13 @@ public class Block : MonoBehaviour
 
     public void StartMovingToTarget()
     {
-        if ( Target != null )
-        {
-            float moveTime = 0.1f;
-            StartCoroutine(MoveAnimation(Target.localPosition, moveTime, EventAfterMoving));
-        }
+        float moveTime = 0.1f;
+        StartCoroutine(MoveAnimation(Target.localPosition, moveTime, EventAfterMoving));
+    }
+
+    public void MoveTo(Slot to)
+    {
+        Target = to;
     }
 
     private void EventAfterMoving()
