@@ -50,6 +50,11 @@ public class Block : MonoBehaviour
         }
     }
 
+    public void MoveTo(Slot to)
+    {
+        Target = to;
+    }
+
     private void EventAfterMoving()
     {
         if ( Target != null )

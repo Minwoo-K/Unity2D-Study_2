@@ -12,10 +12,12 @@ public class BoardManager : MonoBehaviour
     private GameObject blockPrefab;
     [SerializeField]
     private RectTransform blockRectParent;
+    
 
     public List<Slot> theBoard { get; private set; }
     public Vector2Int BoardCount { get; private set; }
 
+    private TouchController touchController;
     private List<Block> existingBlocks;
     private State state = State.StandBy;
 
@@ -24,6 +26,8 @@ public class BoardManager : MonoBehaviour
         BoardCount = new Vector2Int(4, 4);
 
         theBoard = boardSpawner.SpawnBoard(BoardCount);
+
+        touchController = GetComponent<TouchController>();
 
         existingBlocks = new List<Block>();
     }
@@ -80,4 +84,89 @@ public class BoardManager : MonoBehaviour
         // Add the spawned block to the List
         existingBlocks.Add(block);
     }
+
+    private void AllBlockProcess()
+    {
+        if ( state == State.StandBy )
+        {
+            Direction direction = touchController.UpdateTouch();
+
+            if ( direction != Direction.None )
+            {
+                state = State.Processing;
+                
+                if ( direction == Direction.Up )
+                {
+                    for (int y = 1; y < BoardCount.y; y++)
+                    {
+                        for (int x = 0; x < BoardCount.x; x++)
+                        {
+                            BlockProcess(theBoard[y * BoardCount.x + x], direction);
+                        }
+                    }
+                }
+                else if ( direction == Direction.Right )
+                {
+                    for ( int y = 0; y < BoardCount.y; y++ )
+                    {
+                        for ( int x = (BoardCount.x-2); x >= 0; x-- )
+                        {
+                            BlockProcess(theBoard[y * BoardCount.x + x], direction);
+                        }
+                    }
+                }
+                else if ( direction == Direction.Down )
+                {
+                    for ( int y = (BoardCount.y-2); y >= 0; y-- )
+                    {
+                        for ( int x = 0; x < BoardCount.x; x++ )
+                        {
+                            BlockProcess(theBoard[y * BoardCount.x + x], direction);
+                        }
+                    }
+                }
+                else // direction == Direction.Left
+                {
+                    for ( int y = 0; y < BoardCount.y; y++ )
+                    {
+                        for ( int x = 1; x < BoardCount.x; x++ )
+                        {
+                            BlockProcess(theBoard[y * BoardCount.x + x], direction);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // To figure out whether the Slot can integrate with another Slot afar in the direction
+    //                    OR the Slot just moves to the end of the direction
+    private void BlockProcess(Slot slot, Direction direction)
+    {
+        // If the Slot carries no block, do nothing
+        if (slot.placedBlock == null) return;
+
+        Slot neighbourSlot = slot.FindSlotToLand(slot, direction);
+        if ( neighbourSlot.placedBlock == null && neighbourSlot != null )
+        {
+            Move(slot, neighbourSlot);
+        }
+    }
+
+    // To move a non-empty Slot to another an empty slot 
+    private void Move(Slot from, Slot to)
+    {
+        // Move it to the given Slot
+        from.placedBlock.MoveTo(to);
+
+        // If it carries a block,
+        if ( from.placedBlock != null )
+        {
+            // Move the block to the given Slot as well
+            to.placedBlock = from.placedBlock;
+            // Empty the from Slot
+            from.placedBlock = null;
+        }
+    }
+
 }
