@@ -47,8 +47,21 @@ public class BoardManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("1"))
-            SpawnBlockAtRandomSlot();
+        // if (Input.GetKeyDown("1")) SpawnBlockAtRandomSlot();
+
+        if ( state == State.StandBy )
+        {
+            Direction direction = touchController.UpdateTouch();
+
+            if ( direction != Direction.None )
+            {
+                AllBlocksProcess(direction);
+            }
+        }
+        else
+        {
+            WatchState();
+        }
     }
 
     private void SpawnBlockAtRandomSlot()
@@ -85,12 +98,10 @@ public class BoardManager : MonoBehaviour
         existingBlocks.Add(block);
     }
 
-    private void AllBlockProcess()
+    private void AllBlocksProcess(Direction direction)
     {
         if ( state == State.StandBy )
         {
-            Direction direction = touchController.UpdateTouch();
-
             if ( direction != Direction.None )
             {
                 state = State.Processing;
@@ -152,9 +163,16 @@ public class BoardManager : MonoBehaviour
         if (slot.placedBlock == null) return;
 
         Slot neighbourSlot = slot.FindSlotToLand(slot, direction);
-        if ( neighbourSlot.placedBlock == null && neighbourSlot != null )
+        if (neighbourSlot != null)
         {
-            Move(slot, neighbourSlot);
+            if (neighbourSlot != null && neighbourSlot.placedBlock == null)
+            {
+                Move(slot, neighbourSlot);
+            }
+        }
+        else // Intergration of 2 Slots with blocks
+        {
+
         }
     }
 
@@ -174,4 +192,30 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    // To track the State to execute different situation
+    private void WatchState()
+    {
+        bool allTargetsNull = false;
+
+        foreach ( Block block in existingBlocks )
+        {
+            if ( block.Target != null )
+            {
+                allTargetsNull = false;
+                break;
+            }
+        }
+
+        if ( allTargetsNull && state == State.Processing )
+        {
+            state = State.Complete;
+        }
+
+        if ( state == State.Complete )
+        {
+            state = State.StandBy;
+
+            SpawnBlockAtRandomSlot();
+        }
+    }
 }
