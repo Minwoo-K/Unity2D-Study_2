@@ -135,6 +135,11 @@ public class BoardManager : MonoBehaviour
                         }
                     }
                 }
+
+                foreach ( Block block in existingBlocks )
+                {
+                    block.StartMovingToTarget();
+                }
             }
         }
     }
