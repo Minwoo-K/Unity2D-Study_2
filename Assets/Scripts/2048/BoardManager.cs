@@ -104,8 +104,6 @@ public class BoardManager : MonoBehaviour
         {
             if ( direction != Direction.None )
             {
-                state = State.Processing;
-                
                 if ( direction == Direction.Up )
                 {
                     for (int y = 1; y < BoardCount.y; y++)
@@ -151,6 +149,7 @@ public class BoardManager : MonoBehaviour
                 {
                     if ( block.Target != null )
                     {
+                        state = State.Processing;
                         block.StartMovingToTarget();
                     }
                 }

@@ -32,6 +32,7 @@ public class TouchController : MonoBehaviour
 
             if (Mathf.Abs(deltaX) < dragDistance && Mathf.Abs(deltaY) < dragDistance)
             {
+                Debug.Log("Value less than dragDistance!");
                 return Direction.None;
             }
 
@@ -46,10 +47,11 @@ public class TouchController : MonoBehaviour
             }
             else
             {
+                Debug.Log("Touch Ended");
                 if (Mathf.Sign(deltaY) >= 0) direction = Direction.Down;
                 else direction = Direction.Up;
             }
-
+            
         }
 
         if (direction != Direction.None) isTouched = false;

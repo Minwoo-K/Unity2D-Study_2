@@ -29,12 +29,12 @@ public class Slot : MonoBehaviour
             Vector2Int coordinate = NeighbourSlots[(int)direction].Value;
             Slot neighbourSlot = boardManager.theBoard[coordinate.y * boardManager.BoardCount.x + coordinate.x];
 
-            if ( neighbourSlot.placedBlock != null && originalSlot != null )
+            if ( neighbourSlot.placedBlock != null && originalSlot.placedBlock != null )
             {
                 return nextSlot;
             }
 
-            return neighbourSlot.FindSlotToLand(originalSlot, direction, nextSlot);
+            return neighbourSlot.FindSlotToLand(originalSlot, direction, neighbourSlot);
         }
 
         return nextSlot;
