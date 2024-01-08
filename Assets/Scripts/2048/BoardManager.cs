@@ -197,7 +197,7 @@ public class BoardManager : MonoBehaviour
     // To track the State to execute different situation
     private void WatchState()
     {
-        bool allTargetsNull = false;
+        bool allTargetsNull = true;
 
         foreach ( Block block in existingBlocks )
         {
