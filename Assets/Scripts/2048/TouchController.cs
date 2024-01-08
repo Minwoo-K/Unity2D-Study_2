@@ -16,19 +16,17 @@ public class TouchController : MonoBehaviour
 
         if ( Input.GetMouseButtonDown(0) )
         {
-            Debug.Log("Touch Started");
             touchStart = Input.mousePosition;
             isTouched = true;
         }
         else if ( Input.GetMouseButton(0) )
         {
-            Debug.Log("Touching");
             if (isTouched == false) return Direction.None;
 
             touchEnd = Input.mousePosition;
 
-            float deltaX = touchStart.x - touchEnd.x;
-            float deltaY = touchStart.y - touchEnd.y;
+            float deltaX = touchEnd.x - touchStart.x;
+            float deltaY = touchEnd.y - touchStart.y;
 
             if (Mathf.Abs(deltaX) < dragDistance && Mathf.Abs(deltaY) < dragDistance)
             {
@@ -37,7 +35,6 @@ public class TouchController : MonoBehaviour
 
             if (Mathf.Abs(deltaX) > Mathf.Abs(deltaY))
             {
-                Debug.Log("Touch Ended");
                 // float f = Mathf.Sign(x);
                 // if f == 0 or 1, x is a positive number
                 // if f == -1, x is a negative number
@@ -46,10 +43,10 @@ public class TouchController : MonoBehaviour
             }
             else
             {
-                if (Mathf.Sign(deltaY) >= 0) direction = Direction.Down;
-                else direction = Direction.Up;
+                if (Mathf.Sign(deltaY) >= 0) direction = Direction.Up;
+                else direction = Direction.Down;
             }
-
+            
         }
 
         if (direction != Direction.None) isTouched = false;
