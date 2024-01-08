@@ -149,7 +149,10 @@ public class BoardManager : MonoBehaviour
 
                 foreach ( Block block in existingBlocks )
                 {
-                    block.StartMovingToTarget();
+                    if ( block.Target != null )
+                    {
+                        block.StartMovingToTarget();
+                    }
                 }
             }
         }
