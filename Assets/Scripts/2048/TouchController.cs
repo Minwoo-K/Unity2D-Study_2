@@ -27,8 +27,8 @@ public class TouchController : MonoBehaviour
 
             touchEnd = Input.mousePosition;
 
-            float deltaX = touchStart.x - touchEnd.x;
-            float deltaY = touchStart.y - touchEnd.y;
+            float deltaX = touchEnd.x - touchStart.x;
+            float deltaY = touchEnd.y - touchStart.y;
 
             if (Mathf.Abs(deltaX) < dragDistance && Mathf.Abs(deltaY) < dragDistance)
             {
@@ -48,8 +48,8 @@ public class TouchController : MonoBehaviour
             else
             {
                 Debug.Log("Touch Ended");
-                if (Mathf.Sign(deltaY) >= 0) direction = Direction.Down;
-                else direction = Direction.Up;
+                if (Mathf.Sign(deltaY) >= 0) direction = Direction.Up;
+                else direction = Direction.Down;
             }
             
         }
