@@ -23,6 +23,7 @@ public class BoardManager : MonoBehaviour
     private List<Block> existingBlocks;
     private State state = State.StandBy;
     private int currentScore;
+    private int highestScore;
 
     private void Awake()
     {
@@ -36,6 +37,9 @@ public class BoardManager : MonoBehaviour
 
         currentScore = 0;
         ui_Controller.UpdateScore(currentScore);
+
+        highestScore = PlayerPrefs.GetInt("HighestScore");
+        ui_Controller.UpdateHighestScore(highestScore);
     }
 
     private void Start()
@@ -305,5 +309,10 @@ public class BoardManager : MonoBehaviour
     private void GameOver()
     {
         Debug.Log("GameOver");
+
+        if ( currentScore > highestScore )
+        {
+            PlayerPrefs.SetInt("HighestScore", currentScore);
+        }
     }
 }
