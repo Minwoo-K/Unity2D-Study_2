@@ -9,6 +9,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private BoardSpawner boardSpawner;
     [SerializeField]
+    private UI_Controller ui_Controller;
+    [SerializeField]
     private GameObject blockPrefab;
     [SerializeField]
     private RectTransform blockRectParent;
@@ -20,6 +22,8 @@ public class BoardManager : MonoBehaviour
     private TouchController touchController;
     private List<Block> existingBlocks;
     private State state = State.StandBy;
+    private int currentScore;
+    private int highestScore;
 
     private void Awake()
     {
@@ -30,6 +34,12 @@ public class BoardManager : MonoBehaviour
         touchController = GetComponent<TouchController>();
 
         existingBlocks = new List<Block>();
+
+        currentScore = 0;
+        ui_Controller.UpdateScore(currentScore);
+
+        highestScore = PlayerPrefs.GetInt("HighestScore");
+        ui_Controller.UpdateHighestScore(highestScore);
     }
 
     private void Start()
@@ -75,6 +85,13 @@ public class BoardManager : MonoBehaviour
             int random = Random.Range(0, emptySlots.Count);
             // Spawn a Block on the Slot
             SpawnBlock(emptySlots[random].Coordinate);
+        }
+        else
+        {
+            if ( IsGameOver() )
+            {
+                GameOver();
+            }
         }
     }
 
@@ -154,6 +171,11 @@ public class BoardManager : MonoBehaviour
                     }
                 }
             }
+
+            if ( IsGameOver() )
+            {
+                GameOver();
+            }
         }
     }
 
@@ -167,14 +189,17 @@ public class BoardManager : MonoBehaviour
         Slot neighbourSlot = slot.FindSlotToLand(slot, direction);
         if (neighbourSlot != null)
         {
-            if (neighbourSlot != null && neighbourSlot.placedBlock == null)
+            if ( slot.placedBlock != null && neighbourSlot.placedBlock != null )
+            {
+                if ( slot.placedBlock.Numeric == neighbourSlot.placedBlock.Numeric )
+                {
+                    Combine(slot, neighbourSlot);
+                }
+            }
+            else if (neighbourSlot != null && neighbourSlot.placedBlock == null)
             {
                 Move(slot, neighbourSlot);
             }
-        }
-        else // Intergration of 2 Slots with blocks
-        {
-
         }
     }
 
@@ -194,6 +219,15 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    private void Combine(Slot from, Slot to)
+    {
+        from.placedBlock.CombineToNode(to);
+
+        from.placedBlock = null;
+
+        to.combined = true;
+    }
+
     // To track the State to execute different situation
     private void WatchState()
     {
@@ -210,6 +244,23 @@ public class BoardManager : MonoBehaviour
 
         if ( allTargetsNull && state == State.Processing )
         {
+            List<Block> BlocksToDestroy = new List<Block>();
+            foreach ( Block block in existingBlocks)
+            {
+                if ( block.NeedToDestroy ) // || block.Numeric == 2048)
+                {
+                    BlocksToDestroy.Add(block);
+                }
+            }
+
+            BlocksToDestroy.ForEach(x =>
+            {
+                currentScore += x.Numeric;
+                existingBlocks.Remove(x);
+                Destroy(x.gameObject);
+            });
+
+
             state = State.Complete;
         }
 
@@ -218,6 +269,50 @@ public class BoardManager : MonoBehaviour
             state = State.StandBy;
 
             SpawnBlockAtRandomSlot();
+
+            theBoard.ForEach(x => x.combined = false);
+
+            ui_Controller.UpdateScore(currentScore);
+        }
+    }
+
+    private bool IsGameOver()
+    {
+        foreach ( Slot slot in theBoard )
+        {
+            // if no Block placed yet, Game is still on
+            if ( slot.placedBlock == null ) return false;
+
+            for ( int i = 0; i < slot.NeighbourSlots.Length; i++ )
+            {
+                // If outside of the Board, skip it
+                if ( slot.NeighbourSlots[i] == null ) continue;
+                // Fetch the neighbour Slot's info
+                Vector2Int coor = slot.NeighbourSlots[i].Value;
+                Slot neighbourSlot = theBoard[coor.y * BoardCount.x + coor.x];
+                // If the both Slots have a block,
+                if ( slot.placedBlock != null && neighbourSlot.placedBlock != null )
+                {
+                    // AND the Numbers are the same,
+                    if ( slot.placedBlock.Numeric == neighbourSlot.placedBlock.Numeric )
+                    {
+                        // Game is still on
+                        return false;
+                    }
+                }
+            }
+        }
+        // If none of the above validation passes, It's GameOver
+        return true;
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("GameOver");
+
+        if ( currentScore > highestScore )
+        {
+            PlayerPrefs.SetInt("HighestScore", currentScore);
         }
     }
 }

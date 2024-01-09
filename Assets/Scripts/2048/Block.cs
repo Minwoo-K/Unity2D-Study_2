@@ -14,8 +14,7 @@ public class Block : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI blockNumeric_text;
 
-    public Slot Target { get; private set; }
-
+    private bool combined = false;
     private int numeric;
 
     public int Numeric
@@ -31,6 +30,8 @@ public class Block : MonoBehaviour
 
         get => numeric;
     }
+    public Slot Target { get; private set; }
+    public bool NeedToDestroy { get; private set; } = false;
 
     public void Initialized()
     {
@@ -50,14 +51,40 @@ public class Block : MonoBehaviour
     public void MoveTo(Slot to)
     {
         Target = to;
+        combined = false;
+    }
+
+    public void CombineToNode(Slot to)
+    {
+        Target = to;
+        combined = true;
+    }
+
+    public void StartPunchScale(Vector3 punch, float time, Action action=null)
+    {
+        StartCoroutine(PunchScale(punch, time, action));
     }
 
     private void EventAfterMoving()
     {
-        if ( Target != null )
+        if ( combined )
+        {
+            Target.placedBlock.Numeric *= 2;
+
+            Target.placedBlock.StartPunchScale(Vector3.one * 0.25f, 0.15f, EventAfterPunchScale);
+
+            gameObject.SetActive(false);
+        }
+        else
         {
             Target = null;
         }
+    }
+
+    private void EventAfterPunchScale()
+    {
+        Target = null;
+        NeedToDestroy = true;
     }
 
     private IEnumerator ScaleAnimation(Vector3 start, Vector3 end, float time)
@@ -96,5 +123,16 @@ public class Block : MonoBehaviour
         {
             actionAfter.Invoke();
         }
+    }
+
+    private IEnumerator PunchScale(Vector3 punch, float time, Action action)
+    {
+        Vector3 current = Vector3.one;
+
+        yield return StartCoroutine(ScaleAnimation(current, current + punch, time*0.5f));
+
+        yield return StartCoroutine(ScaleAnimation(current + punch, current, time*0.5f));
+
+        if (action != null) action.Invoke();
     }
 }
