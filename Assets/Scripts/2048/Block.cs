@@ -14,8 +14,7 @@ public class Block : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI blockNumeric_text;
 
-    public bool combined = false;
-    
+    private bool combined = false;
     private int numeric;
 
     public int Numeric

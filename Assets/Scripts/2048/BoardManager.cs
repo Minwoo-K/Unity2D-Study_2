@@ -247,7 +247,7 @@ public class BoardManager : MonoBehaviour
 
             SpawnBlockAtRandomSlot();
 
-            existingBlocks.ForEach(x => x.combined = false);
+            theBoard.ForEach(x => x.combined = false);
         }
     }
 }
