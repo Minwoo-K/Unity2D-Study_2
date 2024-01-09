@@ -76,6 +76,13 @@ public class BoardManager : MonoBehaviour
             // Spawn a Block on the Slot
             SpawnBlock(emptySlots[random].Coordinate);
         }
+        else
+        {
+            if ( IsGameOver() )
+            {
+                GameOver();
+            }
+        }
     }
 
     private void SpawnBlock(Vector2Int coordinate)
@@ -153,6 +160,11 @@ public class BoardManager : MonoBehaviour
                         block.StartMovingToTarget();
                     }
                 }
+            }
+
+            if ( IsGameOver() )
+            {
+                GameOver();
             }
         }
     }
@@ -249,5 +261,40 @@ public class BoardManager : MonoBehaviour
 
             theBoard.ForEach(x => x.combined = false);
         }
+    }
+
+    private bool IsGameOver()
+    {
+        foreach ( Slot slot in theBoard )
+        {
+            // if no Block placed yet, Game is still on
+            if ( slot.placedBlock == null ) return false;
+
+            for ( int i = 0; i < slot.NeighbourSlots.Length; i++ )
+            {
+                // If outside of the Board, skip it
+                if ( slot.NeighbourSlots[i] == null ) continue;
+                // Fetch the neighbour Slot's info
+                Vector2Int coor = slot.NeighbourSlots[i].Value;
+                Slot neighbourSlot = theBoard[coor.y * BoardCount.x + coor.x];
+                // If the both Slots have a block,
+                if ( slot.placedBlock != null && neighbourSlot.placedBlock != null )
+                {
+                    // AND the Numbers are the same,
+                    if ( slot.placedBlock.Numeric == neighbourSlot.placedBlock.Numeric )
+                    {
+                        // Game is still on
+                        return false;
+                    }
+                }
+            }
+        }
+        // If none of the above validation passes, It's GameOver
+        return true;
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("GameOver");
     }
 }
