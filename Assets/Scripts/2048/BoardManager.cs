@@ -167,14 +167,17 @@ public class BoardManager : MonoBehaviour
         Slot neighbourSlot = slot.FindSlotToLand(slot, direction);
         if (neighbourSlot != null)
         {
-            if (neighbourSlot != null && neighbourSlot.placedBlock == null)
+            if ( slot.placedBlock != null && neighbourSlot.placedBlock != null )
+            {
+                if ( slot.placedBlock.Numeric == neighbourSlot.placedBlock.Numeric )
+                {
+                    Combine(slot, neighbourSlot);
+                }
+            }
+            else if (neighbourSlot != null && neighbourSlot.placedBlock == null)
             {
                 Move(slot, neighbourSlot);
             }
-        }
-        else // Intergration of 2 Slots with blocks
-        {
-
         }
     }
 
@@ -194,6 +197,15 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    private void Combine(Slot from, Slot to)
+    {
+        from.placedBlock.CombineToNode(to);
+
+        from.placedBlock = null;
+
+        to.combined = true;
+    }
+
     // To track the State to execute different situation
     private void WatchState()
     {
@@ -210,6 +222,22 @@ public class BoardManager : MonoBehaviour
 
         if ( allTargetsNull && state == State.Processing )
         {
+            List<Block> BlocksToDestroy = new List<Block>();
+            foreach ( Block block in existingBlocks)
+            {
+                if ( block.NeedToDestroy ) // || block.Numeric == 2048)
+                {
+                    BlocksToDestroy.Add(block);
+                }
+            }
+
+            BlocksToDestroy.ForEach(x =>
+            {
+                existingBlocks.Remove(x);
+                Destroy(x.gameObject);
+            });
+
+
             state = State.Complete;
         }
 
@@ -218,6 +246,8 @@ public class BoardManager : MonoBehaviour
             state = State.StandBy;
 
             SpawnBlockAtRandomSlot();
+
+            existingBlocks.ForEach(x => x.combined = false);
         }
     }
 }

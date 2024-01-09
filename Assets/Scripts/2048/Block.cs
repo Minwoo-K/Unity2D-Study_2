@@ -14,7 +14,8 @@ public class Block : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI blockNumeric_text;
 
-    private bool combined = false;
+    public bool combined = false;
+    
     private int numeric;
 
     public int Numeric
@@ -30,7 +31,6 @@ public class Block : MonoBehaviour
 
         get => numeric;
     }
-
     public Slot Target { get; private set; }
     public bool NeedToDestroy { get; private set; } = false;
 
