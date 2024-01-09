@@ -9,6 +9,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private BoardSpawner boardSpawner;
     [SerializeField]
+    private UI_Controller ui_Controller;
+    [SerializeField]
     private GameObject blockPrefab;
     [SerializeField]
     private RectTransform blockRectParent;
@@ -20,6 +22,7 @@ public class BoardManager : MonoBehaviour
     private TouchController touchController;
     private List<Block> existingBlocks;
     private State state = State.StandBy;
+    private int currentScore;
 
     private void Awake()
     {
@@ -30,6 +33,9 @@ public class BoardManager : MonoBehaviour
         touchController = GetComponent<TouchController>();
 
         existingBlocks = new List<Block>();
+
+        currentScore = 0;
+        ui_Controller.UpdateScore(currentScore);
     }
 
     private void Start()
@@ -245,6 +251,7 @@ public class BoardManager : MonoBehaviour
 
             BlocksToDestroy.ForEach(x =>
             {
+                currentScore += x.Numeric;
                 existingBlocks.Remove(x);
                 Destroy(x.gameObject);
             });
@@ -260,6 +267,8 @@ public class BoardManager : MonoBehaviour
             SpawnBlockAtRandomSlot();
 
             theBoard.ForEach(x => x.combined = false);
+
+            ui_Controller.UpdateScore(currentScore);
         }
     }
 
