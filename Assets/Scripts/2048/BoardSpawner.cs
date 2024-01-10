@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoardSpawner : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class BoardSpawner : MonoBehaviour
     private RectTransform slotRectParent;
     [SerializeField]
     private BoardManager boardManager;
+    [SerializeField]
+    private GridLayoutGroup gridLayoutGroup;
 
-    public List<Slot> SpawnBoard(Vector2Int boardCount)
+    public List<Slot> SpawnBoard(Vector2Int boardCount, float blockSize)
     {
-        //Vector2Int boardCount = new Vector2Int(4, 4);
+        gridLayoutGroup.cellSize = new Vector2(blockSize, blockSize);
 
         List<Slot> board = new List<Slot>();
 

@@ -15,7 +15,6 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private RectTransform blockRectParent;
     
-
     public List<Slot> theBoard { get; private set; }
     public Vector2Int BoardCount { get; private set; }
 
@@ -24,12 +23,18 @@ public class BoardManager : MonoBehaviour
     private State state = State.StandBy;
     private int currentScore;
     private int highestScore;
+    private float blockSize;
 
     private void Awake()
     {
-        BoardCount = new Vector2Int(4, 4);
+        //BoardCount = new Vector2Int(4, 4);
+        int boardSize = PlayerPrefs.GetInt("BoardCount");
+        BoardCount = new Vector2Int(boardSize, boardSize);
 
-        theBoard = boardSpawner.SpawnBoard(BoardCount);
+        // Block's Size = (Size of the Board - Padding - (Spacing x BoardCount.x)) / Board's Count; 
+        blockSize = (1080 - 85 - (25 * BoardCount.x)) / BoardCount.y;
+
+        theBoard = boardSpawner.SpawnBoard(BoardCount, blockSize);
 
         touchController = GetComponent<TouchController>();
 
@@ -107,6 +112,8 @@ public class BoardManager : MonoBehaviour
         Slot        slot  = theBoard[index];
         // Initialize the Block Component
         block.Initialized();
+        // Set up the Block's size according to the BoardCount
+        block.GetComponent<RectTransform>().sizeDelta = new Vector2(blockSize, blockSize);
         // Update the position
         block.GetComponent<RectTransform>().localPosition = slot.localPosition;
         // Attach the Block component to the corresponding Slot object
@@ -314,5 +321,7 @@ public class BoardManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighestScore", currentScore);
         }
+
+        ui_Controller.OnGameOver();
     }
 }
