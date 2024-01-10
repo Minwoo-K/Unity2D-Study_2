@@ -321,5 +321,7 @@ public class BoardManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighestScore", currentScore);
         }
+
+        ui_Controller.OnGameOver();
     }
 }
