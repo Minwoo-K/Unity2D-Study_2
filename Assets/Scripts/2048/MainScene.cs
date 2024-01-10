@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainScene : MonoBehaviour
@@ -34,6 +35,7 @@ public class MainScene : MonoBehaviour
     public void OnStartButton()
     {
         PlayerPrefs.SetInt("BoardCount", matrixIndex + 3);
+        SceneManager.LoadScene(3);
     }
 
     public void OnExitButton()
