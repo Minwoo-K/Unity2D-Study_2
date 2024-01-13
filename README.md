@@ -17,7 +17,8 @@
 
   The below is a quick preview of the game
 
-     ![1010demo](https://github.com/Minwoo-K/Unity2D-Study_2/assets/112778695/97f61650-b610-4935-8359-40d757ff6514)
+![1010demo](https://github.com/Minwoo-K/Unity2D-Study_2/assets/112778695/d611682b-343a-44a2-bb99-454fac713a46)
+
 
 
 ***
