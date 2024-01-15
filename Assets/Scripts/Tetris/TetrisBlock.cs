@@ -20,8 +20,10 @@ public class TetrisBlock : MonoBehaviour
             controller.InputUpdate();
     }
 
+    // Initialize the TetrisBlock
     public void Initialized(Color color)
     {
+        // Configure the given color with all the blocks under the TetrisBlock object
         for ( int i = 0; i < transform.childCount; i++ )
         {
             transform.GetChild(i).GetComponent<SpriteRenderer>().color = color;
@@ -48,6 +50,7 @@ public class TetrisBlock : MonoBehaviour
         controller = null;
     }
 
+    // Input Controlling Method
     private void UponMoving()
     {
         if ( Input.GetKeyDown(KeyCode.RightArrow))
@@ -67,9 +70,11 @@ public class TetrisBlock : MonoBehaviour
             transform.Rotate(Vector3.forward, -90);
         }
 
+        // Each "downFrame" time,
         timer += Time.deltaTime;
         if ( timer >= downFrame )
         {
+            // The TetrisBlock goes down
             transform.position += Vector3.down;
             timer = 0;
         }
