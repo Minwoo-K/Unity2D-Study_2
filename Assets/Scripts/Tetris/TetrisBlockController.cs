@@ -3,13 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TetrisBlockController
+namespace Tetris
 {
-    public Action inputController = null;
-
-    public void InputUpdate()
+    public class TetrisBlockController
     {
-        if (inputController != null)
-            inputController.Invoke();
+        // Action object to register input event
+        public Action inputController = null;
+
+        // To trigger the event
+        public void InputUpdate()
+        {
+            if (inputController != null)
+                inputController.Invoke();
+        }
     }
 }
