@@ -13,12 +13,9 @@ namespace Tetris
 
         private Vector2Int boardCount;      // The (x, y) Board Count
 
-        private void Awake()
+        public void Initialized(Vector2Int boardCount)
         {
-            // Set Numbers for the Board
-            boardCount = new Vector2Int(10, 20);
-            // Create the Board based on the counts
-            CreateBoard();
+            this.boardCount = boardCount;
         }
 
         public Block[] CreateBoard()

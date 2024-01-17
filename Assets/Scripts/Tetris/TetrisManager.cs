@@ -16,15 +16,20 @@ namespace Tetris
 
         [Header("Helper Objects")]
         [SerializeField]
-        private BoardCreator boardCreator;
+        private BoardCreator boardCreator;          // Board Creator
 
-        private Block[] theBoard;
-        private List<TetrisBlock> nextBlocks;           // Next Blocks on the right panel
-        private readonly int tetrisBlockCount = 3;      // Maximum Count of Next Blocks standing by
+        private List<TetrisBlock> nextBlocks;                            // Next Blocks on the right panel
+        private readonly int tetrisBlockCount = 3;                       // Maximum Count of Next Blocks standing by
+        private readonly Vector2Int boardCount = new Vector2Int(10, 20); // The Number Count of the Board(x, y)
+
+        public Block[] theBoard { get; private set; }
+
 
         // Game Start
         private void Start()
         {
+            // Initialize the BoardCreator component
+            boardCreator.Initialized(boardCount);
             // Create the Board in the field
             theBoard = boardCreator.CreateBoard();
             // Prepare the List object for TetrisBlock spawning
@@ -60,12 +65,42 @@ namespace Tetris
             nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[2]));
         }
 
-        private bool BlockLanded(TetrisBlock block)
+        // When TetrisBlock has landed into the Board
+        private bool BlockLanded(TetrisBlock tetrisBlock)
         {
             // Activate the moving funtion within the board
-            block.OnBoard();
+            tetrisBlock.OnBoard();
 
             return true;
+        }
+
+        // To figure out whether the blocks on the board, under the TetrisBlock are empty or filled
+        private bool IsEmptyUnder(TetrisBlock tetrisBlock)
+        {
+            // To figure out which Block object(s) at the very bottom of this TetrisBlock
+            float lowestY = tetrisBlock.transform.GetChild(0).position.y;
+            for (int i = 1; i < tetrisBlock.transform.childCount; i++)
+            {
+                float y = tetrisBlock.transform.GetChild(i).position.y;
+                lowestY = lowestY > y ? y : lowestY;
+            }
+
+            for (int j = 0; j < tetrisBlock.transform.childCount; j++)
+            {
+                Vector3 position = tetrisBlock.transform.GetChild(j).position;
+                if (position.y > lowestY) continue;
+
+                // Row below the lowest block
+                Vector3 below = position + Vector3.down;
+
+                int index = (int)(below.y * boardCount.x + below.x);
+                if ( below.x < 0 || theBoard[index].IsFilled() )
+                {
+                    return false;
+                }
+            }
+
+            return false;
         }
     }
 }

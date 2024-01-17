@@ -705,6 +705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1923655027}
   - component: {fileID: 1923655028}
+  - component: {fileID: 1923655029}
   m_Layer: 0
   m_Name: TetrisManager
   m_TagString: Untagged
@@ -754,6 +755,18 @@ MonoBehaviour:
   - {fileID: 384550359}
   tetrisBlockSpawner: {fileID: 942170817}
   boardCreator: {fileID: 1890723729}
+--- !u!114 &1923655029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923655026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb3210e37b5c5f4e925a55695e98c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2029119909
 GameObject:
   m_ObjectHideFlags: 0
