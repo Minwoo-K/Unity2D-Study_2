@@ -753,6 +753,7 @@ MonoBehaviour:
   - {fileID: 28558324}
   - {fileID: 384550359}
   tetrisBlockSpawner: {fileID: 942170817}
+  boardCreator: {fileID: 1890723729}
 --- !u!1 &2029119909
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ namespace Tetris
 {
     public class TetrisManager : MonoBehaviour
     {
-        [Header("Core Objects")]
+        [Header("In-Game Core Objects")]
         [SerializeField]
         private Transform[] inBoardSpawningPoints; // Random Spawning Points on THE BOARD
         [SerializeField]
@@ -14,12 +14,20 @@ namespace Tetris
         [SerializeField]
         private TetrisBlockSpawner tetrisBlockSpawner;  // TetrisBlockSpawner Component
 
+        [Header("Helper Objects")]
+        [SerializeField]
+        private BoardCreator boardCreator;
+
+        private Block[] theBoard;
         private List<TetrisBlock> nextBlocks;           // Next Blocks on the right panel
         private readonly int tetrisBlockCount = 3;      // Maximum Count of Next Blocks standing by
 
         // Game Start
         private void Start()
         {
+            // Create the Board in the field
+            theBoard = boardCreator.CreateBoard();
+            // Prepare the List object for TetrisBlock spawning
             nextBlocks = new List<TetrisBlock>();
             for (int i = 0; i < tetrisBlockCount; i++)
             {
