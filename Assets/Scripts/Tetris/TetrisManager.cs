@@ -8,9 +8,9 @@ namespace Tetris
     {
         [Header("Core Objects")]
         [SerializeField]
-        private Transform[] inBoardSpawningPoints; // Random Spawning Points in the board
+        private Transform[] inBoardSpawningPoints; // Random Spawning Points on THE BOARD
         [SerializeField]
-        private Transform[] standBySpawningPoints; // Random Spawning Points on the right panel
+        private Transform[] standBySpawningPoints; // Random Spawning Points on the RIGHT PANEL
         [SerializeField]
         private TetrisBlockSpawner tetrisBlockSpawner;  // TetrisBlockSpawner Component
 
@@ -34,6 +34,7 @@ namespace Tetris
                 PlaceNextTetrisBlock();
         }
 
+        // Place the Next Tetris in the queue onto the board
         private void PlaceNextTetrisBlock()
         {
             // Get a random number from the spawning points in the board
