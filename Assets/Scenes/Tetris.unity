@@ -754,6 +754,7 @@ MonoBehaviour:
   - {fileID: 28558324}
   - {fileID: 384550359}
   tetrisBlockSpawner: {fileID: 942170817}
+  tetrisBlockValidation: {fileID: 1923655029}
   boardCreator: {fileID: 1890723729}
 --- !u!114 &1923655029
 MonoBehaviour:

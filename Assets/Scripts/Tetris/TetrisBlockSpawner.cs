@@ -11,7 +11,7 @@ namespace Tetris
         [SerializeField]
         private Color[] colourList;                 // TetrisBlock's possible colours
 
-        public TetrisBlock SpawnTetrisBlock(Transform spawningPoint)
+        public TetrisBlock SpawnTetrisBlock(Transform spawningPoint, TetrisBlockValidation tetrisBlockValidation)
         {
             // Generate a random number to randomly spawn a TetrisBlock
             int random = Random.Range(0, tetrisBlockPrefabs.Length);
@@ -22,7 +22,7 @@ namespace Tetris
             // Get another random number for a random colour from the list
             random = Random.Range(0, colourList.Length);
             // Initialize TetrisBlock component
-            tetrisBlock.Initialized(colourList[random]);
+            tetrisBlock.Initialized(tetrisBlockValidation, colourList[random]);
             // Return the TetrisBlock component
             return tetrisBlock;
         }

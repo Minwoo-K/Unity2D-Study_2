@@ -7,6 +7,7 @@ namespace Tetris
     public class TetrisBlock : MonoBehaviour
     {
         private TetrisBlockController controller;   // The Controller when the TetrisBlock is active in the field
+        private TetrisBlockValidation tetrisBlockValidation; // The Validation component
         private float downFrame = 2f;               // Time/Speed of the TetrisBlock going down
         private float timer = 0;                    // A timer to measure time. Every [downFrame] time, the TetrisBlock goes 1 row lower
 
@@ -20,8 +21,10 @@ namespace Tetris
         }
 
         // Initialize the TetrisBlock
-        public void Initialized(Color color)
+        public void Initialized(TetrisBlockValidation tetrisBlockValidation, Color color)
         {
+            // Set up TetrisBlockValidation component
+            this.tetrisBlockValidation = tetrisBlockValidation;
             // Configure the given color with all the blocks under the TetrisBlock object
             for (int i = 0; i < transform.childCount; i++)
             {

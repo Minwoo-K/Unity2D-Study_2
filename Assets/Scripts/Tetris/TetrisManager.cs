@@ -13,6 +13,8 @@ namespace Tetris
         private Transform[] standBySpawningPoints; // Random Spawning Points on the RIGHT PANEL
         [SerializeField]
         private TetrisBlockSpawner tetrisBlockSpawner;  // TetrisBlockSpawner Component
+        [SerializeField]
+        private TetrisBlockValidation tetrisBlockValidation; // Validation script for Blocks and the Board
 
         [Header("Helper Objects")]
         [SerializeField]
@@ -36,7 +38,7 @@ namespace Tetris
             nextBlocks = new List<TetrisBlock>();
             for (int i = 0; i < tetrisBlockCount; i++)
             {
-                nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[i]));
+                nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[i], tetrisBlockValidation));
             }
         }
 
@@ -72,35 +74,6 @@ namespace Tetris
             tetrisBlock.OnBoard();
 
             return true;
-        }
-
-        // To figure out whether the blocks on the board, under the TetrisBlock are empty or filled
-        private bool IsEmptyUnder(TetrisBlock tetrisBlock)
-        {
-            // To figure out which Block object(s) at the very bottom of this TetrisBlock
-            float lowestY = tetrisBlock.transform.GetChild(0).position.y;
-            for (int i = 1; i < tetrisBlock.transform.childCount; i++)
-            {
-                float y = tetrisBlock.transform.GetChild(i).position.y;
-                lowestY = lowestY > y ? y : lowestY;
-            }
-
-            for (int j = 0; j < tetrisBlock.transform.childCount; j++)
-            {
-                Vector3 position = tetrisBlock.transform.GetChild(j).position;
-                if (position.y > lowestY) continue;
-
-                // Row below the lowest block
-                Vector3 below = position + Vector3.down;
-
-                int index = (int)(below.y * boardCount.x + below.x);
-                if ( below.x < 0 || theBoard[index].IsFilled() )
-                {
-                    return false;
-                }
-            }
-
-            return false;
         }
     }
 }
