@@ -64,7 +64,7 @@ namespace Tetris
             nextBlocks[0].transform.SetParent(standBySpawningPoints[0], false);
             nextBlocks[1].transform.SetParent(standBySpawningPoints[1], false);
             // Spawn the next block as one was used
-            nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[2]));
+            nextBlocks.Add(tetrisBlockSpawner.SpawnTetrisBlock(standBySpawningPoints[2], tetrisBlockValidation));
         }
 
         // When TetrisBlock has landed into the Board
