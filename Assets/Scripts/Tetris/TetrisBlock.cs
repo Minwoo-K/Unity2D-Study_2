@@ -64,7 +64,7 @@ namespace Tetris
             {
                 transform.position += Vector3.down;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftControl))
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 transform.Rotate(Vector3.forward, -90);
             }
@@ -77,6 +77,29 @@ namespace Tetris
                 transform.position += Vector3.down;
                 timer = 0;
             }
+        }
+
+        private bool IsEmptyUnder()
+        {
+            // To figure out which Block object(s) at the very bottom of this TetrisBlock
+            float lowestY = transform.GetChild(0).position.y;
+            for ( int i = 1; i < transform.childCount; i++ )
+            {
+                float y = transform.GetChild(i).position.y;
+                lowestY = lowestY > y ? y : lowestY;
+            }
+
+            for ( int j = 0; j < transform.childCount; j++ )
+            {
+                if (transform.GetChild(j).position.y > lowestY) continue;
+
+                // Row below the lowest block
+                Vector3 below = transform.GetChild(j).position + Vector3.down;
+
+                //if ( below.x < 0 || )
+            }
+
+            return false;
         }
     }
 }
