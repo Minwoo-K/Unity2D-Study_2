@@ -87,8 +87,8 @@ namespace Tetris
                 {
                     // Lock the position by deleting the input controller
                     OffBoard();
-                    controller = null;
                     tetrisBlockValidation.FillTheBoardWith(this);
+                    Destroy(this.gameObject);
                 }
             }
         }

@@ -52,8 +52,8 @@ namespace Tetris
             foreach ( Block block in blocks )
             {
                 Vector3 position = block.transform.position;
-                int x = (int)(position.x + (boardCount.x / 2f - 0.5f));
-                theBoard[(int)(position.y * boardCount.y + position.x)].FillIt(tetrisBlock.Color);
+                int index = (int)(position.x + (boardCount.x / 2f - 0.5f) + (position.y * boardCount.x));
+                theBoard[index].FillIt(tetrisBlock.Color);
             }
         }
     }
