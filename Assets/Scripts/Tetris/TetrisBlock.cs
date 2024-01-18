@@ -76,9 +76,19 @@ namespace Tetris
             timer += Time.deltaTime;
             if (timer >= downFrame)
             {
-                // The TetrisBlock goes down
-                transform.position += Vector3.down;
-                timer = 0;
+                // If no block under NOR end of the board,
+                if ( tetrisBlockValidation.IsEmptyUnder(this) )
+                {
+                    // The TetrisBlock goes down
+                    transform.position += Vector3.down;
+                    timer = 0;
+                }
+                else // If block or end of the board underneath,
+                {
+                    // Lock the position by deleting the input controller
+                    OffBoard();
+                    controller = null;
+                }
             }
         }
     }

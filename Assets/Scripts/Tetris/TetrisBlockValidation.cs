@@ -43,5 +43,11 @@ namespace Tetris
 
             return false;
         }
+
+        // Fill the board where the TetrisBlock object lands
+        public void FillTheBoardWith(TetrisBlock tetrisBlock)
+        {
+            Block[] blocks = tetrisBlock.GetComponentsInChildren<Block>();
+        }
     }
 }
