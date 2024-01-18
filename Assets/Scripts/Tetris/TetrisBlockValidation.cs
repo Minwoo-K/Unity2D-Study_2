@@ -7,12 +7,24 @@ namespace Tetris
     public class TetrisBlockValidation : MonoBehaviour
     {
         private Block[] theBoard;
+        private Vector2 boardMax;
+        private Vector2 boardMin;
+
         public Vector2Int boardCount { get; private set; }
 
         public void Initialized(Block[] theBoard, Vector2Int boardCount)
         {
             this.theBoard = theBoard;
             this.boardCount = boardCount;
+
+            boardMax = new Vector2(-boardCount.x / 2f - 0.5f, boardCount.y - 1);
+            boardMin = new Vector2( boardCount.x / 2f - 0.5f, 0);
+        }
+
+        public bool IsBoardInDirection(TetrisBlock tetrisBlock, Vector3 direction)
+        {
+            // To-Do: Validate whether the TetrisBlock would still be within the board in the direction
+            return false;
         }
 
         // To figure out whether the blocks on the board, under the TetrisBlock are empty or filled

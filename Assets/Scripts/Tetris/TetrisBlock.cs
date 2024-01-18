@@ -57,15 +57,19 @@ namespace Tetris
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                transform.position += Vector3.right;
+                if ( tetrisBlockValidation.IsBoardInDirection(this, Vector3.right))
+                    transform.position += Vector3.right;
+                
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                transform.position += Vector3.left;
+                if (tetrisBlockValidation.IsBoardInDirection(this, Vector3.left))
+                    transform.position += Vector3.left;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                transform.position += Vector3.down;
+                if (tetrisBlockValidation.IsBoardInDirection(this, Vector3.down))
+                    transform.position += Vector3.down;
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
