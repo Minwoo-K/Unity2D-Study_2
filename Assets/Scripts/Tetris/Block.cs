@@ -6,14 +6,21 @@ namespace Tetris
 {
     public class Block : MonoBehaviour
     {
-        // TO-DO: Write to figure out whether this block has been filled or not
+        [SerializeField]
+        private SpriteRenderer spriteRenderer;
 
         private bool filled = false;
-        public bool IsFilled()
+        public bool IsFilled { get => filled; }
+
+        public void FillIt(Color color)
         {
-            
-            return false;
+            filled = true;
+            spriteRenderer.color = color;
+        }
+
+        public void EmptyIt()
+        {
+            filled = false;
         }
     }
-
 }

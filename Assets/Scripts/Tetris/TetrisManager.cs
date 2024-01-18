@@ -34,6 +34,8 @@ namespace Tetris
             boardCreator.Initialized(boardCount);
             // Create the Board in the field
             theBoard = boardCreator.CreateBoard();
+            // Initialize the TetrisBlockValidation component
+            tetrisBlockValidation.Initialized(theBoard, boardCount);
             // Prepare the List object for TetrisBlock spawning
             nextBlocks = new List<TetrisBlock>();
             for (int i = 0; i < tetrisBlockCount; i++)

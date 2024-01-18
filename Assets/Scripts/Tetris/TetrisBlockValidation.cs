@@ -7,7 +7,7 @@ namespace Tetris
     public class TetrisBlockValidation : MonoBehaviour
     {
         private Block[] theBoard;
-        private Vector2Int boardCount;
+        public Vector2Int boardCount { get; private set; }
 
         public void Initialized(Block[] theBoard, Vector2Int boardCount)
         {
@@ -34,14 +34,27 @@ namespace Tetris
                 // Row below the lowest block
                 Vector3 below = position + Vector3.down;
 
-                int index = (int)(below.y * boardCount.x + below.x);
-                if (below.x < 0 || theBoard[index].IsFilled())
+                int index = (int)(below.x + (boardCount.x / 2f - 0.5f) + (below.y * boardCount.x));
+                if (below.y < 0 || theBoard[index].IsFilled)
                 {
                     return false;
                 }
             }
 
-            return false;
+            return true;
+        }
+
+        // Fill the board where the TetrisBlock object lands
+        public void FillTheBoardWith(TetrisBlock tetrisBlock)
+        {
+            Block[] blocks = tetrisBlock.GetComponentsInChildren<Block>();
+
+            foreach ( Block block in blocks )
+            {
+                Vector3 position = block.transform.position;
+                int index = (int)(position.x + (boardCount.x / 2f - 0.5f) + (position.y * boardCount.x));
+                theBoard[index].FillIt(tetrisBlock.Color);
+            }
         }
     }
 }
