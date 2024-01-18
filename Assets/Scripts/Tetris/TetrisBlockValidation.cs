@@ -35,7 +35,7 @@ namespace Tetris
                 Vector3 below = position + Vector3.down;
 
                 int index = (int)(below.y * boardCount.x + below.x);
-                if (below.x < 0 || theBoard[index].IsFilled())
+                if (below.x < 0 || theBoard[index].IsFilled)
                 {
                     return false;
                 }
@@ -48,6 +48,12 @@ namespace Tetris
         public void FillTheBoardWith(TetrisBlock tetrisBlock)
         {
             Block[] blocks = tetrisBlock.GetComponentsInChildren<Block>();
+
+            foreach ( Block block in blocks )
+            {
+                Vector3 position = block.transform.position;
+                theBoard[(int)(position.y * boardCount.y + position.x)].FillIt(tetrisBlock.Color);
+            }
         }
     }
 }
