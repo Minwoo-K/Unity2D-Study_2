@@ -76,8 +76,8 @@ namespace Tetris
             timer += Time.deltaTime;
             if (timer >= downFrame)
             {
-                // If no block under NOR end of the board,
-                if ( tetrisBlockValidation.IsEmptyUnder(this) )
+                // If no block under NOR end of the board, OR above the block(on one of the SpawningPoints)
+                if ( tetrisBlockValidation.boardCount.y < transform.position.y || tetrisBlockValidation.IsEmptyUnder(this) )
                 {
                     // The TetrisBlock goes down
                     transform.position += Vector3.down;
