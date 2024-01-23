@@ -62,8 +62,10 @@ namespace Tetris
 
                 // Row below the lowest block
                 Vector3 below = position + Vector3.down;
+                // Figure out the index value
+                int x = (int)(below.x + (boardCount.x / 2f - 0.5f));
+                int index = (int)below.y * boardCount.x + x;
 
-                int index = (int)(below.x + (boardCount.x / 2f - 0.5f) + (below.y * boardCount.x));
                 if (below.y < 0 || theBoard[index].IsFilled)
                 {
                     return false;
