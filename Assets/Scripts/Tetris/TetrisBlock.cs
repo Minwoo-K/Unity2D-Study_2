@@ -67,7 +67,7 @@ namespace Tetris
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (tetrisBlockValidation.IsEmptyUnder(this))
+                if (tetrisBlockValidation.boardCount.y < transform.position.y || tetrisBlockValidation.IsEmptyUnder(this))
                     transform.position += Vector3.down;
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
