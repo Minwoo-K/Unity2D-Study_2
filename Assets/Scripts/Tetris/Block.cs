@@ -10,6 +10,7 @@ namespace Tetris
         private SpriteRenderer spriteRenderer;
 
         private bool filled = false;
+
         public bool IsFilled { get => filled; }
 
         public void FillIt(Color color)

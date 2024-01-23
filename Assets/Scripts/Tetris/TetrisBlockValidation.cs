@@ -17,14 +17,31 @@ namespace Tetris
             this.theBoard = theBoard;
             this.boardCount = boardCount;
 
-            boardMax = new Vector2(-boardCount.x / 2f - 0.5f, boardCount.y - 1);
-            boardMin = new Vector2( boardCount.x / 2f - 0.5f, 0);
+            boardMax = new Vector2( boardCount.x / 2f - 0.5f, boardCount.y - 1);
+            boardMin = new Vector2(-boardCount.x / 2f + 0.5f, 0);
         }
 
         public bool IsBoardInDirection(TetrisBlock tetrisBlock, Vector3 direction)
         {
             // To-Do: Validate whether the TetrisBlock would still be within the board in the direction
-            return false;
+            if ( direction == Vector3.right )
+            {
+                foreach ( Transform transform in tetrisBlock.transform )
+                {
+                    Vector3 position = transform.position + direction;
+                    if (position.x > boardMax.x) return false;
+                }
+            }
+            else if ( direction == Vector3.left )
+            {
+                foreach (Transform transform in tetrisBlock.transform)
+                {
+                    Vector3 position = transform.position + direction;
+                    if (position.x < boardMin.x) return false;
+                }
+            }
+
+            return true;
         }
 
         // To figure out whether the blocks on the board, under the TetrisBlock are empty or filled

@@ -59,7 +59,6 @@ namespace Tetris
             {
                 if ( tetrisBlockValidation.IsBoardInDirection(this, Vector3.right))
                     transform.position += Vector3.right;
-                
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -68,7 +67,7 @@ namespace Tetris
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (tetrisBlockValidation.IsBoardInDirection(this, Vector3.down))
+                if (tetrisBlockValidation.IsEmptyUnder(this))
                     transform.position += Vector3.down;
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
