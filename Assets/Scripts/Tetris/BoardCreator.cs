@@ -28,6 +28,7 @@ namespace Tetris
                 {
                     // Set a position for a block to spawn at
                     float positionX = -boardCount.x / 2f + 0.5f + x;
+                    // x = positionX + boardCount.x/2f - 0.5f;
                     Vector2 position = new Vector2(positionX, y);
                     // Create/Spawn the Block on the position
                     GameObject clone = Instantiate(blockPrefab, position, Quaternion.identity, transform);

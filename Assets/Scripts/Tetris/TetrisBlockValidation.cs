@@ -17,17 +17,34 @@ namespace Tetris
             this.theBoard = theBoard;
             this.boardCount = boardCount;
 
-            boardMax = new Vector2(-boardCount.x / 2f - 0.5f, boardCount.y - 1);
-            boardMin = new Vector2( boardCount.x / 2f - 0.5f, 0);
+            boardMax = new Vector2( boardCount.x / 2f - 0.5f, boardCount.y - 1);
+            boardMin = new Vector2(-boardCount.x / 2f + 0.5f, 0);
         }
 
+        // To validate if the position in the direction is still within the board
         public bool IsBoardInDirection(TetrisBlock tetrisBlock, Vector3 direction)
         {
             // To-Do: Validate whether the TetrisBlock would still be within the board in the direction
-            return false;
-        }
+            if ( direction == Vector3.right )
+            {
+                foreach ( Transform transform in tetrisBlock.transform )
+                {
+                    Vector3 position = transform.position + direction;
+                    if (position.x > boardMax.x) return false;
+                }
+            }
+            else if ( direction == Vector3.left )
+            {
+                foreach (Transform transform in tetrisBlock.transform)
+                {
+                    Vector3 position = transform.position + direction;
+                    if (position.x < boardMin.x) return false;
+                }
+            }
 
-        // To figure out whether the blocks on the board, under the TetrisBlock are empty or filled
+            return true;
+        }
+        // To figure out whether the blocks on the board under the TetrisBlock, are empty or filled
         public bool IsEmptyUnder(TetrisBlock tetrisBlock)
         {
             // To figure out which Block object(s) at the very bottom of this TetrisBlock
@@ -45,8 +62,10 @@ namespace Tetris
 
                 // Row below the lowest block
                 Vector3 below = position + Vector3.down;
+                // Figure out the index value
+                int x = (int)(below.x + (boardCount.x / 2f - 0.5f));
+                int index = (int)below.y * boardCount.x + x;
 
-                int index = (int)(below.x + (boardCount.x / 2f - 0.5f) + (below.y * boardCount.x));
                 if (below.y < 0 || theBoard[index].IsFilled)
                 {
                     return false;
@@ -55,7 +74,6 @@ namespace Tetris
 
             return true;
         }
-
         // Fill the board where the TetrisBlock object lands
         public void FillTheBoardWith(TetrisBlock tetrisBlock)
         {
@@ -67,6 +85,26 @@ namespace Tetris
                 int index = (int)(position.x + (boardCount.x / 2f - 0.5f) + (position.y * boardCount.x));
                 theBoard[index].FillIt(tetrisBlock.Color);
             }
+        }
+
+        public bool ValidationAfterRotation(TetrisBlock tetrisBlock)
+        {
+            foreach ( Transform transform in tetrisBlock.transform )
+            {
+                if ( transform.position.x > boardMax.x )
+                {
+                    tetrisBlock.transform.position += Vector3.left;
+                    return false;
+                }
+
+                else if ( transform.position.x < boardMin.x )
+                {
+                    tetrisBlock.transform.position += Vector3.right;
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
