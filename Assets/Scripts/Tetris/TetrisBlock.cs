@@ -97,8 +97,6 @@ namespace Tetris
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 transform.Rotate(Vector3.forward, -90);
-
-                while ( tetrisBlockValidation.ValidationAfterRotation(this) != true )
             }
         }
     }
