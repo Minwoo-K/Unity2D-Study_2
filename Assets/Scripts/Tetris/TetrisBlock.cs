@@ -70,6 +70,10 @@ namespace Tetris
                 if (tetrisBlockValidation.boardCount.y < transform.position.y || tetrisBlockValidation.IsEmptyUnder(this))
                     transform.position += Vector3.down;
             }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                transform.Rotate(Vector3.forward, -90);
+            }
 
             // Each "downFrame" time,
             timer += Time.deltaTime;
@@ -89,16 +93,6 @@ namespace Tetris
                     tetrisBlockValidation.FillTheBoardWith(this);
                     Destroy(this.gameObject);
                 }
-            }
-        }
-
-        private void UponRotating()
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                transform.Rotate(Vector3.forward, -90);
-
-                while ( tetrisBlockValidation.ValidationAfterRotation(this) != true )
             }
         }
     }
